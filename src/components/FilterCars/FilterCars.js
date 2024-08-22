@@ -10,7 +10,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { years, prices } from "./Helper";
+import { years, prices } from "./helper";
 import { useEffect, useState } from "react";
 
 const FilterCars = () => {
