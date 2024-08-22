@@ -37,6 +37,7 @@ const FilterCars = () => {
           ></div>
         </p>
       </div>
+
       <div className="search-field">
         <Stack
           spacing={2}
@@ -247,8 +248,7 @@ const FilterCars = () => {
             gap: 4,
             borderradius: "(3 0 0 0)",
             border: "1px solid rgba(0, 124, 199, 1)",
-            background: "rgba(21, 40, 54, 1)"
-
+            background: "rgba(21, 40, 54, 1)",
           }}
           variant="contained"
           disableElevation
