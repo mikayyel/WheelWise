@@ -6,8 +6,6 @@ import {
   MenuItem,
   Select,
   Slider,
-  Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import { years, prices } from "./helper";
@@ -31,23 +29,12 @@ const FilterCars = () => {
             style={{
               width: 329,
               height: 0,
-              gap: 0,
               border: "1px solid rgba(255, 255, 255, 1)",
             }}
           ></div>
         </p>
       </div>
 
-      <div className="search-field">
-        <Stack
-          spacing={2}
-          style={{
-            background: "rgba(21, 40, 54, 1)",
-          }}
-        >
-          <TextField label="Search" />
-        </Stack>
-      </div>
       <div className="year-button-group">
         <Box>
           <FormControl fullWidth>
@@ -110,9 +97,6 @@ const FilterCars = () => {
               label="Mileage"
             >
               <MenuItem value={10}>2019</MenuItem>
-              <MenuItem value={20}>2020</MenuItem>
-              <MenuItem value={30}>2021</MenuItem>
-              <MenuItem value={40}>2022</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -128,9 +112,6 @@ const FilterCars = () => {
               label="Transmission"
             >
               <MenuItem value={10}>2019</MenuItem>
-              <MenuItem value={20}>2020</MenuItem>
-              <MenuItem value={30}>2021</MenuItem>
-              <MenuItem value={40}>2022</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -146,9 +127,6 @@ const FilterCars = () => {
               label="Fuel Type"
             >
               <MenuItem value={10}>2019</MenuItem>
-              <MenuItem value={20}>2020</MenuItem>
-              <MenuItem value={30}>2021</MenuItem>
-              <MenuItem value={40}>2022</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -164,9 +142,6 @@ const FilterCars = () => {
               label="Engine"
             >
               <MenuItem value={10}>2019</MenuItem>
-              <MenuItem value={20}>2020</MenuItem>
-              <MenuItem value={30}>2021</MenuItem>
-              <MenuItem value={40}>2022</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -182,9 +157,6 @@ const FilterCars = () => {
               label="Horsepower"
             >
               <MenuItem value={10}>2019</MenuItem>
-              <MenuItem value={20}>2020</MenuItem>
-              <MenuItem value={30}>2021</MenuItem>
-              <MenuItem value={40}>2022</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -202,16 +174,13 @@ const FilterCars = () => {
               label="Exterior Color"
             >
               <MenuItem value={10}>2019</MenuItem>
-              <MenuItem value={20}>2020</MenuItem>
-              <MenuItem value={30}>2021</MenuItem>
-              <MenuItem value={40}>2022</MenuItem>
             </Select>
           </FormControl>
         </Box>
       </div>
       <div className="price-button">
         <div>
-          <ul style={{ padding: 12, margin: 4, listStyle: "none" }}>
+          <ul style={{ padding: 16, margin: 4, listStyle: "none" }}>
             <li style={{ color: "#fff" }}>Price Range</li>
             <li style={{ color: "rgba(0, 124, 199, 1)" }}>
               {" "}
@@ -220,7 +189,7 @@ const FilterCars = () => {
           </ul>
         </div>
 
-        <Box sx={{ width: 334, paddingLeft: 3 }}>
+        <Box sx={{ width: 359, paddingLeft: 4 }}>
           <Slider
             prices={prices}
             step={10}
