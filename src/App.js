@@ -3,12 +3,19 @@ import "./App.css";
 import Main from "./components/Main/Main";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-
+import FilterCars from "./components/FilterCars/FilterCars";
+import Header from "./components/Header/Header";
+import SearchCars from "./components/SearchCars/SearchCars";
 function App() {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <Main />
+        <div className="App">
+          <Main />
+          <Header />
+          <FilterCars />
+          <SearchCars />
+        </div>
       </Provider>
     </BrowserRouter>
   );

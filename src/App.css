@@ -1,81 +1,11 @@
 body {
-  width: 1440px;
-  height: 2421.7px;
-  gap: 0px;
-  opacity: 0px;
-  background: rgba(11, 12, 16, 1);
-}
-
-.header {
-  width: 1525px;
-  height: 250px;
-  gap: 0px;
-  opacity: 0px;
-  background: rgba(18, 35, 46, 1);
-}
-
-.nav-bar {
-  display: flex;
-  width: Fixed (1, 440px) px;
-  height: Hug (54px) px;
-  padding: 7px 300px 7px 300px;
-  gap: 72px;
-  opacity: 0px;
-}
-
-.ul-li {
-  display: flex;
-  width: Hug (564px) px;
-  height: Hug (24px) px;
-  list-style: none;
-  cursor: pointer;
-  gap: 72px;
-  opacity: 0px;
-  color: rgba(255, 255, 255, 1);
-}
-
-p {
-  width: 179px;
-  height: 22px;
-  margin: 36px;
-  top: 183px;
-  left: 124px;
-  font-family: Lato;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 21.6px;
-  text-align: left;
-  color: rgba(255, 255, 255, 1);
-}
-
-h1 {
-  width: 205px;
-  height: 58px;
-  margin: 36px;
-  top: 101px;
-  left: 124px;
-  gap: 0px;
-  opacity: 0px;
-  font-family: Lato;
-  font-size: 48px;
-  font-weight: 600;
-  line-height: 57.6px;
-  text-align: left;
-  color: rgba(255, 255, 255, 1);
-}
-
-.img-nav-bar {
-  padding: 10px;
-  width: 138px;
-  height: 37px;
-  top: 24px;
-  left: 651px;
+  background-color: #0B0C10;
 }
 
 .filter-field {
   width: 391px;
-  height: 1254px;
-  margin: 26px;
+  height: auto;
+  margin: 7rem;
   padding: 16px 0px 0px 0px;
   border-radius: 3px 0px 0px 0px;
   background: rgba(7, 22, 32, 1);
@@ -84,6 +14,7 @@ h1 {
 .filter {
   width: 359px;
   height: 48px;
+  margin: 16px;
   gap: 0px;
   border-radius: 3px 0px 0px 0px;
   opacity: 0px;
@@ -92,18 +23,10 @@ h1 {
 .filter > p {
   width: 47px;
   height: 24px;
+  margin-left: 14px;
   font-size: 20px;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
-}
-
-.search-field {
-  width: Fixed (359px) px;
-  height: Hug (48px) px;
-  padding: 12px 16px 12px 16px;
-  gap: 16px;
-  border-radius: 3px 0px 0px 0px;
-  opacity: 0px;
 }
 
 .year-button-group {
@@ -176,4 +99,67 @@ h1 {
   gap: 10px;
   opacity: 0px;
   background: rgba(21, 40, 54, 1);
+}
+
+.search-cars {
+  position: relative;
+  width: 761px;
+  height: Hug (48px) px;
+  bottom: 88px;
+  margin: 0.5px;
+  padding: 12px 16px 12px 16px;
+  background-color: rgba(21, 40, 54, 1);
+}
+
+.car-list {
+  position: absolute;
+  left: 37rem;
+  top: 16.7rem;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.car-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: normal;
+  gap: 2rem;
+}
+
+.car-card {
+  margin: 5px;
+  border: 1px solid #ddd;
+  padding: 1rem;
+}
+.car-card h2 {
+  cursor: pointer;
+  padding-top: 1rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.car-card > img {
+  cursor: pointer;
+  width: 320px;
+  height: 220px;
+}
+
+.car-card > div {
+  padding-top: 0.5rem;
+  color: rgba(0, 124, 199, 1);
+}
+
+.car-card > p {
+  padding-top: 0.5rem;
+  color: #fff;
+}
+
+.cars-info {
+  display: flex;
+  margin-top: 12px;
+  gap: 6px;
+}
+
+.cars-info > p {
+  margin-top: 0.2rem;
 }
