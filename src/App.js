@@ -1,15 +1,23 @@
+import { BrowserRouter } from "react-router-dom";
+import "./App.css";
+import Main from "./components/Main/Main";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 import FilterCars from "./components/FilterCars/FilterCars";
 import Header from "./components/Header/Header";
-import "./App.css";
 import SearchCars from "./components/SearchCars/SearchCars";
-
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <FilterCars />
-      <SearchCars />
-    </div>
+    <BrowserRouter>
+      <Provider store={store}>
+        <div className="App">
+          <Main />
+          <Header />
+          <FilterCars />
+          <SearchCars />
+        </div>
+      </Provider>
+    </BrowserRouter>
   );
 }
 
