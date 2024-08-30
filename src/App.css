@@ -1,16 +1,11 @@
 body {
-  width: 1440px;
-  height: 2421.7px;
-  gap: 0px;
-  opacity: 0px;
-  background: rgba(11, 12, 16, 1);
+  background-color: #0B0C10;
 }
 
 .filter-field {
   width: 391px;
-  height: 1159px;
-  margin-left: 5rem;
-  margin-top: 2rem;
+  height: auto;
+  margin: 7rem;
   padding: 16px 0px 0px 0px;
   border-radius: 3px 0px 0px 0px;
   background: rgba(7, 22, 32, 1);
@@ -118,10 +113,8 @@ body {
 
 .car-list {
   position: absolute;
-  top: 180px;
-  left: 320px;
-  margin-left: 16rem;
-  margin-top: 5px;
+  left: 37rem;
+  top: 16.7rem;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
@@ -129,6 +122,7 @@ body {
 .car-grid {
   display: flex;
   flex-wrap: wrap;
+  align-content: normal;
   gap: 2rem;
 }
 

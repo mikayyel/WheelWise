@@ -96,7 +96,9 @@ const FilterCars = () => {
               id="demo-simple-select"
               label="Mileage"
             >
-              <MenuItem value={10}>2019</MenuItem>
+              {cars.map((car) => (
+                <MenuItem value={car.id}>{car.mileage}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Box>

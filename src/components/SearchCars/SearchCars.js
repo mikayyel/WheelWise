@@ -14,9 +14,9 @@ const SearchCars = () => {
   useEffect(() => {
     async function getCars() {
       try {
-        const carsSnapshot = await getDocs(carsCol);
+        const userSnapshot = await getDocs(carsCol);
         setCars(
-          carsSnapshot.docs.map((u) => ({
+          userSnapshot.docs.map((u) => ({
             id: u.id,
             ...u.data(),
           }))
@@ -40,7 +40,7 @@ const SearchCars = () => {
         <div className="car-grid">
           {cars.map((car) => (
             <div className="car-card">
-              <img src={car.image[0]} alt="" />
+              <img src={car.image} alt="" />
               <h2>
                 {car.make} {car.model}
               </h2>
