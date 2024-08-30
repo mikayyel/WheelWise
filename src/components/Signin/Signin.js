@@ -12,6 +12,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useForm, Controller } from "react-hook-form";
+import { NavLink } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 
 function Copyright(props) {
   return (
@@ -24,19 +28,34 @@ function Copyright(props) {
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{" "}
+      </Link>
       {new Date().getFullYear()}
       {"."}
     </Typography>
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {};
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSignIn = (data) => {
+    const { email, password } = data;
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log("Signed in user:", user);
+      })
+      .catch((error) => {
+        console.error("Error signing in:", error.message);
+      });
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -58,33 +77,61 @@ export default function SignIn() {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSignIn)}
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
-              // value={email}
-              // onChange={(e) => setEmail(e.target.value)}
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
+            <Controller
               name="email"
-              autoComplete="email"
-              autoFocus
+              control={control}
+              rules={{
+                required: "Email is required",
+                pattern: {
+                  value: /^[^@\s]+@[^@\s]+\.[^@\s]+$/,
+                  message: "Invalid email address",
+                },
+              }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  error={!!errors.email}
+                  helperText={errors.email?.message}
+                />
+              )}
             />
-            <TextField
-              // value={password}
-              // onChange={(e) => setPassword(e.target.value)}
-              margin="normal"
-              required
-              fullWidth
+            <Controller
               name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              control={control}
+              rules={{
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
+              }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  error={!!errors.password}
+                  helperText={errors.password?.message}
+                />
+              )}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -106,7 +153,8 @@ export default function SignIn() {
               </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {"Don't have an account? "}
+                  <NavLink to="/signup">Sign Up</NavLink>
                 </Link>
               </Grid>
             </Grid>
