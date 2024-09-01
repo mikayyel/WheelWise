@@ -9,7 +9,7 @@ const SearchButton = () => {
         count={10}
         renderItem={(item) => (
           <PaginationItem
-            sx={{ color: "rgba(0, 124, 199, 1)", margin: 2 }}
+            sx={{ color: "#fff", margin: 2 }}
             slots={{
               previous: ArrowCircleLeftIcon,
               next: ArrowCircleRightIcon,
