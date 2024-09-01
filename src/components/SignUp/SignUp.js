@@ -15,9 +15,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm, Controller } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../firebase";
+import { auth, db } from "../../firebase/firebase";
 import { useDispatch } from "react-redux";
-import { setLoggedInUser } from "../../redux/authSlice";
 import { doc, setDoc } from "firebase/firestore";
 
 function Copyright(props) {

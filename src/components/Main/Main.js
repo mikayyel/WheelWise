@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
-import SignIn from "../SignIn/SignIn";
+import Signin from "../Signin/Signin";
 import SignUp from "../SignUp/SignUp";
-
-import TodoTest from "../JustPage";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser, setLoggedInUser } from "../../redux/authSlice";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../firebase/firebase";
 import JustPage from "../JustPage";
 
 const Main = () => {
@@ -20,6 +18,7 @@ const Main = () => {
       console.log(user);
       dispatch(setLoggedInUser(user));
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -39,7 +38,7 @@ const Main = () => {
           </>
         ) : (
           <>
-            <Route path="/signin" element={<SignIn />}></Route>
+            <Route path="/signin" element={<Signin />}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
             <Route
               path="*"

@@ -13,11 +13,11 @@ function App() {
     <BrowserRouter>
       <Provider store={store}>
         <div className="App">
-          <Main />
+          {/* <Main /> */}
           <Header />
           <Home />
-          <FilterCars />
-          <SearchCars />
+          {/* <FilterCars />
+          <SearchCars /> */}
         </div>
       </Provider>
     </BrowserRouter>

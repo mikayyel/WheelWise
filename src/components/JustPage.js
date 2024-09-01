@@ -1,17 +1,10 @@
 import { Button } from "@mui/material";
-import React, { useEffect } from "react";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { setFirstName, setLastName } from "../redux/authSlice";
+import { getAuth, signOut } from "firebase/auth";
+import { useSelector } from "react-redux";
 import SendMessage from "./SendMessage/SendMessage";
 
 const JustPage = () => {
   const user = useSelector((state) => state.authSlice.loggedInUser);
-  // const dispatch = useDispatch();
-  // const firstName = useSelector(setFirstName);
-  // const lastName = useSelector(setLastName);
 
   return (
     <div>
