@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { years, prices } from "./helper";
 import { useEffect, useState } from "react";
+import './css/filterCars.css'
 
 const FilterCars = () => {
   const [cars, setCars] = useState([]);
@@ -25,14 +26,15 @@ const FilterCars = () => {
       <div className="filter">
         <p>
           Filter
-          <div
-            style={{
-              width: 329,
-              height: 0,
-              border: "1px solid rgba(255, 255, 255, 1)",
-            }}
-          ></div>
         </p>
+        <div
+          style={{
+            maxWidth: '100%',
+            height: 0,
+            border: "1px solid rgba(255, 255, 255, 1)",
+            marginTop: '10px'
+          }}
+        ></div>
       </div>
 
       <div className="year-button-group">
@@ -244,7 +246,7 @@ const FilterCars = () => {
           </ul>
         </div>
 
-        <Box sx={{ width: 359, paddingLeft: 4 }}>
+        <Box sx={{ width: '100%', pl: 4, pr: 2 }}>
           <Slider
             prices={prices}
             step={10}
@@ -262,18 +264,16 @@ const FilterCars = () => {
           </Box>
         </Box>
       </div>
-      <div>
+      <div style={{ padding: '16px' }}>
         <Button
           sx={{
-            width: 359,
             height: 48,
-            margin: 2,
-            padding: "(15 61 15 61)",
             gap: 4,
             borderradius: "(3 0 0 0)",
             border: "1px solid rgba(0, 124, 199, 1)",
             background: "rgba(21, 40, 54, 1)",
           }}
+          fullWidth
           variant="contained"
           disableElevation
         >

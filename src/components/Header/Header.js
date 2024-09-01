@@ -16,33 +16,33 @@ import logo from '../../img/logo.png'
 import { PAGES, accountSlotProps, navSlotProps } from './constants/constants';
 import './css/header.css'
 import { ListItemIcon } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { selectLoggedInUser } from '../../redux/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { getAuth, signOut } from 'firebase/auth';
 
 
 function Header(params) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const navigate = useNavigate()
+  const loggedInUser = useSelector(selectLoggedInUser)
+  const user = useSelector((state) => state.authSlice.loggedInUser);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
+  const handleOpenNavMenu = (event) => setAnchorElNav(event.currentTarget)
+  const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget)
+  const handleCloseUserMenu = () => setAnchorElUser(null)
+  const handleCloseNavMenu = () => setAnchorElNav(null)
+  const handleOnClick = (page) => {
+    handleCloseNavMenu()
+    navigate(`/${page.split(' ').join('').toLowerCase()}`)
+  }
   return (
     <Container maxWidth='lg' >
       <AppBar color='transparent' position="static" sx={{ boxShadow: 'none' }} >
         <Container maxWidth="xl">
           <Toolbar sx={{ justifyContent: 'space-between' }} disableGutters>
-            <img src={logo} alt='logo' className='logo' />
+            <img onClick={() => navigate('/')} src={logo} alt='logo' className='logo' />
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
@@ -74,7 +74,7 @@ function Header(params) {
                 }}
               >
                 {PAGES.map((page) => (
-                  <MenuItem fullWidth key={page} onClick={handleCloseNavMenu}>
+                  <MenuItem fullwidth='true' key={page} onClick={() => handleOnClick(page)}>
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
                 ))}
@@ -83,9 +83,9 @@ function Header(params) {
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'space-evenly', px: 2 }}>
               {PAGES.map((page) => (
                 <Button
-                  fullWidth
+                  fullwidth='true'
                   key={page}
-                  onClick={handleCloseNavMenu}
+                  onClick={() => handleOnClick(page)}
                   sx={{ color: 'white', display: 'block', textTransform: 'none', height: '100%' }}
                 >
                   {page}
@@ -93,13 +93,19 @@ function Header(params) {
               ))}
             </Box>
             <Box sx={{ flexGrow: 0, order: 2 }}>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {!'if user logged in' ?
-                  <Avatar alt="user.name" src={'user.avatar'} /> :
-                  <>
+              <IconButton
+                onClick={loggedInUser ? handleOpenUserMenu : () => navigate('/signin')}
+                sx={{ p: 0 }}
+              >
+                {loggedInUser ?
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Avatar alt={user.firstName} src={'user.avatar'} />
+                    <Typography sx={{ color: 'white', fontSize: '14px', ml: '5px' }} >{user.firstName}</Typography>
+                  </div> :
+                  <div style={{ display: 'flex', alignItems: 'center' }} >
                     <PersonIcon sx={{ color: 'white', fontSize: { xs: '1.5rem', md: '2rem' } }} />
                     <Typography sx={{ color: 'white', fontSize: '14px', ml: '5px' }} >Sign In</Typography>
-                  </>
+                  </div>
                 }
               </IconButton>
               <Menu
@@ -122,7 +128,10 @@ function Header(params) {
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Avatar /> My account
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem onClick={() => {
+                  signOut(getAuth())
+                  navigate('/')
+                }}>
                   <ListItemIcon >
                     <Logout sx={{ color: 'white' }} fontSize="small" />
                   </ListItemIcon>

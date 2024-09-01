@@ -1,18 +1,11 @@
-body {
-  background-color: #0b0c10;
-}
-
 .filter-field {
-  width: 391px;
   height: auto;
-  margin: 7rem;
   padding: 16px 0px 0px 0px;
   border-radius: 3px 0px 0px 0px;
   background: rgba(7, 22, 32, 1);
 }
 
 .filter {
-  width: 359px;
   height: 48px;
   margin: 16px;
   gap: 0px;
@@ -20,7 +13,7 @@ body {
   opacity: 0px;
 }
 
-.filter > p {
+.filter>p {
   width: 47px;
   height: 24px;
   margin-left: 14px;
@@ -99,66 +92,4 @@ body {
   gap: 10px;
   opacity: 0px;
   background: rgba(21, 40, 54, 1);
-}
-
-.search-cars {
-  position: relative;
-  width: 761px;
-  height: Hug (48px) px;
-  bottom: 88px;
-  margin: 0.5px;
-  background: rgba(21, 40, 54, 1);
-}
-
-.car-list {
-  position: absolute;
-  left: 37rem;
-  top: 16.7rem;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-}
-
-.car-grid {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: normal;
-  gap: 2rem;
-}
-
-.car-card {
-  margin: 5px;
-  border: 1px solid #ddd;
-  padding: 1rem;
-}
-.car-card h2 {
-  cursor: pointer;
-  padding-top: 1rem;
-  color: #fff;
-  margin-bottom: 0.5rem;
-}
-
-.car-card > img {
-  cursor: pointer;
-  width: 320px;
-  height: 220px;
-}
-
-.car-card > div {
-  padding-top: 0.5rem;
-  color: rgba(0, 124, 199, 1);
-}
-
-.car-card > p {
-  padding-top: 0.5rem;
-  color: #fff;
-}
-
-.cars-info {
-  display: flex;
-  margin-top: 12px;
-  gap: 6px;
-}
-
-.cars-info > p {
-  margin-top: 0.2rem;
 }

@@ -1,0 +1,16 @@
+.search-cars {
+  /* position: relative; */
+  /* width: 761px; */
+  height: Hug (48px) px;
+  /* bottom: 88px; */
+  margin: 0.5px;
+  background: rgba(21, 40, 54, 1);
+}
+
+.car-list {
+  /* position: absolute;
+  r: 37rem;
+  top: 16.7rem; */
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
