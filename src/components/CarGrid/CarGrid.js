@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore/lite";
 import { db } from "../../firebase/firebase";
 import SearchButton from "../SearchButton/SearchButton";
+import './css/carGrid.css'
 
 const CarGrid = () => {
   const [cars, setCars] = useState([]);

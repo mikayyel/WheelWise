@@ -1,5 +1,6 @@
 import { FormControl, OutlinedInput } from "@mui/material";
 import React from "react";
+import './css/searchCars.css'
 
 const SearchCars = () => {
   return (
