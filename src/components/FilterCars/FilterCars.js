@@ -38,15 +38,20 @@ const FilterCars = () => {
       <div className="year-button-group">
         <Box>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Year</InputLabel>
+            <InputLabel
+              sx={{ color: "rgba(255, 255, 255, 1)" }}
+              id="demo-simple-select-label"
+            >
+              Year
+            </InputLabel>
             <Select
-              sx={{ color: "rgba(215, 215, 215, 1)" }}
+              sx={{ color: "#ddd" }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Year"
             >
               {years.map((year) => (
-                <MenuItem value={10}>{year}</MenuItem>
+                <MenuItem value={year}>{year}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -55,9 +60,14 @@ const FilterCars = () => {
       <div className="brand-button-group">
         <Box>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Brand</InputLabel>
+            <InputLabel
+              sx={{ color: "rgba(255, 255, 255, 1)" }}
+              id="demo-simple-select-label"
+            >
+              Brand
+            </InputLabel>
             <Select
-              sx={{ color: "rgba(215, 215, 215, 1)" }}
+              sx={{ color: "#ddd" }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Brand"
@@ -72,9 +82,14 @@ const FilterCars = () => {
       <div className="model-button-group">
         <Box>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Model</InputLabel>
+            <InputLabel
+              sx={{ color: "rgba(255, 255, 255, 1)" }}
+              id="demo-simple-select-label"
+            >
+              Model
+            </InputLabel>
             <Select
-              sx={{ color: "rgba(215, 215, 215, 1)" }}
+              sx={{ color: "#ddd" }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Model"
@@ -89,9 +104,14 @@ const FilterCars = () => {
       <div className="mileage-button-group">
         <Box>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Mileage</InputLabel>
+            <InputLabel
+              sx={{ color: "rgba(255, 255, 255, 1)" }}
+              id="demo-simple-select-label"
+            >
+              Mileage
+            </InputLabel>
             <Select
-              sx={{ color: "rgba(215, 215, 215, 1)" }}
+              sx={{ color: "#ddd" }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Mileage"
@@ -106,14 +126,21 @@ const FilterCars = () => {
       <div className="transmission-button-group">
         <Box>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Transmission</InputLabel>
+            <InputLabel
+              sx={{ color: "rgba(255, 255, 255, 1)" }}
+              id="demo-simple-select-label"
+            >
+              Transmission
+            </InputLabel>
             <Select
-              sx={{ color: "rgba(215, 215, 215, 1)" }}
+              sx={{ color: "#ddd" }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Transmission"
             >
-              <MenuItem value={10}>2019</MenuItem>
+              {cars.map((car) => (
+                <MenuItem value={car.id}>{car.transmission}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Box>
@@ -121,14 +148,21 @@ const FilterCars = () => {
       <div className="fuel-type-button-group">
         <Box>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Fuel Type</InputLabel>
+            <InputLabel
+              sx={{ color: "rgba(255, 255, 255, 1)" }}
+              id="demo-simple-select-label"
+            >
+              Fuel Type
+            </InputLabel>
             <Select
-              sx={{ color: "rgba(215, 215, 215, 1)" }}
+              sx={{ color: "#ddd" }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Fuel Type"
             >
-              <MenuItem value={10}>2019</MenuItem>
+              {cars.map((car) => (
+                <MenuItem value={car.id}>{car.fuelType}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Box>
@@ -136,14 +170,21 @@ const FilterCars = () => {
       <div className="engine-button-group">
         <Box>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Engine</InputLabel>
+            <InputLabel
+              sx={{ color: "rgba(255, 255, 255, 1)" }}
+              id="demo-simple-select-label"
+            >
+              Engine
+            </InputLabel>
             <Select
-              sx={{ color: "rgba(215, 215, 215, 1)" }}
+              sx={{ color: "#ddd" }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Engine"
             >
-              <MenuItem value={10}>2019</MenuItem>
+              {cars.map((car) => (
+                <MenuItem value={car.id}>{car.engine}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Box>
@@ -151,14 +192,21 @@ const FilterCars = () => {
       <div className="horsepower-button-group">
         <Box>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Horsepower</InputLabel>
+            <InputLabel
+              sx={{ color: "rgba(255, 255, 255, 1)" }}
+              id="demo-simple-select-label"
+            >
+              Horsepower
+            </InputLabel>
             <Select
-              sx={{ color: "rgba(215, 215, 215, 1)" }}
+              sx={{ color: "#ddd" }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Horsepower"
             >
-              <MenuItem value={10}>2019</MenuItem>
+              {cars.map((car) => (
+                <MenuItem value={car.id}>{car.horsepower}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Box>
@@ -166,16 +214,21 @@ const FilterCars = () => {
       <div className="exterior-color-button-group">
         <Box>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">
+            <InputLabel
+              sx={{ color: "rgba(255, 255, 255, 1)" }}
+              id="demo-simple-select-label"
+            >
               Exterior Color
             </InputLabel>
             <Select
-              sx={{ color: "rgba(215, 215, 215, 1)" }}
+              sx={{ color: "#ddd" }}
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Exterior Color"
             >
-              <MenuItem value={10}>2019</MenuItem>
+              {cars.map((car) => (
+                <MenuItem value={car.id}>{car.color}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Box>
