@@ -1,12 +1,12 @@
 import { Box, Container } from "@mui/material";
 
-function Home() {
+function Contact() {
   return (
     <Box sx={{ backgroundImage: 'url(../img/Rectangle78.png)' }}>
       <Container sx={{ color: 'white' }} maxWidth='lg' >
-        This is Home
+        This is Contact Page
       </Container>
     </Box>)
 }
 
-export default Home
+export default Contact
