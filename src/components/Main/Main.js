@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
-
-import TodoTest from "../JustPage";
 import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser, setLoggedInUser } from "../../redux/authSlice";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../firebase/firebase";
 import JustPage from "../JustPage";
 
 const Main = () => {
