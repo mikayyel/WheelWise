@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import FilterCars from "./components/FilterCars/FilterCars";
 import SearchCars from "./components/SearchCars/SearchCars";
+import CarGrid from "./components/CarGrid/CarGrid";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Home />
           <FilterCars />
           <SearchCars />
+          <CarGrid />
         </div>
       </Provider>
     </BrowserRouter>
