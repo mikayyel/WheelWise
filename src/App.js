@@ -1,20 +1,19 @@
-import Header from "./components/Header/Header";
-import { BrowserRouter, Outlet } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase/firebase";
-import SignIn from "./components/SignIn/SignIn";
-import SignUp from "./components/SignUp/SignUp";
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
+import SignIn from "./components/Signin/Signin";
+import SignUp from "./components/SignUp/SignUp";
+import { auth } from "./firebase/firebase";
+import AboutUs from "./pages/AboutUs";
+import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import NewCars from "./pages/NewCars";
-import UsedCars from "./pages/UsedCars";
-import AboutUs from "./pages/AboutUs";
 import Sell from "./pages/Sell";
-import Contact from "./pages/Contact";
+import UsedCars from "./pages/UsedCars";
+import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
