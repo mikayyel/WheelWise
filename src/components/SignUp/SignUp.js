@@ -90,7 +90,7 @@ export default function SignUp() {
         <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography sx={{ color: 'white' }} component="h1" variant="h5">
+        <Typography sx={{ color: "white" }} component="h1" variant="h5">
           Sign up
         </Typography>
         <Box
@@ -223,9 +223,7 @@ export default function SignUp() {
           <Grid container>
             <Grid item>
               <Link href="#" variant="body2">
-                <NavLink to="/signin">
-                  Already have an account? Sign in
-                </NavLink>
+                <NavLink to="/signin">Already have an account? Sign in</NavLink>
               </Link>
             </Grid>
           </Grid>

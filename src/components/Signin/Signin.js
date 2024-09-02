@@ -17,7 +17,11 @@ import { auth } from "../../firebase/firebase";
 import { inputStyle } from "./constants/constants";
 
 export default function SignIn() {
-  const { control, handleSubmit, formState: { errors } } = useForm();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSignIn = (data) => {
     const { email, password } = data;
@@ -45,7 +49,7 @@ export default function SignIn() {
         <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography sx={{ color: 'white' }} component="h1" variant="h5">
+        <Typography sx={{ color: "white" }} component="h1" variant="h5">
           Sign in
         </Typography>
         <Box
@@ -66,7 +70,6 @@ export default function SignIn() {
             }}
             render={({ field }) => (
               <TextField
-
                 {...field}
                 margin="normal"
                 required
