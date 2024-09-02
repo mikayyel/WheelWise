@@ -1,10 +1,7 @@
 import Header from "./components/Header/Header";
 import { BrowserRouter, Outlet } from "react-router-dom";
-import FilterCars from "./components/FilterCars/FilterCars";
-import SearchCars from "./components/SearchCars/SearchCars";
-import CarGrid from "./components/CarGrid/CarGrid";
 import { useEffect } from "react";
-import { Provider, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
@@ -12,7 +9,6 @@ import { auth } from "./firebase/firebase";
 import SignIn from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
 import Footer from "./components/Footer/Footer";
-
 import Home from "./pages/Home";
 import NewCars from "./pages/NewCars";
 import UsedCars from "./pages/UsedCars";

@@ -4,12 +4,12 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
 const SearchButton = () => {
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ alignItems: "center", p: 2 }}>
       <Pagination
         count={10}
         renderItem={(item) => (
           <PaginationItem
-            sx={{ color: "#fff", margin: 2 }}
+            sx={{ color: "#fff" }}
             slots={{
               previous: ArrowCircleLeftIcon,
               next: ArrowCircleRightIcon,
