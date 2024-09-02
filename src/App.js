@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase/firebase";
+import { auth, db } from "./firebase/firebase";
 import SignIn from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
 import Footer from "./components/Footer/Footer";
@@ -15,18 +15,37 @@ import UsedCars from "./pages/UsedCars";
 import AboutUs from "./pages/AboutUs";
 import Sell from "./pages/Sell";
 import Contact from "./pages/Contact";
+import { doc, getDoc } from "firebase/firestore";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
 
   const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     console.log(user);
+  //     dispatch(setLoggedInUser(user));
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       console.log(user);
-      dispatch(setLoggedInUser(user));
+      if (user) {
+        const additionalData = await getDoc(doc(db, "users", user.uid));
+        console.log(additionalData);
+        dispatch(
+          setLoggedInUser({
+            ...additionalData.data(),
+            ...user,
+          })
+        );
+      } else {
+        dispatch(setLoggedInUser(null));
+      }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const Layout = () => (
