@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { years, prices } from "./helper";
 import { useEffect, useState } from "react";
-import './css/filterCars.css'
+import "./css/filterCars.css";
 
 const FilterCars = () => {
   const [cars, setCars] = useState([]);
@@ -24,15 +24,13 @@ const FilterCars = () => {
   return (
     <div className="filter-field">
       <div className="filter">
-        <p>
-          Filter
-        </p>
+        <p>Filter</p>
         <div
           style={{
-            maxWidth: '100%',
+            maxWidth: "100%",
             height: 0,
             border: "1px solid rgba(255, 255, 255, 1)",
-            marginTop: '10px'
+            marginTop: "10px",
           }}
         ></div>
       </div>
@@ -52,8 +50,10 @@ const FilterCars = () => {
               id="demo-simple-select"
               label="Year"
             >
-              {years.map((year) => (
-                <MenuItem value={year}>{year}</MenuItem>
+              {years.map((year, i) => (
+                <MenuItem key={i} value={year}>
+                  {year}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -74,8 +74,10 @@ const FilterCars = () => {
               id="demo-simple-select"
               label="Brand"
             >
-              {cars.map((car) => (
-                <MenuItem value={car.id}>{car.make}</MenuItem>
+              {cars.map((car, i) => (
+                <MenuItem key={i} value={car.id}>
+                  {car.make}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -96,8 +98,10 @@ const FilterCars = () => {
               id="demo-simple-select"
               label="Model"
             >
-              {cars.map((car) => (
-                <MenuItem value={car.id}>{car.model}</MenuItem>
+              {cars.map((car, i) => (
+                <MenuItem key={i} value={car.id}>
+                  {car.model}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -118,8 +122,10 @@ const FilterCars = () => {
               id="demo-simple-select"
               label="Mileage"
             >
-              {cars.map((car) => (
-                <MenuItem value={car.id}>{car.mileage}</MenuItem>
+              {cars.map((car, i) => (
+                <MenuItem key={i} value={car.id}>
+                  {car.mileage}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -140,8 +146,10 @@ const FilterCars = () => {
               id="demo-simple-select"
               label="Transmission"
             >
-              {cars.map((car) => (
-                <MenuItem value={car.id}>{car.transmission}</MenuItem>
+              {cars.map((car, i) => (
+                <MenuItem key={i} value={car.id}>
+                  {car.transmission}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -162,8 +170,10 @@ const FilterCars = () => {
               id="demo-simple-select"
               label="Fuel Type"
             >
-              {cars.map((car) => (
-                <MenuItem value={car.id}>{car.fuelType}</MenuItem>
+              {cars.map((car, i) => (
+                <MenuItem key={i} value={car.id}>
+                  {car.fuelType}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -184,8 +194,10 @@ const FilterCars = () => {
               id="demo-simple-select"
               label="Engine"
             >
-              {cars.map((car) => (
-                <MenuItem value={car.id}>{car.engine}</MenuItem>
+              {cars.map((car, i) => (
+                <MenuItem key={i} value={car.id}>
+                  {car.engine}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -206,8 +218,10 @@ const FilterCars = () => {
               id="demo-simple-select"
               label="Horsepower"
             >
-              {cars.map((car) => (
-                <MenuItem value={car.id}>{car.horsepower}</MenuItem>
+              {cars.map((car, i) => (
+                <MenuItem key={i} value={car.id}>
+                  {car.horsepower}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -228,8 +242,10 @@ const FilterCars = () => {
               id="demo-simple-select"
               label="Exterior Color"
             >
-              {cars.map((car) => (
-                <MenuItem value={car.id}>{car.color}</MenuItem>
+              {cars.map((car, i) => (
+                <MenuItem key={i} value={car.id}>
+                  {car.color}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -246,7 +262,7 @@ const FilterCars = () => {
           </ul>
         </div>
 
-        <Box sx={{ width: '100%', pl: 4, pr: 2 }}>
+        <Box sx={{ width: "100%", pl: 4, pr: 2 }}>
           <Slider
             prices={prices}
             step={10}
@@ -264,7 +280,7 @@ const FilterCars = () => {
           </Box>
         </Box>
       </div>
-      <div style={{ padding: '16px' }}>
+      <div style={{ padding: "16px" }}>
         <Button
           sx={{
             height: 48,
