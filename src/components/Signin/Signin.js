@@ -2,8 +2,6 @@ import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -14,33 +12,14 @@ import { useForm, Controller } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
-<<<<<<< HEAD
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-const defaultTheme = createTheme();
-=======
 import { inputStyle } from "./constants/constants";
->>>>>>> d33a4886fc5b339e22cab63f03b0a6e8e1da116e
 
 export default function SignIn() {
-  const { control, handleSubmit, formState: { errors } } = useForm();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSignIn = (data) => {
     const { email, password } = data;
@@ -68,7 +47,7 @@ export default function SignIn() {
         <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography sx={{ color: 'white' }} component="h1" variant="h5">
+        <Typography sx={{ color: "white" }} component="h1" variant="h5">
           Sign in
         </Typography>
         <Box
@@ -89,7 +68,6 @@ export default function SignIn() {
             }}
             render={({ field }) => (
               <TextField
-
                 {...field}
                 margin="normal"
                 required

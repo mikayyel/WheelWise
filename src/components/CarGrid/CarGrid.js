@@ -7,10 +7,12 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore/lite";
 import { db } from "../../firebase/firebase";
 import SearchButton from "../SearchButton/SearchButton";
-import './css/carGrid.css'
+import "./css/carGrid.css";
 
-const CarGrid = () => {
+const CarGrid = ({ searchTerm }) => {
   const [cars, setCars] = useState([]);
+  const [filteredCars, setFilteredCars] = useState([]);
+
   const carsCol = collection(db, "cars");
   useEffect(() => {
     fetch("https://freetestapi.com/api/v1/cars")
@@ -18,10 +20,21 @@ const CarGrid = () => {
       .then((data) => setCars(data));
   }, []);
 
+  useEffect(() => {
+    if (searchTerm === "") {
+      setFilteredCars(cars);
+    } else {
+      const newItems = cars.filter((car) =>
+        car.make.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredCars(newItems);
+    }
+  }, [searchTerm, cars]);
+
   return (
     <div className="car-list">
       <div className="car-grid">
-        {cars.map((car) => (
+        {filteredCars.map((car) => (
           <div className="car-card">
             <img src={car.image} alt="" />
             <h2>
