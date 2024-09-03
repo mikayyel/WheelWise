@@ -3,7 +3,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
-import { collection } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase/firebase";
 import SearchButton from "../SearchButton/SearchButton";
@@ -15,9 +15,18 @@ const CarGrid = ({ searchTerm }) => {
 
   const carsCol = collection(db, "cars");
   useEffect(() => {
-    fetch("https://freetestapi.com/api/v1/cars")
-      .then((response) => response.json())
-      .then((data) => setCars(data));
+    async function getCars() {
+      try {
+        const carSnapshot = await getDocs(carsCol);
+        setCars(
+          carSnapshot.docs.map((car) => ({
+            id: car.id,
+            ...car.data(),
+          }))
+        );
+      } catch {}
+    }
+    getCars();
   }, []);
 
   useEffect(() => {
@@ -36,7 +45,7 @@ const CarGrid = ({ searchTerm }) => {
       <div className="car-grid">
         {filteredCars.map((car) => (
           <div className="car-card">
-            <img src={car.image} alt="" />
+            <img src={car.image[0]} alt="" />
             <h2>
               {car.make} {car.model}
               <p style={{ float: "right" }}>
