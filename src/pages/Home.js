@@ -1,12 +1,14 @@
 import { Box, Container } from "@mui/material";
+import CarCarousel from "../components/CarCarousel/CarCarousel";
 
 function Home() {
   return (
-    <Box sx={{ backgroundImage: 'url(../img/Rectangle78.png)' }}>
-      <Container sx={{ color: 'white' }} maxWidth='lg' >
-        This is Home
+    <Box>
+      <Container sx={{ color: "white", pd: 20 }} maxWidth="lg">
+        <CarCarousel />
       </Container>
-    </Box>)
+    </Box>
+  );
 }
 
-export default Home
+export default Home;

@@ -4,20 +4,31 @@ import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore/lite";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
-import SearchButton from "../SearchButton/SearchButton";
+import SearchButton from "../Pagination/Pagination";
 import "./css/carGrid.css";
 
 const CarGrid = ({ searchTerm }) => {
   const [cars, setCars] = useState([]);
   const [filteredCars, setFilteredCars] = useState([]);
 
-  const carsCol = collection(db, "cars");
   useEffect(() => {
-    fetch("https://freetestapi.com/api/v1/cars")
-      .then((response) => response.json())
-      .then((data) => setCars(data));
+    async function getCars() {
+      try {
+        const carsCol = collection(db, "cars");
+        const carSnapshot = await getDocs(carsCol);
+        setCars(
+          carSnapshot.docs.map((car) => ({
+            id: car.id,
+            ...car.data(),
+          }))
+        );
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    getCars();
   }, []);
 
   useEffect(() => {
@@ -35,8 +46,8 @@ const CarGrid = ({ searchTerm }) => {
     <div className="car-list">
       <div className="car-grid">
         {filteredCars.map((car) => (
-          <div className="car-card">
-            <img src={car.image} alt="" />
+          <div key={car.id} className="car-card">
+            <img src={car.image[2]} alt="" />
             <h2>
               {car.make} {car.model}
               <p style={{ float: "right" }}>
