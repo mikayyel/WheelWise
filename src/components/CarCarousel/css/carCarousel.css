@@ -1,0 +1,38 @@
+.car-carousel {
+  margin: 5px;
+  border: 1px solid #ddd;
+  padding: 1rem;
+}
+
+.car-carousel h2 {
+  cursor: pointer;
+  padding-top: 1rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.car-carousel > img {
+  cursor: pointer;
+  width: 320px;
+  height: 220px;
+}
+
+.car-carousel > div {
+  padding-top: 0.5rem;
+  color: rgba(0, 124, 199, 1);
+}
+
+.car-list > p {
+  padding-top: 0.5rem;
+  color: #fff;
+}
+
+.carousel-info {
+  display: flex;
+  margin-top: 12px;
+  gap: 6px;
+}
+
+.carousel-info > p {
+  margin-top: 0.2rem;
+}

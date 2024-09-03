@@ -4,7 +4,7 @@ import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore/lite";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import SearchButton from "../Pagination/Pagination";
 import "./css/carGrid.css";
