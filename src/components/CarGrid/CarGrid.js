@@ -6,18 +6,17 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
-import SearchButton from "../SearchButton/SearchButton";
+import SearchButton from "../Pagination/Pagination";
 import "./css/carGrid.css";
 
 const CarGrid = ({ searchTerm }) => {
   const [cars, setCars] = useState([]);
   const [filteredCars, setFilteredCars] = useState([]);
 
-  const carsCol = collection(db, "cars");
-
   useEffect(() => {
     async function getCars() {
       try {
+        const carsCol = collection(db, "cars");
         const carSnapshot = await getDocs(carsCol);
         setCars(
           carSnapshot.docs.map((car) => ({
@@ -25,8 +24,8 @@ const CarGrid = ({ searchTerm }) => {
             ...car.data(),
           }))
         );
-      } catch (e) {
-        console.log(e.message);
+      } catch (error) {
+        console.log(error.message);
       }
     }
     getCars();
@@ -48,7 +47,7 @@ const CarGrid = ({ searchTerm }) => {
       <div className="car-grid">
         {filteredCars.map((car) => (
           <div key={car.id} className="car-card">
-            <img src={car.image[0]} alt="" />
+            <img src={car.image[2]} alt="" />
             <h2>
               {car.make} {car.model}
               <p style={{ float: "right" }}>
