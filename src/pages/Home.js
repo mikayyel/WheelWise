@@ -1,11 +1,17 @@
 import { Box, Container } from "@mui/material";
+import RecommendedCars from "../components/RecommendedCars/RecommendedCars";
+import About from "../components/About/About";
+import OurService from "../components/OurService/OurService";
 
 function Home() {
   return (
-    <Box sx={{ backgroundImage: 'url(../img/Rectangle78.png)' }}>
+    <Box >
       <Container sx={{ color: 'white' }} maxWidth='lg' >
         This is Home
+        <RecommendedCars />
       </Container>
+      <About />
+      <OurService />
     </Box>)
 }
 
