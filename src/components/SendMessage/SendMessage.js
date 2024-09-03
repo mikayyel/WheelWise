@@ -18,7 +18,14 @@ export default function SendMessage() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
+  });
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
@@ -34,14 +41,11 @@ export default function SendMessage() {
       setSnackbarMessage("Message sent successfully!");
       setOpenSnackbar(true);
 
-      //   alert("Message sent successfully!");
       reset();
     } catch (error) {
       console.error("Error sending message: ", error.message);
       setSnackbarMessage(`Failed to send message: ${error.message}`);
       setOpenSnackbar(true);
-
-      //   alert(`Failed to send message: ${error.message}`);
     }
   };
   const handleCloseSnackbar = () => {
@@ -57,11 +61,7 @@ export default function SendMessage() {
           alignItems: "center",
         }}
       >
-        <Box
-          component="form"
-          onSubmit={handleSubmit(onSubmit)}
-          noValidate
-        >
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <Controller
             name="name"
             control={control}
