@@ -2,11 +2,12 @@ import { Box, Container } from "@mui/material";
 
 function Home() {
   return (
-    <Box sx={{ backgroundImage: 'url(../img/Rectangle78.png)' }}>
-      <Container sx={{ color: 'white' }} maxWidth='lg' >
+    <Box>
+      <Container sx={{ color: "white", pd: 20 }} maxWidth="lg">
         This is Home
       </Container>
-    </Box>)
+    </Box>
+  );
 }
 
-export default Home
+export default Home;
