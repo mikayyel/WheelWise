@@ -21,6 +21,7 @@ import NewCars from "./pages/NewCars";
 import Sell from "./pages/Sell";
 import UsedCars from "./pages/UsedCars";
 import { doc, getDoc } from "firebase/firestore";
+import UserProfile from "./components/UserProfile/UserProfile";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
@@ -80,6 +81,8 @@ function App() {
               <Route path="/sell" element={<Sell />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
+              <Route path="/profile" element={<UserProfile />}></Route>
+
             </>
           ) : (
             <>
