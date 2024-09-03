@@ -1,16 +1,16 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import SendIcon from "@mui/icons-material/Send";
-import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { db } from "../../firebase/firebase";
-import { Controller, useForm } from "react-hook-form";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Snackbar from "@mui/material/Snackbar";
+import TextField from "@mui/material/TextField";
 import { addDoc, collection } from "firebase/firestore";
+import * as React from "react";
 import { useState } from "react";
-import { inputStyle } from "../SignIn/constants/constants";
+import { Controller, useForm } from "react-hook-form";
+import { db } from "../../firebase/firebase";
+import { inputStyle } from "../Signin/constants/constants";
 
 export default function SendMessage() {
   const {

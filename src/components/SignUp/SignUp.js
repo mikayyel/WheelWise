@@ -15,7 +15,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth, db } from "../../firebase/firebase";
-import { inputStyle } from "../SignIn/constants/constants";
+import { inputStyle } from "../Signin/constants/constants";
 
 function Copyright(props) {
   return (

@@ -3,7 +3,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
-import { collection } from "firebase/firestore/lite";
+import { collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase/firebase";
 import SearchButton from "../SearchButton/SearchButton";

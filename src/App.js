@@ -1,4 +1,5 @@
 import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,17 +11,16 @@ import {
 } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
-import SignIn from "./components/SignIn/SignIn";
-import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
-import { auth, db } from "./firebase/firebase";
+import SignIn from "./components/Signin/Signin";
 import SignUp from "./components/SignUp/SignUp";
+import { auth, db } from "./firebase/firebase";
 import AboutUs from "./pages/AboutUs";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import NewCars from "./pages/NewCars";
 import Sell from "./pages/Sell";
 import UsedCars from "./pages/UsedCars";
-import { doc, getDoc } from "firebase/firestore";
+import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
