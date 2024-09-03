@@ -1,20 +1,25 @@
-import Header from "./components/Header/Header";
-import { BrowserRouter, Outlet } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth, db } from "./firebase/firebase";
-import SignIn from "./components/SignIn/SignIn";
-import SignUp from "./components/SignUp/SignUp";
+import {
+  BrowserRouter,
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
+} from "react-router-dom";
 import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
+import SignIn from "./components/SignIn/SignIn";
+import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
+import { auth, db } from "./firebase/firebase";
+import SignUp from "./components/SignUp/SignUp";
+import AboutUs from "./pages/AboutUs";
+import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import NewCars from "./pages/NewCars";
-import UsedCars from "./pages/UsedCars";
-import AboutUs from "./pages/AboutUs";
 import Sell from "./pages/Sell";
-import Contact from "./pages/Contact";
+import UsedCars from "./pages/UsedCars";
 import { doc, getDoc } from "firebase/firestore";
 
 function App() {
@@ -22,26 +27,24 @@ function App() {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     console.log(user);
-  //     dispatch(setLoggedInUser(user));
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       console.log(user);
       if (user) {
-        const additionalData = await getDoc(doc(db, "users", user.uid));
-        console.log(additionalData);
-        dispatch(
-          setLoggedInUser({
-            ...additionalData.data(),
-            ...user,
-          })
-        );
+        try {
+          console.log(user.uid);
+          const additionalData = await getDoc(doc(db, "users", user.uid));
+
+          console.log(additionalData);
+          dispatch(
+            setLoggedInUser({
+              ...additionalData.data(),
+              ...user,
+            })
+          );
+        } catch (e) {
+          console.log(e.message);
+        }
       } else {
         dispatch(setLoggedInUser(null));
       }
