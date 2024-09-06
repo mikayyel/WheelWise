@@ -4,48 +4,29 @@ import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
 import SearchButton from "../Pagination/Pagination";
 import "./css/carGrid.css";
 
-const CarGrid = ({ searchTerm }) => {
-  const [cars, setCars] = useState([]);
-  const [filteredCars, setFilteredCars] = useState([]);
-
-  useEffect(() => {
-    async function getCars() {
-      try {
-        const carsCol = collection(db, "cars");
-        const carSnapshot = await getDocs(carsCol);
-        setCars(
-          carSnapshot.docs.map((car) => ({
-            id: car.id,
-            ...car.data(),
-          }))
-        );
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-    getCars();
-  }, []);
+const CarGrid = ({ cars, searchTerm }) => {
+  const [searchFilteredCars, setSearchFilteredCars] = useState([]);
 
   useEffect(() => {
     if (searchTerm === "") {
-      setFilteredCars(cars);
+      setSearchFilteredCars(cars);
     } else {
       const newItems = cars.filter((car) =>
-        car.make.toLowerCase().includes(searchTerm.toLowerCase())
+        `${car.make} ${car.model}`
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
       );
-      setFilteredCars(newItems);
+      setSearchFilteredCars(newItems);
     }
   }, [searchTerm, cars]);
 
   return (
     <div className="car-list">
       <div className="car-grid">
-        {filteredCars.map((car) => (
+        {searchFilteredCars.map((car) => (
           <div key={car.id} className="car-card">
             <img src={car.image[2]} alt="" />
             <h2>

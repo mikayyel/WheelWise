@@ -2,10 +2,33 @@ import { Box, Container, Grid } from "@mui/material";
 import FilterCars from "../components/FilterCars/FilterCars";
 import SearchCars from "../components/SearchCars/SearchCars";
 import CarGrid from "../components/CarGrid/CarGrid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { db } from "../firebase/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 function NewCars() {
+  const [cars, setCars] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    async function getCars() {
+      try {
+        const carsCol = collection(db, "cars");
+        const carSnapshot = await getDocs(carsCol);
+        setCars(
+          carSnapshot.docs
+            .map((car) => ({
+              id: car.id,
+              ...car.data(),
+            }))
+            .filter((car) => car.owners < 2)
+        );
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    getCars();
+  }, []);
 
   const handleSearch = (value) => {
     setSearchTerm(value);
@@ -24,7 +47,7 @@ function NewCars() {
                 <SearchCars handleSearch={handleSearch} />
               </Grid>
               <Grid item sx={{ justifyContent: "center" }}>
-                <CarGrid searchTerm={searchTerm} />
+                <CarGrid cars={cars} searchTerm={searchTerm} />
               </Grid>
             </Grid>
           </Grid>
