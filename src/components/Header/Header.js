@@ -102,6 +102,7 @@ function Header(params) {
           </Box>
           <Box sx={{ flexGrow: 0, order: 2 }}>
             <IconButton
+              tabIndex={-1}
               onClick={loggedInUser ? handleOpenUserMenu : () => navigate('/signin')}
               sx={{ p: 0 }}
             >
