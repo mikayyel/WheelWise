@@ -38,7 +38,7 @@ export default function SignIn() {
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          marginTop: 8,
+          my: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -121,7 +121,7 @@ export default function SignIn() {
           <Grid container>
             <Grid item>
               <Link href="#" variant="body2">
-                <NavLink to="/signup">Don't have an account? Sign Up</NavLink>
+                <NavLink style={{ color: "white" }} to="/signup">Don't have an account? Sign Up</NavLink>
               </Link>
             </Grid>
           </Grid>

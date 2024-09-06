@@ -22,6 +22,8 @@ import Sell from "./pages/Sell";
 import UsedCars from "./pages/UsedCars";
 import { doc, getDoc } from "firebase/firestore";
 import UserProfile from "./components/UserProfile/UserProfile";
+import { Box } from "@mui/material";
+import ScrollToTopButton from "./components/CustomComponents/ScrollToTopButton";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
@@ -50,14 +52,22 @@ function App() {
         dispatch(setLoggedInUser(null));
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const Layout = () => (
-    <>
+    <Box
+      display="flex"
+      flexDirection="column"
+      minHeight="100vh"
+    >
       <Header />
-      <Outlet />
+      <Box flex="1">
+        <Outlet />
+      </Box>
       <Footer />
-    </>
+      <ScrollToTopButton />
+    </Box>
   );
 
   return (

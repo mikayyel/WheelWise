@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 
-function Maps() {
+function Map({ marginTop }) {
   return (
-    <Box mt={10}
+    <Box mt={marginTop}
       sx={{
         height: "500px",
         width: "100%",
@@ -22,5 +22,5 @@ function Maps() {
   );
 }
 
-export default Maps;
+export default Map;
 
