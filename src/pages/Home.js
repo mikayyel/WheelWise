@@ -1,5 +1,4 @@
 import { Box, Container } from "@mui/material";
-import RecommendedCars from "../components/RecommendedCars/RecommendedCars";
 import About from "../components/About/About";
 import OurService from "../components/OurService/OurService";
 import CarCarousel from "../components/CarCarousel/CarCarousel";
