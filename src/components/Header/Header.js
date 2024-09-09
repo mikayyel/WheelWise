@@ -46,7 +46,7 @@ function Header() {
     const handleScroll = () => setIsScrolled(window.scrollY > 300)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  })
+  }, [])
 
   return (
     <AppBar color='transparent' position="fixed"
