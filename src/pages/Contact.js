@@ -6,7 +6,7 @@ import Rectangle from "../img/Rectangle108.png";
 
 function Contact() {
   return (
-    <Box sx={{ py: "50px" }}>
+    <Box sx={{ py: 15 }}>
       <Box
         sx={{
           py: "50px",
