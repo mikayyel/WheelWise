@@ -15,7 +15,7 @@ function OurService() {
         <Grid container sx={{ textAlign: 'center' }} spacing={10}>
           <Grid item xs={12} md={4}>
             <Box
-              onClick={() => navigate('/newcars')}
+              onClick={() => { navigate('/newcars'); window.scrollTo({ top: 0 }) }}
               sx={{ cursor: 'pointer', border: '2px solid #007CC7', padding: '32px 95px' }}>
               <TimeToLeaveIcon sx={{ fontSize: 40, mb: 1 }} />
               <Typography>Buy a new car</Typography>
@@ -23,7 +23,7 @@ function OurService() {
           </Grid>
           <Grid item xs={12} md={4}>
             <Box
-              onClick={() => navigate('/usedcars')}
+              onClick={() => { navigate('/usedcars'); window.scrollTo({ top: 0 }) }}
               sx={{ cursor: 'pointer', border: '2px solid #007CC7', padding: '32px 95px' }}>
               <TimeToLeaveIcon sx={{ fontSize: 40, mb: 1 }} />
               <Typography>Buy an used car</Typography>
@@ -31,7 +31,7 @@ function OurService() {
           </Grid>
           <Grid item xs={12} md={4}>
             <Box
-              onClick={() => navigate('/sell')}
+              onClick={() => { navigate('/sell'); window.scrollTo({ top: 0 }) }}
               sx={{ cursor: 'pointer', border: '2px solid #007CC7', padding: '32px 95px' }}>
               <SellIcon sx={{ fontSize: 40, mb: 1 }} />
               <Typography>Sell my car</Typography>

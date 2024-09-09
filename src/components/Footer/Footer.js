@@ -21,30 +21,30 @@ function Footer() {
         <Typography variant="h6" sx={{ fontWeight: 400, fontStyle: 'italic', pt: 1, pb: 2 }}>
           Drive Smart, Trade Wise – With WheelWise.
         </Typography>
+        <Divider
+          sx={{
+            height: '2px',
+            background: 'linear-gradient(to right, transparent, #fff 50%, transparent)',
+            borderRadius: '2px',
+            mb: 2
+          }} />
+        <Typography variant="p" sx={{ fontWeight: 400 }}>
+          3926 Calvin Street, Baltimore, Maryland, 21201, United States
+        </Typography>
+        <p style={{ marginTop: '16px', marginBottom: '24px' }} >
+          240-865-3730 | info@wheelwise.com
+        </p>
+        <FacebookIcon sx={{ cursor: 'pointer' }} />
+        <InstagramIcon sx={{ mx: 5, cursor: 'pointer' }} />
+        <YouTubeIcon sx={{ cursor: 'pointer' }} />
+        <Divider
+          sx={{
+            height: '2px',
+            background: 'linear-gradient(to right, transparent, #fff 50%, transparent)',
+            my: 1
+          }} />
+        <p style={{ fontSize: '14px' }}>2024 WheelWise. All Rights reserved</p>
       </Container>
-      <Divider
-        sx={{
-          height: '2px',
-          background: 'linear-gradient(to right, transparent, #fff 50%, transparent)',
-          borderRadius: '2px',
-          mb: 2
-        }} />
-      <Typography variant="p" sx={{ fontWeight: 400 }}>
-        3926 Calvin Street, Baltimore, Maryland, 21201, United States
-      </Typography>
-      <p style={{ marginTop: '16px', marginBottom: '24px' }} >
-        240-865-3730 | info@wheelwise.com
-      </p>
-      <FacebookIcon sx={{ cursor: 'pointer' }} />
-      <InstagramIcon sx={{ mx: 5, cursor: 'pointer' }} />
-      <YouTubeIcon sx={{ cursor: 'pointer' }} />
-      <Divider
-        sx={{
-          height: '2px',
-          background: 'linear-gradient(to right, transparent, #fff 50%, transparent)',
-          my: 1
-        }} />
-      <p style={{ fontSize: '14px' }}>2024 WheelWise. All Rights reserved</p>
     </Box>
   )
 }

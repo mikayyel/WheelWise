@@ -4,8 +4,8 @@ import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useEffect, useState } from "react";
-import SearchButton from "../Pagination/Pagination";
 import "./css/carGrid.css";
+import PaginationControl from "../Pagination/Pagination";
 
 const CarGrid = ({ cars, searchTerm }) => {
   const [searchFilteredCars, setSearchFilteredCars] = useState([]);
@@ -59,7 +59,7 @@ const CarGrid = ({ cars, searchTerm }) => {
           </div>
         ))}
       </div>
-      <SearchButton />
+      <PaginationControl />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -22,9 +22,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from 'firebase/auth';
 
 
-function Header(params) {
+function Header() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false)
   const loggedInUser = useSelector(selectLoggedInUser)
   const user = useSelector((state) => state.authSlice.loggedInUser);
   const navigate = useNavigate()
@@ -34,17 +35,29 @@ function Header(params) {
   const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget)
   const handleCloseUserMenu = () => setAnchorElUser(null)
   const handleCloseNavMenu = () => setAnchorElNav(null)
-  const handleOnClick = (page) => {
+  const handleOnClick = (page = '') => {
     handleCloseNavMenu()
-    navigate(`/${page.split(' ').join('').toLowerCase()}`)
+    navigate(`/${page ? page.split(' ').join('').toLowerCase() : ''}`)
+    window.scrollTo({ top: 0 })
   }
-  const handleOpenProfile = () => navigate('/profile')
+  const handleOpenProfile = () => navigate('/profile/information')
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 300)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  })
 
   return (
-    <Container maxWidth='lg' >
-      <AppBar color='transparent' position="static" sx={{ boxShadow: 'none' }} >
+    <AppBar color='transparent' position="fixed"
+      sx={{
+        boxShadow: 'none',
+        backgroundColor: isScrolled ? 'rgba( 0, 0, 0, 0.7)' : 'transparent',
+        transition: 'background-color 0.3s ease',
+      }} >
+      <Container maxWidth='lg'>
         <Toolbar sx={{ justifyContent: 'space-between' }} disableGutters>
-          <img onClick={() => navigate('/')} src={logo} alt='logo' className='logo' />
+          <img onClick={() => handleOnClick()} src={logo} alt='logo' className='logo' />
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -151,8 +164,8 @@ function Header(params) {
             </Menu>
           </Box>
         </Toolbar>
-      </AppBar>
-    </Container >
+      </Container >
+    </AppBar>
   );
 }
 

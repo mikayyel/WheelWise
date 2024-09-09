@@ -9,7 +9,7 @@ import Title from "../components/CustomComponents/Title";
 function AboutUs() {
 
   return (
-    <Box pt={10}>
+    <Box pt={20}>
       <Container sx={{ color: 'white' }} maxWidth='lg' >
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Title />
