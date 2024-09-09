@@ -61,8 +61,8 @@ const CarCarousel = () => {
           <div className="car-images">
             {car.image.slice(0, 1).map((img) => (
               <img
-                key={img.id}
-                style={{ width: 320, height: 220 }}
+                key={img}
+                style={{ width: '100%', height: 220, objectFit: 'cover' }}
                 src={img}
                 alt=""
               />

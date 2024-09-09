@@ -4,51 +4,29 @@ import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useEffect, useState } from "react";
-import {
-  arrayUnion,
-  collection,
-  doc,
-  getDocs,
-  updateDoc,
-} from "firebase/firestore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
-import SearchButton from "../Pagination/Pagination";
 import "./css/carGrid.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateLoggedInUserFavorites } from "../../redux/authSlice";
+import "./css/carGrid.css";
+import PaginationControl from "../Pagination/Pagination";
 
-const CarGrid = ({ searchTerm }) => {
-  const [cars, setCars] = useState([]);
-  const [filteredCars, setFilteredCars] = useState([]);
+const CarGrid = ({ cars, searchTerm }) => {
+  const [searchFilteredCars, setSearchFilteredCars] = useState([]);
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.authSlice.loggedInUser);
 
   useEffect(() => {
-    async function getCars() {
-      try {
-        const carsCol = collection(db, "cars");
-        const carSnapshot = await getDocs(carsCol);
-        setCars(
-          carSnapshot.docs.map((car) => ({
-            id: car.id,
-            ...car.data(),
-          }))
-        );
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-    getCars();
-  }, []);
-
-  useEffect(() => {
     if (searchTerm === "") {
-      setFilteredCars(cars);
+      setSearchFilteredCars(cars);
     } else {
       const newItems = cars.filter((car) =>
-        car.make.toLowerCase().includes(searchTerm.toLowerCase())
+        `${car.make} ${car.model}`
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
       );
-      setFilteredCars(newItems);
+      setSearchFilteredCars(newItems);
     }
   }, [searchTerm, cars]);
 
@@ -73,7 +51,7 @@ const CarGrid = ({ searchTerm }) => {
   return (
     <div className="car-list">
       <div className="car-grid">
-        {filteredCars.map((car) => (
+        {searchFilteredCars.map((car) => (
           <div key={car.id} className="car-card">
             <img src={car.image[2]} alt="" />
             <h2>
@@ -108,7 +86,7 @@ const CarGrid = ({ searchTerm }) => {
           </div>
         ))}
       </div>
-      <SearchButton />
+      <PaginationControl />
     </div>
   );
 };

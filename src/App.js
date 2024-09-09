@@ -22,15 +22,15 @@ import Sell from "./pages/Sell";
 import UsedCars from "./pages/UsedCars";
 import { doc, getDoc } from "firebase/firestore";
 import UserProfile from "./components/UserProfile/UserProfile";
+import { Box } from "@mui/material";
+import ScrollToTopButton from "./components/CustomComponents/ScrollToTopButton";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-      console.log(user);
       if (user) {
         try {
           console.log(user.uid);
@@ -50,14 +50,18 @@ function App() {
         dispatch(setLoggedInUser(null));
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const Layout = () => (
-    <>
+    <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
-      <Outlet />
+      <Box flex="1">
+        <Outlet />
+      </Box>
       <Footer />
-    </>
+      <ScrollToTopButton />
+    </Box>
   );
 
   return (
@@ -81,7 +85,11 @@ function App() {
               <Route path="/sell" element={<Sell />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
-              <Route path="/profile" element={<UserProfile />}></Route>
+              <Route path="/profile" element={<UserProfile />}>
+                <Route path="information"></Route>
+                <Route path="favorites"></Route>
+                <Route path="announcements"></Route>
+              </Route>
             </>
           ) : (
             <>

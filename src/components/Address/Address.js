@@ -12,7 +12,11 @@ function Address() {
         borderRadius: "8px",
         color: "white",
         maxWidth: "500px",
-        textAlign: 'center'
+        textAlign: 'center',
+        mt: {
+          xs: 0,
+          md: '78px'
+        }
       }}
     >
       <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', my: 1 }}>
@@ -30,7 +34,7 @@ function Address() {
         Email
       </Typography>
       <Typography variant="body1" sx={{ color: '#4DA8DA' }}>
-        info@autohunt.com
+        info@wheelwise.com
       </Typography>
 
       <Divider sx={{ bgcolor: 'white', my: 5 }} />
