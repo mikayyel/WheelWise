@@ -153,8 +153,6 @@ const FilterCars = ({ onFilterChange }) => {
     onFilterChange,
   ]);
 
-  
-
   return (
     <div className="filter-field">
       <div className="filter">
@@ -226,7 +224,7 @@ const FilterCars = ({ onFilterChange }) => {
         <Box>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              From Year
+              Year - From
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
@@ -243,7 +241,7 @@ const FilterCars = ({ onFilterChange }) => {
           </FormControl>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              To Year
+              Year - To
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
@@ -293,7 +291,7 @@ const FilterCars = ({ onFilterChange }) => {
         <Box>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              From Mileage
+              Mileage - From
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
@@ -310,7 +308,7 @@ const FilterCars = ({ onFilterChange }) => {
           </FormControl>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              To Mileage
+              Mileage - To
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
@@ -334,7 +332,7 @@ const FilterCars = ({ onFilterChange }) => {
         <Box>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              From Engine
+              Engine - From
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
@@ -351,7 +349,7 @@ const FilterCars = ({ onFilterChange }) => {
           </FormControl>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              To Engine
+              Engine - To
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
@@ -401,7 +399,7 @@ const FilterCars = ({ onFilterChange }) => {
         <Box>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              From Horsepower
+              Horsepower - From
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
@@ -418,7 +416,7 @@ const FilterCars = ({ onFilterChange }) => {
           </FormControl>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              To Horsepower
+              Horsepower - To
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}

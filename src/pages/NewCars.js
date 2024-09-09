@@ -6,10 +6,8 @@ import { useState } from "react";
 
 function NewCars() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredNewCars, setFilteredNewCars] = useState([])
-  const [openFilter, setOpenFilter] = useState(false)
-
-
+  const [filteredNewCars, setFilteredNewCars] = useState([]);
+  const [openFilter, setOpenFilter] = useState(false);
 
   const handleSearch = (value) => {
     setSearchTerm(value);
@@ -24,20 +22,22 @@ function NewCars() {
       <Container maxWidth="xl">
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
-            <Drawer sx={{
-              flexShrink: 0,
-              '& .MuiDrawer-paper': {
-                width: { xs: '80%', sm: '60%', md: '80%' },
-              },
-            }}
+            <Drawer
+              sx={{
+                flexShrink: 0,
+                "& .MuiDrawer-paper": {
+                  width: { xs: "80%", sm: "60%", md: "80%" },
+                },
+              }}
               open={openFilter}
-              onClose={() => setOpenFilter(false)}>
+              onClose={() => setOpenFilter(false)}
+            >
               <Box role="presentation" onClick={() => setOpenFilter(false)}>
-                <FilterCars onFilterChange={handleFilterChange}/>
+                <FilterCars onFilterChange={handleFilterChange} />
               </Box>
             </Drawer>
-            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-              <FilterCars />
+            <Box sx={{ display: { xs: "none", md: "block" } }}>
+              <FilterCars onFilterChange={handleFilterChange} />
             </Box>
           </Grid>
 

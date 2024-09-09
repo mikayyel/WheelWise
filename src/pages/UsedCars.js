@@ -6,10 +6,8 @@ import { useState } from "react";
 
 function UsedCars() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredUsedCars, setFilteredUsedCars] = useState([])
-  const [openFilter, setOpenFilter] = useState(false)
-
- 
+  const [filteredUsedCars, setFilteredUsedCars] = useState([]);
+  const [openFilter, setOpenFilter] = useState(false);
 
   const handleSearch = (value) => {
     setSearchTerm(value);
@@ -20,43 +18,45 @@ function UsedCars() {
   };
   return (
     <Box sx={{ pt: 15 }}>
-      <Container maxWidth="xl">
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={4}>
-            <FilterCars onFilterChange={handleFilterChange} />
-            <Drawer sx={{
+    <Container maxWidth="xl">
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={4}>
+          <Drawer
+            sx={{
               flexShrink: 0,
-              '& .MuiDrawer-paper': {
-                width: { xs: '80%', sm: '60%', md: '80%' },
+              "& .MuiDrawer-paper": {
+                width: { xs: "80%", sm: "60%", md: "80%" },
               },
             }}
-              open={openFilter}
-              onClose={() => setOpenFilter(false)}>
-              <Box role="presentation" onClick={() => setOpenFilter(false)}>
-                <FilterCars />
-              </Box>
-            </Drawer>
-            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-              <FilterCars />
+            open={openFilter}
+            onClose={() => setOpenFilter(false)}
+          >
+            <Box role="presentation" onClick={() => setOpenFilter(false)}>
+              <FilterCars onFilterChange={handleFilterChange} />
             </Box>
-          </Grid>
+          </Drawer>
+          <Box sx={{ display: { xs: "none", md: "block" } }}>
+            <FilterCars onFilterChange={handleFilterChange}/>
+          </Box>
+        </Grid>
 
-          <Grid item xs={12} md={8}>
-            <Grid container direction="column" spacing={4}>
-              <Grid item>
-                <SearchCars
-                  setOpenFilter={setOpenFilter}
-                  handleSearch={handleSearch} />
-              </Grid>
-              <Grid item sx={{ justifyContent: "center" }}>
-                <CarGrid cars={filteredUsedCars} searchTerm={searchTerm} />
-              </Grid>
+        <Grid item xs={12} md={8}>
+          <Grid container direction="column" spacing={4}>
+            <Grid item>
+              <SearchCars
+                handleSearch={handleSearch}
+                setOpenFilter={setOpenFilter}
+              />
+            </Grid>
+            <Grid item sx={{ justifyContent: "center" }}>
+              <CarGrid cars={filteredUsedCars} searchTerm={searchTerm} />
             </Grid>
           </Grid>
         </Grid>
-      </Container>
-    </Box>
-  );
+      </Grid>
+    </Container>
+  </Box>
+);
 }
 
 export default UsedCars;
