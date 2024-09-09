@@ -37,7 +37,8 @@
 
 .car-card > p {
   padding-top: 0.5rem;
-  color: #fff;
+  font-size: 1.5rem;
+  color: rgba(0, 124, 199, 1);
 }
 
 .cars-info {
@@ -47,5 +48,11 @@
 }
 
 .cars-info > p {
+  color: #fff;
   margin-top: 0.2rem;
+}
+
+.no-results {
+  color: #ddd;
+  padding: 12px;
 }

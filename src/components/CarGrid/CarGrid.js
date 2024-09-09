@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import "./css/carGrid.css";
+import { useDebounce } from "use-debounce";
+import { Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { updateLoggedInUserFavorites } from "../../redux/authSlice";
 import "./css/carGrid.css";
@@ -14,21 +16,22 @@ import PaginationControl from "../Pagination/Pagination";
 
 const CarGrid = ({ cars, searchTerm }) => {
   const [searchFilteredCars, setSearchFilteredCars] = useState([]);
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.authSlice.loggedInUser);
 
   useEffect(() => {
-    if (searchTerm === "") {
+    if (debouncedSearchTerm === "") {
       setSearchFilteredCars(cars);
     } else {
       const newItems = cars.filter((car) =>
         `${car.make} ${car.model}`
           .toLowerCase()
-          .includes(searchTerm.toLowerCase())
+          .includes(debouncedSearchTerm.toLowerCase())
       );
       setSearchFilteredCars(newItems);
     }
-  }, [searchTerm, cars]);
+  }, [debouncedSearchTerm, cars]);
 
   const handleAddToFavorites = async (carId) => {
     if (!loggedInUser) return;
@@ -51,40 +54,44 @@ const CarGrid = ({ cars, searchTerm }) => {
   return (
     <div className="car-list">
       <div className="car-grid">
-        {searchFilteredCars.map((car) => (
-          <div key={car.id} className="car-card">
-            <img src={car.image[2]} alt="" />
-            <h2>
-              {car.make} {car.model}
-              <p style={{ float: "right" }}>
-                <FavoriteBorderIcon
-                  onClick={() => handleAddToFavorites(car.id)}
-                />
-              </p>
-            </h2>
-            <p style={{ color: "rgba(0, 124, 199, 1)", fontSize: "1.5rem" }}>
-              ${car.price}
-            </p>
-            <div className="cars-info">
-              <div>
-                <CalendarMonthIcon />
+        {searchFilteredCars.length > 0 ? (
+          searchFilteredCars.map((car) => (
+            <div key={car.id} className="car-card">
+              <img src={car.image[2]} alt="" />
+              <h2>
+                {car.make} {car.model}
+                <p style={{ float: "right" }}>
+                  <FavoriteBorderIcon
+                    onClick={() => handleAddToFavorites(car.id)}
+                  />
+                </p>
+              </h2>
+              <p>${car.price}</p>
+              <div className="cars-info">
+                <div>
+                  <CalendarMonthIcon />
+                </div>
+                <p>{car.year}</p>
+                <div>
+                  <LocalGasStationIcon />
+                </div>
+                <p>{car.fuelType}</p>
+                <div>
+                  <TimeToLeaveIcon />
+                </div>
+                <p>{car.transmission}</p>
+                <div>
+                  <PeopleAltIcon />
+                </div>
+                <p>{car.owners}</p>
               </div>
-              <p style={{ color: "#fff" }}>{car.year}</p>
-              <div>
-                <LocalGasStationIcon />
-              </div>
-              <p style={{ color: "#fff" }}>{car.fuelType}</p>
-              <div>
-                <TimeToLeaveIcon />
-              </div>
-              <p style={{ color: "#fff" }}>{car.transmission}</p>
-              <div>
-                <PeopleAltIcon />
-              </div>
-              <p style={{ color: "#fff" }}>{car.owners}</p>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <Typography className="no-results">
+            No information matching your request was found.
+          </Typography>
+        )}
       </div>
       <PaginationControl />
     </div>

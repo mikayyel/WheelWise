@@ -326,13 +326,12 @@
 
 // export default UserInformation;
 
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addNoteToUser,
   deleteNoteToUser,
-  setLoggedInUser,
   updateLoggedInUser,
   updateLoggedInUserPhoto,
 } from "../../redux/authSlice";
@@ -350,7 +349,6 @@ import {
 } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 import { inputStyle } from "../SignIn/constants/constants";
