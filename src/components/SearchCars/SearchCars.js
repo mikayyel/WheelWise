@@ -1,7 +1,7 @@
 import { FormControl, IconButton, OutlinedInput } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import "./css/searchCars.css";
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
 const SearchCars = ({ handleSearch, setOpenFilter }) => {
   return (
@@ -25,8 +25,11 @@ const SearchCars = ({ handleSearch, setOpenFilter }) => {
             />
           </FormControl>
         </form>
-        <IconButton onClick={() => setOpenFilter(true)} sx={{ width: '15%', display: { md: 'none' } }}>
-          <FilterAltIcon sx={{ color: 'white' }} />
+        <IconButton
+          onClick={() => setOpenFilter(true)}
+          sx={{ width: "15%", display: { md: "none" } }}
+        >
+          <FilterAltIcon sx={{ color: "white" }} />
         </IconButton>
       </div>
     </div>
