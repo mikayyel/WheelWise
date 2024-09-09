@@ -27,12 +27,10 @@ import ScrollToTopButton from "./components/CustomComponents/ScrollToTopButton";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
-      console.log(user);
       if (user) {
         try {
           console.log(user.uid);
@@ -56,11 +54,7 @@ function App() {
   }, []);
 
   const Layout = () => (
-    <Box
-      display="flex"
-      flexDirection="column"
-      minHeight="100vh"
-    >
+    <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
       <Box flex="1">
         <Outlet />
@@ -91,8 +85,11 @@ function App() {
               <Route path="/sell" element={<Sell />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
-              <Route path="/profile" element={<UserProfile />}></Route>
-
+              <Route path="/profile" element={<UserProfile />}>
+                <Route path="information"></Route>
+                <Route path="favorites"></Route>
+                <Route path="announcements"></Route>
+              </Route>
             </>
           ) : (
             <>

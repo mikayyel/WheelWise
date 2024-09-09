@@ -4,14 +4,21 @@ import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useEffect, useState } from "react";
-import SearchButton from "../Pagination/Pagination";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebase";
 import "./css/carGrid.css";
 import { useDebounce } from "use-debounce";
 import { Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { updateLoggedInUserFavorites } from "../../redux/authSlice";
+import "./css/carGrid.css";
+import PaginationControl from "../Pagination/Pagination";
 
 const CarGrid = ({ cars, searchTerm }) => {
   const [searchFilteredCars, setSearchFilteredCars] = useState([]);
   const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
+  const dispatch = useDispatch();
+  const loggedInUser = useSelector((state) => state.authSlice.loggedInUser);
 
   useEffect(() => {
     if (debouncedSearchTerm === "") {
@@ -26,6 +33,24 @@ const CarGrid = ({ cars, searchTerm }) => {
     }
   }, [debouncedSearchTerm, cars]);
 
+  const handleAddToFavorites = async (carId) => {
+    if (!loggedInUser) return;
+
+    const userDocRef = doc(db, "users", loggedInUser.uid);
+    const carDocRef = doc(db, "cars", carId);
+
+    try {
+      await updateDoc(userDocRef, {
+        favorites: arrayUnion(carDocRef),
+      });
+
+      dispatch(updateLoggedInUserFavorites(carDocRef));
+      console.log("Updated favorites in Redux:", loggedInUser.favorites);
+    } catch (error) {
+      console.error("Error updating favorites: ", error.message);
+    }
+  };
+
   return (
     <div className="car-list">
       <div className="car-grid">
@@ -36,7 +61,9 @@ const CarGrid = ({ cars, searchTerm }) => {
               <h2>
                 {car.make} {car.model}
                 <p style={{ float: "right" }}>
-                  <FavoriteBorderIcon />
+                  <FavoriteBorderIcon
+                    onClick={() => handleAddToFavorites(car.id)}
+                  />
                 </p>
               </h2>
               <p>${car.price}</p>
@@ -66,7 +93,7 @@ const CarGrid = ({ cars, searchTerm }) => {
           </Typography>
         )}
       </div>
-      <SearchButton />
+      <PaginationControl />
     </div>
   );
 };
