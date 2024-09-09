@@ -54,11 +54,7 @@ function App() {
   }, []);
 
   const Layout = () => (
-    <Box
-      display="flex"
-      flexDirection="column"
-      minHeight="100vh"
-    >
+    <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
       <Box flex="1">
         <Outlet />
@@ -91,10 +87,9 @@ function App() {
               <Route path="/contact" element={<Contact />}></Route>
               <Route path="/profile" element={<UserProfile />}>
                 <Route path="information"></Route>
-                <Route path="favorites" ></Route>
+                <Route path="favorites"></Route>
                 <Route path="announcements"></Route>
               </Route>
-
             </>
           ) : (
             <>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -13,7 +13,8 @@ import { NavLink } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { inputStyle } from "./constants/constants";
-import imageSrc from '../../img/bgsignin.png'
+import { Alert } from "@mui/material";
+import imageSrc from "../../img/bgsignin.png";
 
 export default function SignIn() {
   const {
@@ -21,6 +22,7 @@ export default function SignIn() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [error, setError] = useState(null);
 
   const onSignIn = (data) => {
     const { email, password } = data;
@@ -29,20 +31,29 @@ export default function SignIn() {
         // Signed in
         const user = userCredential.user;
         console.log("Signed in user:", user);
+        setError(null);
       })
       .catch((error) => {
-        console.error("Error signing in:", error.message);
+        console.error("Error signing in:", error);
+        if (error.code === "auth/wrong-password") {
+          setError("Incorrect password. Please try again.");
+        } else if (error.code === "auth/user-not-found") {
+          setError("User not found. Please check your email.");
+        } else {
+          setError("Invalid email or password. Please try again.");
+        }
       });
   };
 
   return (
-    <Box sx={{
-      background: `url(${imageSrc}) 0 50% / cover no-repeat`,
-      height: '100vh',
-      display: 'flex',
-      alignItems: 'center'
-    }}>
-
+    <Box
+      sx={{
+        background: `url(${imageSrc}) 0 50% / cover no-repeat`,
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
@@ -58,6 +69,7 @@ export default function SignIn() {
           <Typography sx={{ color: "white" }} component="h1" variant="h5">
             Sign in
           </Typography>
+
           <Box
             component="form"
             onSubmit={handleSubmit(onSignIn)}
@@ -118,6 +130,11 @@ export default function SignIn() {
                 />
               )}
             />
+            {error && (
+              <Alert severity="error" style={{ marginBottom: "20px" }}>
+                {error}
+              </Alert>
+            )}
             <Button
               type="submit"
               fullWidth
@@ -129,7 +146,9 @@ export default function SignIn() {
             <Grid container>
               <Grid item>
                 <Link href="#" variant="body2">
-                  <NavLink style={{ color: "white" }} to="/signup">Don't have an account? Sign Up</NavLink>
+                  <NavLink style={{ color: "white" }} to="/signup">
+                    Don't have an account? Sign Up
+                  </NavLink>
                 </Link>
               </Grid>
             </Grid>
