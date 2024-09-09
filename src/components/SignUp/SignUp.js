@@ -13,6 +13,10 @@ import { Controller, useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import { auth, db } from "../../firebase/firebase";
 import { inputStyle } from "../SignIn/constants/constants";
+import { useState } from "react";
+import { Alert } from "@mui/material";
+import { setLoggedInUser } from "../../redux/authSlice";
+import { useDispatch } from "react-redux";
 
 export default function SignUp() {
   const {
@@ -27,6 +31,8 @@ export default function SignUp() {
       password: "",
     },
   });
+  const dispatch = useDispatch();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSignUp = async (data) => {
     const { firstName, lastName, email, password } = data;
@@ -43,9 +49,30 @@ export default function SignUp() {
         email,
         lastName,
         favorites: [],
+        notes: [],
+        photoURL: "",
       });
+      // dispatch(
+      //   setLoggedInUser({
+      //     uid: user.uid,
+      //     email: user.email,
+      //     firstName,
+      //     lastName,
+      //     favorites: [],
+      //     notes: [],
+      //     photoURL: "",
+      //   })
+      // );
+      setErrorMessage("");
     } catch (error) {
       console.error(error.message);
+      if (error.code === "auth/email-already-in-use") {
+        setErrorMessage(
+          "This email address is already registered. Please use another email."
+        );
+      } else {
+        setErrorMessage("An error occurred during sign-up. Please try again.");
+      }
     }
   };
 
@@ -71,6 +98,11 @@ export default function SignUp() {
           onSubmit={handleSubmit(onSignUp)}
           sx={{ mt: 3 }}
         >
+          {errorMessage && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {errorMessage}
+            </Alert>
+          )}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Controller
@@ -183,7 +215,6 @@ export default function SignUp() {
               />
             </Grid>
           </Grid>
-
           <Button
             fullWidth
             variant="contained"

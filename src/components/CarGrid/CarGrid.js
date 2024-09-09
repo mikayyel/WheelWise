@@ -4,14 +4,24 @@ import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import SearchButton from "../Pagination/Pagination";
 import "./css/carGrid.css";
+import { useDispatch, useSelector } from "react-redux";
+import { updateLoggedInUserFavorites } from "../../redux/authSlice";
 
 const CarGrid = ({ searchTerm }) => {
   const [cars, setCars] = useState([]);
   const [filteredCars, setFilteredCars] = useState([]);
+  const dispatch = useDispatch();
+  const loggedInUser = useSelector((state) => state.authSlice.loggedInUser);
 
   useEffect(() => {
     async function getCars() {
@@ -42,6 +52,24 @@ const CarGrid = ({ searchTerm }) => {
     }
   }, [searchTerm, cars]);
 
+  const handleAddToFavorites = async (carId) => {
+    if (!loggedInUser) return;
+
+    const userDocRef = doc(db, "users", loggedInUser.uid);
+    const carDocRef = doc(db, "cars", carId);
+
+    try {
+      await updateDoc(userDocRef, {
+        favorites: arrayUnion(carDocRef),
+      });
+
+      dispatch(updateLoggedInUserFavorites(carDocRef));
+      console.log("Updated favorites in Redux:", loggedInUser.favorites);
+    } catch (error) {
+      console.error("Error updating favorites: ", error.message);
+    }
+  };
+
   return (
     <div className="car-list">
       <div className="car-grid">
@@ -51,7 +79,9 @@ const CarGrid = ({ searchTerm }) => {
             <h2>
               {car.make} {car.model}
               <p style={{ float: "right" }}>
-                <FavoriteBorderIcon />
+                <FavoriteBorderIcon
+                  onClick={() => handleAddToFavorites(car.id)}
+                />
               </p>
             </h2>
             <p style={{ color: "rgba(0, 124, 199, 1)", fontSize: "1.5rem" }}>
