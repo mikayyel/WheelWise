@@ -31,6 +31,7 @@ const CarGrid = ({ cars, searchTerm }) => {
   }, [searchTerm, cars]);
 
   const handleAddToFavorites = async (carId) => {
+    console.log(carId, loggedInUser.uid);
     if (!loggedInUser) return;
 
     const userDocRef = doc(db, "users", loggedInUser.uid);

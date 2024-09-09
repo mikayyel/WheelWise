@@ -36,11 +36,12 @@ function App() {
           console.log(user.uid);
           const additionalData = await getDoc(doc(db, "users", user.uid));
 
-          console.log(additionalData);
+          console.log(user);
           dispatch(
             setLoggedInUser({
               ...additionalData.data(),
               ...user,
+              photoURL: additionalData.data().photoURL,
             })
           );
         } catch (e) {
