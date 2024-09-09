@@ -7,25 +7,88 @@ import {
   Select,
   Slider,
 } from "@mui/material";
-import { years, prices, mileage, fuelType } from "./helper";
+import {
+  years,
+  prices,
+  mileage,
+  fuelType,
+  transmission,
+  make,
+  horsepower,
+  engine,
+} from "./helper";
 import { useEffect, useState } from "react";
 import "./css/filterCars.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 
-const FilterCars = () => {
+const FilterCars = ({ onFilterChange }) => {
   const [cars, setCars] = useState([]);
-  const [filteredCars, setFilteredCars] = useState([]);
-  const [selectedYear, setSelectedYear] = useState("");
+  const [fromYear, setFromYear] = useState("");
+  const [toYear, setToYear] = useState("");
+  const [fromMileage, setFromMileage] = useState("");
+  const [toMileage, setToMileage] = useState("");
+  const [fromHorsePower, setFromHorsePower] = useState("");
+  const [toHorsePower, setToHorsePower] = useState("");
+  const [fromEngine, setFromEngine] = useState("");
+  const [toEngine, setToEngine] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
-  const [selectedMileage, setSelectedMileage] = useState("");
   const [selectedTransmission, setSelectedTransmission] = useState("");
   const [selectedFuelType, setSelectedFuelType] = useState("");
-  const [selectedEngine, setSelectedEngine] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
-  const [selectedHorsePower, setSelectedHorsePower] = useState("");
   const [priceRange, setPriceRange] = useState([prices.MIN, prices.MAX]);
+
+  const handleFromChangeYear = (event) => {
+    setFromYear(event.target.value);
+    if (toYear && event.target.value >= toYear) {
+      setToYear("");
+    }
+  };
+
+  const handleToChangeYear = (event) => {
+    setToYear(event.target.value);
+  };
+
+  const handleFromChangeMileage = (event) => {
+    setFromMileage(event.target.value);
+    if (toMileage && event.target.value >= toMileage) {
+      setToMileage("");
+    }
+  };
+
+  const handleToChangeMileAge = (event) => {
+    setToMileage(event.target.value);
+  };
+
+  const handleFromChangeHorsePower = (event) => {
+    setFromHorsePower(event.target.value);
+    if (toHorsePower && event.target.value >= toHorsePower) {
+      setToHorsePower("");
+    }
+  };
+
+  const handleToChangeHorsePower = (event) => {
+    setToHorsePower(event.target.value);
+  };
+
+  const handleFromChangeEngine = (event) => {
+    setFromEngine(event.target.value);
+    if (toEngine && event.target.value >= toEngine) {
+      setToEngine("");
+    }
+  };
+
+  const handleToChangeEngine = (event) => {
+    setToEngine(event.target.value);
+  };
+
+  const handleBrandChange = (event) => setSelectedBrand(event.target.value);
+  const handleModelChange = (event) => setSelectedModel(event.target.value);
+  const handleTransmissionChange = (event) =>
+    setSelectedTransmission(event.target.value);
+  const handleFuelTypeChange = (event) =>
+    setSelectedFuelType(event.target.value);
+  const handlePriceChange = (event, newValue) => setPriceRange(newValue);
 
   useEffect(() => {
     async function getCars() {
@@ -46,58 +109,51 @@ const FilterCars = () => {
   }, []);
 
   useEffect(() => {
-    setFilteredCars(
-      cars.filter(
-        (car) =>
-          (!selectedYear || car.year === selectedYear) &&
-          (!selectedBrand || car.make === selectedBrand) &&
-          (!selectedModel || car.model === selectedModel) &&
-          (!selectedMileage || car.mileage === selectedMileage) &&
-          (!selectedTransmission ||
-            car.transmission === selectedTransmission) &&
-          (!selectedFuelType || car.fuelType === selectedFuelType) &&
-          (!selectedEngine || car.engine === selectedEngine) &&
-          (!selectedColor || car.color === selectedColor) &&
-          (!selectedHorsePower || car.horsepower === selectedHorsePower) &&
-          car.price >= priceRange[0] &&
-          car.price <= priceRange[1]
-      )
-    );
+    const filtered = cars.filter((car) => {
+      const year = Number(car.year);
+      const mileage = Number(car.mileage);
+      const horsepower = Number(car.horsepower);
+      const engine = Number.parseFloat(car.engine);
+      const price = Number(car.price);
+
+      return (
+        (!fromYear || year >= Number(fromYear)) &&
+        (!toYear || year <= Number(toYear)) &&
+        (!selectedBrand || car.make === selectedBrand) &&
+        (!selectedModel || car.model === selectedModel) &&
+        (!fromMileage || mileage >= Number(fromMileage)) &&
+        (!toMileage || mileage <= Number(toMileage)) &&
+        (!fromEngine || engine >= Number.parseFloat(fromEngine)) &&
+        (!toEngine || engine <= Number.parseFloat(toEngine)) &&
+        (!selectedTransmission || car.transmission === selectedTransmission) &&
+        (!selectedFuelType || car.fuelType === selectedFuelType) &&
+        (!fromHorsePower || horsepower >= Number(fromHorsePower)) &&
+        (!toHorsePower || horsepower <= Number(toHorsePower)) &&
+        price >= priceRange[0] &&
+        price <= priceRange[1]
+      );
+    });
+
+    onFilterChange(filtered);
   }, [
     cars,
-    selectedYear,
+    fromYear,
+    toYear,
     selectedBrand,
     selectedModel,
-    selectedMileage,
+    fromMileage,
+    toMileage,
+    fromEngine,
+    toEngine,
     selectedTransmission,
     selectedFuelType,
-    selectedEngine,
-    selectedColor,
-    selectedHorsePower,
+    fromHorsePower,
+    toHorsePower,
     priceRange,
+    onFilterChange,
   ]);
 
-  const handleYearChange = (event) => setSelectedYear(event.target.value);
-  const handleBrandChange = (event) => setSelectedBrand(event.target.value);
-  const handleModelChange = (event) => setSelectedModel(event.target.value);
-  const handleMileageChange = (event) => setSelectedMileage(event.target.value);
-  const handleTransmissionChange = (event) =>
-    setSelectedTransmission(event.target.value);
-  const handleFuelTypeChange = (event) =>
-    setSelectedFuelType(event.target.value);
-  const handleEngineChange = (event) => setSelectedEngine(event.target.value);
-  const handleColorChange = (event) => setSelectedColor(event.target.value);
-  const handleHorsePowerChange = (event) =>
-    setSelectedHorsePower(event.target.value);
-
-  const handlePriceChange = (event, newValue) => setPriceRange(newValue);
-
-  const uniqueBrands = [...new Set(cars.map((car) => car.make))];
-  const uniqueModels = [...new Set(cars.map((car) => car.model))];
-  const uniqueTransmissions = [...new Set(cars.map((car) => car.transmission))];
-  const uniqueEngines = [...new Set(cars.map((car) => car.engine))];
-  const uniqueColors = [...new Set(cars.map((car) => car.color))];
-  const uniqueHorsePowers = [...new Set(cars.map((car) => car.horsepower))];
+  
 
   return (
     <div className="filter-field">
@@ -111,33 +167,6 @@ const FilterCars = () => {
             marginTop: "10px",
           }}
         ></div>
-      </div>
-
-      <div className="year-button-group">
-        <Box>
-          <FormControl fullWidth>
-            <InputLabel
-              sx={{ color: "rgba(255, 255, 255, 1)" }}
-              id="demo-simple-select-label"
-            >
-              Year
-            </InputLabel>
-            <Select
-              sx={{ color: "#ddd" }}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Year"
-              value={selectedYear}
-              onChange={handleYearChange}
-            >
-              {years.map((year, i) => (
-                <MenuItem key={i} value={year}>
-                  {year}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
       </div>
       <div className="brand-button-group">
         <Box>
@@ -156,8 +185,8 @@ const FilterCars = () => {
               value={selectedBrand}
               onChange={handleBrandChange}
             >
-              {uniqueBrands.map((car, i) => (
-                <MenuItem key={i} value={i}>
+              {make.map((car, i) => (
+                <MenuItem key={i} value={car}>
                   {car}
                 </MenuItem>
               ))}
@@ -165,54 +194,71 @@ const FilterCars = () => {
           </FormControl>
         </Box>
       </div>
-      <div className="model-button-group">
+      {selectedBrand && (
+        <div className="model-button-group">
+          <Box>
+            <FormControl fullWidth>
+              <InputLabel
+                sx={{ color: "rgba(255, 255, 255, 1)" }}
+                id="demo-simple-select-label"
+              >
+                Model
+              </InputLabel>
+              <Select
+                sx={{ color: "#ddd" }}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Model"
+                value={selectedModel}
+                onChange={handleModelChange}
+              >
+                {cars.map((model) => (
+                  <MenuItem key={model.id} value={model}>
+                    {model.model}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </div>
+      )}
+      <div className="year-button-group">
         <Box>
-          <FormControl fullWidth>
-            <InputLabel
-              sx={{ color: "rgba(255, 255, 255, 1)" }}
-              id="demo-simple-select-label"
-            >
-              Model
+          <FormControl fullWidth margin="normal">
+            <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
+              From Year
             </InputLabel>
             <Select
-              sx={{ color: "#ddd" }}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Model"
-              value={selectedModel}
-              onChange={handleModelChange}
+              style={{ color: "#ddd" }}
+              value={fromYear}
+              onChange={handleFromChangeYear}
+              label="From Year"
             >
-              {uniqueModels.map((car, i) => (
-                <MenuItem key={i} value={i}>
-                  {car}
+              {years.map((value, i) => (
+                <MenuItem key={i} value={value}>
+                  {value}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
-        </Box>
-      </div>
-      <div className="mileage-button-group">
-        <Box>
-          <FormControl fullWidth>
-            <InputLabel
-              sx={{ color: "rgba(255, 255, 255, 1)" }}
-              id="demo-simple-select-label"
-            >
-              Mileage
+          <FormControl fullWidth margin="normal">
+            <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
+              To Year
             </InputLabel>
             <Select
-              sx={{ color: "#ddd" }}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Mileage"
-              value={selectedMileage}
-              onChange={handleMileageChange}
+              style={{ color: "#ddd" }}
+              value={toYear}
+              onChange={handleToChangeYear}
+              label="To Year"
+              disabled={!fromYear}
             >
-              {mileage.map((car, i) => (
-                <MenuItem key={i} value={i}>
-                  {car}
-                </MenuItem>
-              ))}
+              {years
+                .filter((value) => value > fromYear)
+                .map((value, i) => (
+                  <MenuItem key={i} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
         </Box>
@@ -234,11 +280,93 @@ const FilterCars = () => {
               value={selectedTransmission}
               onChange={handleTransmissionChange}
             >
-              {uniqueTransmissions.map((car, i) => (
-                <MenuItem key={i} value={i}>
-                  {car}
+              {transmission.map((trans, i) => (
+                <MenuItem key={i} value={trans}>
+                  {trans}
                 </MenuItem>
               ))}
+            </Select>
+          </FormControl>
+        </Box>
+      </div>
+      <div className="mileage-button-group">
+        <Box>
+          <FormControl fullWidth margin="normal">
+            <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
+              From Mileage
+            </InputLabel>
+            <Select
+              style={{ color: "#ddd" }}
+              value={fromMileage}
+              onChange={handleFromChangeMileage}
+              label="From Mileage"
+            >
+              {mileage.map((value, i) => (
+                <MenuItem key={i} value={value}>
+                  {value}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth margin="normal">
+            <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
+              To Mileage
+            </InputLabel>
+            <Select
+              style={{ color: "#ddd" }}
+              value={toMileage}
+              onChange={handleToChangeMileAge}
+              label="To Mileage"
+              disabled={!fromMileage}
+            >
+              {mileage
+                .filter((value) => value > fromMileage)
+                .map((value, i) => (
+                  <MenuItem key={i} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+        </Box>
+      </div>
+      <div className="engine-button-group">
+        <Box>
+          <FormControl fullWidth margin="normal">
+            <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
+              From Engine
+            </InputLabel>
+            <Select
+              style={{ color: "#ddd" }}
+              value={fromEngine}
+              onChange={handleFromChangeEngine}
+              label="From Engine"
+            >
+              {engine.map((eng, i) => (
+                <MenuItem key={i} value={eng}>
+                  {eng}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth margin="normal">
+            <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
+              To Engine
+            </InputLabel>
+            <Select
+              style={{ color: "#ddd" }}
+              value={toEngine}
+              onChange={handleToChangeEngine}
+              label="To Engine"
+              disabled={!fromEngine}
+            >
+              {engine
+                .filter((value) => value > fromEngine)
+                .map((value, i) => (
+                  <MenuItem key={i} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
         </Box>
@@ -260,35 +388,9 @@ const FilterCars = () => {
               value={selectedFuelType}
               onChange={handleFuelTypeChange}
             >
-              {fuelType.map((car, i) => (
-                <MenuItem key={i} value={i}>
-                  {car}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
-      </div>
-      <div className="engine-button-group">
-        <Box>
-          <FormControl fullWidth>
-            <InputLabel
-              sx={{ color: "rgba(255, 255, 255, 1)" }}
-              id="demo-simple-select-label"
-            >
-              Engine
-            </InputLabel>
-            <Select
-              sx={{ color: "#ddd" }}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Engine"
-              value={selectedEngine}
-              onChange={handleEngineChange}
-            >
-              {uniqueEngines.map((car, i) => (
-                <MenuItem key={i} value={i}>
-                  {car}
+              {fuelType.map((fuel, i) => (
+                <MenuItem key={i} value={fuel}>
+                  {fuel}
                 </MenuItem>
               ))}
             </Select>
@@ -297,57 +399,45 @@ const FilterCars = () => {
       </div>
       <div className="horsepower-button-group">
         <Box>
-          <FormControl fullWidth>
-            <InputLabel
-              sx={{ color: "rgba(255, 255, 255, 1)" }}
-              id="demo-simple-select-label"
-            >
-              Horsepower
+          <FormControl fullWidth margin="normal">
+            <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
+              From Horsepower
             </InputLabel>
             <Select
-              sx={{ color: "#ddd" }}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Horsepower"
-              value={selectedHorsePower}
-              onChange={handleHorsePowerChange}
+              style={{ color: "#ddd" }}
+              value={fromHorsePower}
+              onChange={handleFromChangeHorsePower}
+              label="From Horsepower"
             >
-              {uniqueHorsePowers.map((car, i) => (
-                <MenuItem key={i} value={i}>
-                  {car}
+              {horsepower.map((value, i) => (
+                <MenuItem key={i} value={value}>
+                  {value}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
-        </Box>
-      </div>
-      <div className="exterior-color-button-group">
-        <Box>
-          <FormControl fullWidth>
-            <InputLabel
-              sx={{ color: "rgba(255, 255, 255, 1)" }}
-              id="demo-simple-select-label"
-            >
-              Exterior Color
+          <FormControl fullWidth margin="normal">
+            <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
+              To Horsepower
             </InputLabel>
             <Select
-              sx={{ color: "#ddd" }}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Exterior Color"
-              value={selectedColor}
-              onChange={handleColorChange}
+              style={{ color: "#ddd" }}
+              value={toHorsePower}
+              onChange={handleToChangeHorsePower}
+              label="To Horsepower"
+              disabled={!fromHorsePower}
             >
-              {uniqueColors.map((car, i) => (
-                <MenuItem key={i} value={i}>
-                  {car}
-                </MenuItem>
-              ))}
+              {horsepower
+                .filter((value) => value > fromHorsePower)
+                .map((value, i) => (
+                  <MenuItem key={i} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
         </Box>
       </div>
-
       <div style={{ padding: 16, margin: 4, fontFamily: "lato" }}>
         <h4 style={{ color: "#fff" }}>Price Range</h4>
         <p style={{ color: "rgba(0, 124, 199, 1)", fontSize: 17 }}>
@@ -355,7 +445,6 @@ const FilterCars = () => {
           $.{prices.MIN} - ${prices.MAX}
         </p>
       </div>
-
       <Box sx={{ width: "100%", pl: 4, pr: 4 }}>
         <Slider
           prices={prices}
@@ -366,7 +455,6 @@ const FilterCars = () => {
           max={prices.MAX}
         />
       </Box>
-
       <div style={{ padding: "16px" }}>
         <Button
           sx={{
@@ -380,15 +468,18 @@ const FilterCars = () => {
           variant="contained"
           disableElevation
           onClick={() => {
-            setSelectedYear("");
+            setFromYear("");
+            setToYear("");
             setSelectedBrand("");
             setSelectedModel("");
-            setSelectedMileage("");
+            setFromMileage("");
+            setToMileage("");
+            setFromHorsePower("");
+            setToHorsePower("");
+            setFromEngine("");
+            setToEngine("");
             setSelectedTransmission("");
             setSelectedFuelType("");
-            setSelectedEngine("");
-            setSelectedColor("");
-            setSelectedHorsePower("");
             setPriceRange([prices.MIN, prices.MAX]);
           }}
         >

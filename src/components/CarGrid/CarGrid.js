@@ -6,58 +6,65 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useEffect, useState } from "react";
 import SearchButton from "../Pagination/Pagination";
 import "./css/carGrid.css";
+import { useDebounce } from "use-debounce";
+import { Typography } from "@mui/material";
 
 const CarGrid = ({ cars, searchTerm }) => {
   const [searchFilteredCars, setSearchFilteredCars] = useState([]);
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
 
   useEffect(() => {
-    if (searchTerm === "") {
+    if (debouncedSearchTerm === "") {
       setSearchFilteredCars(cars);
     } else {
       const newItems = cars.filter((car) =>
         `${car.make} ${car.model}`
           .toLowerCase()
-          .includes(searchTerm.toLowerCase())
+          .includes(debouncedSearchTerm.toLowerCase())
       );
       setSearchFilteredCars(newItems);
     }
-  }, [searchTerm, cars]);
+  }, [debouncedSearchTerm, cars]);
 
   return (
     <div className="car-list">
       <div className="car-grid">
-        {searchFilteredCars.map((car) => (
-          <div key={car.id} className="car-card">
-            <img src={car.image[2]} alt="" />
-            <h2>
-              {car.make} {car.model}
-              <p style={{ float: "right" }}>
-                <FavoriteBorderIcon />
-              </p>
-            </h2>
-            <p style={{ color: "rgba(0, 124, 199, 1)", fontSize: "1.5rem" }}>
-              ${car.price}
-            </p>
-            <div className="cars-info">
-              <div>
-                <CalendarMonthIcon />
+        {searchFilteredCars.length > 0 ? (
+          searchFilteredCars.map((car) => (
+            <div key={car.id} className="car-card">
+              <img src={car.image[2]} alt="" />
+              <h2>
+                {car.make} {car.model}
+                <p style={{ float: "right" }}>
+                  <FavoriteBorderIcon />
+                </p>
+              </h2>
+              <p>${car.price}</p>
+              <div className="cars-info">
+                <div>
+                  <CalendarMonthIcon />
+                </div>
+                <p>{car.year}</p>
+                <div>
+                  <LocalGasStationIcon />
+                </div>
+                <p>{car.fuelType}</p>
+                <div>
+                  <TimeToLeaveIcon />
+                </div>
+                <p>{car.transmission}</p>
+                <div>
+                  <PeopleAltIcon />
+                </div>
+                <p>{car.owners}</p>
               </div>
-              <p style={{ color: "#fff" }}>{car.year}</p>
-              <div>
-                <LocalGasStationIcon />
-              </div>
-              <p style={{ color: "#fff" }}>{car.fuelType}</p>
-              <div>
-                <TimeToLeaveIcon />
-              </div>
-              <p style={{ color: "#fff" }}>{car.transmission}</p>
-              <div>
-                <PeopleAltIcon />
-              </div>
-              <p style={{ color: "#fff" }}>{car.owners}</p>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <Typography className="no-results">
+            No information matching your request was found.
+          </Typography>
+        )}
       </div>
       <SearchButton />
     </div>

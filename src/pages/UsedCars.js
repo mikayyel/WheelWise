@@ -2,43 +2,25 @@ import { Box, Container, Grid } from "@mui/material";
 import FilterCars from "../components/FilterCars/FilterCars";
 import SearchCars from "../components/SearchCars/SearchCars";
 import CarGrid from "../components/CarGrid/CarGrid";
-import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/firebase";
+import { useState } from "react";
 
 function UsedCars() {
-  const [usedCars, setUsedCars] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    async function getUsedCars() {
-      try {
-        const carsCol = collection(db, "cars");
-        const carSnapshot = await getDocs(carsCol);
-        setUsedCars(
-          carSnapshot.docs
-            .map((car) => ({
-              id: car.id,
-              ...car.data(),
-            }))
-            .filter((car) => car.owners > 1)
-        );
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-    getUsedCars();
-  }, []);
+  const [filteredUsedCars, setFilteredUsedCars] = useState([]);
 
   const handleSearch = (value) => {
     setSearchTerm(value);
+  };
+
+  const handleFilterChange = (filtered) => {
+    setFilteredUsedCars(filtered.filter((car) => car.owners > 1));
   };
   return (
     <Box sx={{ pt: 10 }}>
       <Container maxWidth="xl">
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
-            <FilterCars />
+            <FilterCars onFilterChange={handleFilterChange} />
           </Grid>
 
           <Grid item xs={12} md={8}>
@@ -47,7 +29,7 @@ function UsedCars() {
                 <SearchCars handleSearch={handleSearch} />
               </Grid>
               <Grid item sx={{ justifyContent: "center" }}>
-                <CarGrid cars={usedCars} searchTerm={searchTerm} />
+                <CarGrid cars={filteredUsedCars} searchTerm={searchTerm} />
               </Grid>
             </Grid>
           </Grid>
