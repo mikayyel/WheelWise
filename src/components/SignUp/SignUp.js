@@ -53,17 +53,7 @@ export default function SignUp() {
         notes: [],
         photoURL: "",
       });
-      // dispatch(
-      //   setLoggedInUser({
-      //     uid: user.uid,
-      //     email: user.email,
-      //     firstName,
-      //     lastName,
-      //     favorites: [],
-      //     notes: [],
-      //     photoURL: "",
-      //   })
-      // );
+
       setErrorMessage("");
     } catch (error) {
       console.error(error.message);
