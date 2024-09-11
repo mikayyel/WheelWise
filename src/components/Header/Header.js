@@ -42,7 +42,7 @@ function Header() {
   const handleOpenProfile = () => navigate("/profile/information");
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 300);
+    const handleScroll = () => setIsScrolled(window.scrollY > 100);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);

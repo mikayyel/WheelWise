@@ -192,6 +192,7 @@ const FilterCars = ({ onFilterChange }) => {
           </FormControl>
         </Box>
       </div>
+
       {selectedBrand && (
         <div className="model-button-group">
           <Box>
@@ -210,27 +211,30 @@ const FilterCars = ({ onFilterChange }) => {
                 value={selectedModel}
                 onChange={handleModelChange}
               >
-                {cars.map((model) => (
-                  <MenuItem key={model.id} value={model}>
-                    {model.model}
-                  </MenuItem>
-                ))}
+                {cars
+                  .filter((car) => car.make === selectedBrand)
+                  .map((car) => (
+                    <MenuItem key={car.id} value={car.model}>
+                      {car.model}
+                    </MenuItem>
+                  ))}
               </Select>
             </FormControl>
           </Box>
         </div>
       )}
+
       <div className="year-button-group">
         <Box>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              Year - From
+              Year from
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
               value={fromYear}
               onChange={handleFromChangeYear}
-              label="From Year"
+              label="Year From"
             >
               {years.map((value, i) => (
                 <MenuItem key={i} value={value}>
@@ -241,13 +245,13 @@ const FilterCars = ({ onFilterChange }) => {
           </FormControl>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              Year - To
+              Year to
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
               value={toYear}
               onChange={handleToChangeYear}
-              label="To Year"
+              label="Year To"
               disabled={!fromYear}
             >
               {years
@@ -291,13 +295,13 @@ const FilterCars = ({ onFilterChange }) => {
         <Box>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              Mileage - From
+              Mileage from
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
               value={fromMileage}
               onChange={handleFromChangeMileage}
-              label="From Mileage"
+              label="Mileage from"
             >
               {mileage.map((value, i) => (
                 <MenuItem key={i} value={value}>
@@ -308,13 +312,13 @@ const FilterCars = ({ onFilterChange }) => {
           </FormControl>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              Mileage - To
+              Mileage to
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
               value={toMileage}
               onChange={handleToChangeMileAge}
-              label="To Mileage"
+              label="Mileage to"
               disabled={!fromMileage}
             >
               {mileage
@@ -332,13 +336,13 @@ const FilterCars = ({ onFilterChange }) => {
         <Box>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              Engine - From
+              Engine from
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
               value={fromEngine}
               onChange={handleFromChangeEngine}
-              label="From Engine"
+              label="Engine from"
             >
               {engine.map((eng, i) => (
                 <MenuItem key={i} value={eng}>
@@ -349,13 +353,13 @@ const FilterCars = ({ onFilterChange }) => {
           </FormControl>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              Engine - To
+              Engine to
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
               value={toEngine}
               onChange={handleToChangeEngine}
-              label="To Engine"
+              label="Engine to"
               disabled={!fromEngine}
             >
               {engine
@@ -399,13 +403,13 @@ const FilterCars = ({ onFilterChange }) => {
         <Box>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              Horsepower - From
+              Horsepower from
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
               value={fromHorsePower}
               onChange={handleFromChangeHorsePower}
-              label="From Horsepower"
+              label="Horsepower from"
             >
               {horsepower.map((value, i) => (
                 <MenuItem key={i} value={value}>
@@ -416,13 +420,13 @@ const FilterCars = ({ onFilterChange }) => {
           </FormControl>
           <FormControl fullWidth margin="normal">
             <InputLabel style={{ color: "rgba(255, 255, 255, 1)" }}>
-              Horsepower - To
+              Horsepower to
             </InputLabel>
             <Select
               style={{ color: "#ddd" }}
               value={toHorsePower}
               onChange={handleToChangeHorsePower}
-              label="To Horsepower"
+              label="Horsepower to"
               disabled={!fromHorsePower}
             >
               {horsepower
