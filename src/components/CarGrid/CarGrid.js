@@ -4,7 +4,7 @@ import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useEffect, useState } from "react";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import "./css/carGrid.css";
 import { useDebounce } from "use-debounce";
@@ -18,7 +18,7 @@ const CarGrid = ({ cars, searchTerm }) => {
   const [searchFilteredCars, setSearchFilteredCars] = useState([]);
   const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
   const dispatch = useDispatch();
-  const loggedInUser = useSelector((state) => state.authSlice.loggedInUser);
+  const user = useSelector((state) => state.authSlice.loggedInUser);
 
   useEffect(() => {
     if (debouncedSearchTerm === "") {
@@ -33,21 +33,21 @@ const CarGrid = ({ cars, searchTerm }) => {
     }
   }, [debouncedSearchTerm, cars]);
 
-  const handleAddToFavorites = async (carId) => {
-    if (!loggedInUser) return;
-
-    const userDocRef = doc(db, "users", loggedInUser.uid);
-    const carDocRef = doc(db, "cars", carId);
-
+  const handleAddToFavorites = async (car) => {
+    console.log(car.id);
     try {
+      const userDocRef = doc(db, "users", user.uid);
+      const carDocRef = doc(db, "cars", car.id);
+      console.log("carDocRef", carDocRef);
+
       await updateDoc(userDocRef, {
         favorites: arrayUnion(carDocRef),
       });
-
       dispatch(updateLoggedInUserFavorites(carDocRef));
-      console.log("Updated favorites in Redux:", loggedInUser.favorites);
+
+      console.log("Car added to favorites successfully!");
     } catch (error) {
-      console.error("Error updating favorites: ", error.message);
+      console.error("Error adding car to favorites: ", error.message);
     }
   };
 
@@ -62,7 +62,11 @@ const CarGrid = ({ cars, searchTerm }) => {
                 {car.make} {car.model}
                 <p style={{ float: "right" }}>
                   <FavoriteBorderIcon
-                    onClick={() => handleAddToFavorites(car.id)}
+                    onClick={() => {
+                      console.log("Car object:", car);
+                      console.log("loggdeInUser:", user);
+                      handleAddToFavorites(car);
+                    }}
                   />
                 </p>
               </h2>
