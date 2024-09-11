@@ -1,6 +1,6 @@
 .car-carousel {
   margin: 5px;
-  border: 1px solid #ddd;
+  border: 1px solid #007bc755;
   padding: 1rem;
 }
 
@@ -9,12 +9,6 @@
   padding-top: 1rem;
   color: #fff;
   margin-bottom: 0.5rem;
-}
-
-.car-carousel > img {
-  cursor: pointer;
-  width: 320px;
-  height: 220px;
 }
 
 .car-carousel > div {

@@ -13,7 +13,9 @@ export const mileage = [
   300000, 500000,
 ];
 
-export const horsepower = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+export const horsepower = [
+  50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000,
+];
 
 export const fuelType = ["Gasoline", "Diesel", "Electric", "Hybrid"];
 
