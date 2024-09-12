@@ -1,4 +1,5 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { Alert } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -9,39 +10,13 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { auth, db } from "../../firebase/firebase";
-<<<<<<< HEAD
-import { inputStyle } from "../Signin/constants/constants";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-const defaultTheme = createTheme();
-=======
-import { inputStyle } from "../SignIn/constants/constants";
 import imageSrc from "../../img/bgsignin.png";
-import { useState } from "react";
-import { Alert } from "@mui/material";
-import { setLoggedInUser } from "../../redux/authSlice";
-import { useDispatch } from "react-redux";
->>>>>>> main
+import { inputStyle } from "../SignIn/constants/constants";
 
 export default function SignUp() {
   const {

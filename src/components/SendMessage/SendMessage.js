@@ -1,4 +1,5 @@
 import SendIcon from "@mui/icons-material/Send";
+import { Typography } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -8,14 +9,9 @@ import TextField from "@mui/material/TextField";
 import { addDoc, collection } from "firebase/firestore";
 import * as React from "react";
 import { useState } from "react";
-<<<<<<< HEAD
-import { Controller, useForm } from "react-hook-form";
-import { db } from "../../firebase/firebase";
-import { inputStyle } from "../Signin/constants/constants";
-=======
+import { Controller, useForm } from 'react-hook-form';
+import { db } from '../../firebase/firebase';
 import { inputStyle } from "../SignIn/constants/constants";
-import { Typography } from "@mui/material";
->>>>>>> main
 
 export default function SendMessage({ title }) {
   const {

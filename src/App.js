@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect } from "react";
@@ -9,10 +10,12 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import ScrollToTopButton from "./components/CustomComponents/ScrollToTopButton";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
-import SignIn from "./components/Signin/Signin";
+import SignIn from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
+import UserProfile from "./components/UserProfile/UserProfile";
 import { auth, db } from "./firebase/firebase";
 import AboutUs from "./pages/AboutUs";
 import Contact from "./pages/Contact";
@@ -20,14 +23,7 @@ import Home from "./pages/Home";
 import NewCars from "./pages/NewCars";
 import Sell from "./pages/Sell";
 import UsedCars from "./pages/UsedCars";
-<<<<<<< HEAD
 import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
-=======
-import { doc, getDoc } from "firebase/firestore";
-import UserProfile from "./components/UserProfile/UserProfile";
-import { Box } from "@mui/material";
-import ScrollToTopButton from "./components/CustomComponents/ScrollToTopButton";
->>>>>>> main
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
