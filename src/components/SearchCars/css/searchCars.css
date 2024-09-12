@@ -1,6 +1,15 @@
 .search-cars {
-  height: Hug (48px) px;
+  /* height: Hug (48px) px; */
   background: rgba(21, 40, 54, 1);
+  display: flex;
+}
+
+.search-cars>form {
+  flex-grow: 1;
+}
+
+.css-136hgnr-MuiInputBase-root-MuiOutlinedInput-root:hover {
+  border-color: unset;
 }
 
 .car-list {

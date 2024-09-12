@@ -8,11 +8,16 @@ import TextField from "@mui/material/TextField";
 import { addDoc, collection } from "firebase/firestore";
 import * as React from "react";
 import { useState } from "react";
+<<<<<<< HEAD
 import { Controller, useForm } from "react-hook-form";
 import { db } from "../../firebase/firebase";
 import { inputStyle } from "../Signin/constants/constants";
+=======
+import { inputStyle } from "../SignIn/constants/constants";
+import { Typography } from "@mui/material";
+>>>>>>> main
 
-export default function SendMessage() {
+export default function SendMessage({ title }) {
   const {
     control,
     handleSubmit,
@@ -53,14 +58,20 @@ export default function SendMessage() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="md">
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
         }}
       >
+        <Typography
+          variant="h4"
+          sx={{ marginBottom: "40px", color: "#FFFFFF" }}
+        >
+          {title}
+        </Typography>
+
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <Controller
             name="name"
@@ -82,7 +93,6 @@ export default function SendMessage() {
                 error={!!errors.name}
                 helperText={errors.name?.message}
                 autoComplete="given-name"
-                autoFocus
               />
             )}
           />
