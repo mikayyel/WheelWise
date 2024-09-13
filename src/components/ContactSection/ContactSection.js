@@ -1,7 +1,7 @@
 import { Box, Container, Grid } from "@mui/material";
 import Rectangle from "../../img/Rectangle108.png";
-import SendMessage from "../SendMessage/SendMessage";
 import Map from "../Map/Map";
+import SendMessage from "../SendMessage/SendMessage";
 
 function ContactSection() {
   return (
