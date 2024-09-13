@@ -4,7 +4,7 @@ import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useEffect, useState } from "react";
-import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import "./css/carGrid.css";
 import { useDebounce } from "use-debounce";
@@ -34,7 +34,6 @@ const CarGrid = ({ cars, searchTerm }) => {
   }, [debouncedSearchTerm, cars]);
 
   const handleAddToFavorites = async (car) => {
-    console.log(car.id);
     try {
       const userDocRef = doc(db, "users", user.uid);
       const carDocRef = doc(db, "cars", car.id);

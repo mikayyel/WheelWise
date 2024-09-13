@@ -16,8 +16,6 @@ import { inputStyle } from "../SignIn/constants/constants";
 import imageSrc from "../../img/bgsignin.png";
 import { useState } from "react";
 import { Alert } from "@mui/material";
-import { setLoggedInUser } from "../../redux/authSlice";
-import { useDispatch } from "react-redux";
 
 export default function SignUp() {
   const {
@@ -32,7 +30,7 @@ export default function SignUp() {
       password: "",
     },
   });
-  const dispatch = useDispatch();
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSignUp = async (data) => {
