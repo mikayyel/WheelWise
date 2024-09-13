@@ -24,10 +24,20 @@ export const authSlice = createSlice({
       );
     },
     updateLoggedInUserFavorites: (state, action) => {
-      if (state.loggedInUser) {
+      const carExists = state.loggedInUser.favorites.some(
+        (carRef) => carRef.id === action.payload.id
+      );
+      if (!carExists) {
         state.loggedInUser.favorites.push(action.payload);
       }
     },
+
+    deleteFromLoggedInUserFavorites: (state, action) => {
+      state.loggedInUser.favorites = state.loggedInUser.favorites.filter(
+        (carRef) => carRef.id !== action.payload.id
+      );
+    },
+
     updateLoggedInUserPhoto: (state, action) => {
       state.loggedInUser.photoURL = action.payload;
     },
@@ -40,6 +50,7 @@ export const {
   deleteNoteToUser,
   updateLoggedInUser,
   updateLoggedInUserFavorites,
+  deleteFromLoggedInUserFavorites,
   updateLoggedInUserPhoto,
 } = authSlice.actions;
 export const selectLoggedInUser = (state) => state.authSlice.loggedInUser;
