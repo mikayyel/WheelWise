@@ -15,7 +15,7 @@ import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import SignIn from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
-import SinglePage from './components/SinglePage/SinglePage';
+import SinglePage from "./components/SinglePage/SinglePage";
 import UserProfile from "./components/UserProfile/UserProfile";
 import { auth, db } from "./firebase/firebase";
 import AboutUs from "./pages/AboutUs";
@@ -25,6 +25,10 @@ import NewCars from "./pages/NewCars";
 import Sell from "./pages/Sell";
 import UsedCars from "./pages/UsedCars";
 import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
+
+import UserInformation from "./components/UserInformation/UserInformation";
+import UserFavorites from "./components/UserFavorites/UserFavorites";
+import UserAnnouncement from "./components/UserAnnouncement/UserAnnouncement";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
@@ -88,9 +92,12 @@ function App() {
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
               <Route path="/profile" element={<UserProfile />}>
-                <Route path="information"></Route>
-                <Route path="favorites"></Route>
-                <Route path="announcements"></Route>
+                <Route path="information" element={<UserInformation />}></Route>
+                <Route path="favorites" element={<UserFavorites />}></Route>
+                <Route
+                  path="announcements"
+                  element={<UserAnnouncement />}
+                ></Route>
               </Route>
             </>
           ) : (
@@ -104,7 +111,7 @@ function App() {
               <Route path="/sell" element={<Sell />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
-              <Route path='/singlePage' element={<SinglePage />}></Route>
+              <Route path="/singlePage" element={<SinglePage />}></Route>
             </>
           )}
         </Route>
