@@ -1,18 +1,17 @@
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
-import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { useEffect, useState } from "react";
-import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
-import "./css/carGrid.css";
-import { useDebounce } from "use-debounce";
+import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import { Typography } from "@mui/material";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useDebounce } from "use-debounce";
+import { db } from "../../firebase/firebase";
 import { updateLoggedInUserFavorites } from "../../redux/authSlice";
-import "./css/carGrid.css";
 import PaginationControl from "../Pagination/Pagination";
+import "./css/carGrid.css";
 
 const CarGrid = ({ cars, searchTerm }) => {
   const [searchFilteredCars, setSearchFilteredCars] = useState([]);

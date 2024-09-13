@@ -1,6 +1,6 @@
 import { Box, Container, Grid } from "@mui/material";
-import Map from "../components/Map/Map";
 import Address from "../components/Address/Address";
+import Map from "../components/Map/Map";
 import SendMessage from "../components/SendMessage/SendMessage";
 import Rectangle from "../img/Rectangle108.png";
 
