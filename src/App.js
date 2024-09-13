@@ -24,6 +24,9 @@ import { doc, getDoc } from "firebase/firestore";
 import UserProfile from "./components/UserProfile/UserProfile";
 import { Box } from "@mui/material";
 import ScrollToTopButton from "./components/CustomComponents/ScrollToTopButton";
+import UserInformation from "./components/UserInformation/UserInformation";
+import UserFavorites from "./components/UserFavorites/UserFavorites";
+import UserAnnouncement from "./components/UserAnnouncement/UserAnnouncement";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
@@ -87,9 +90,12 @@ function App() {
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
               <Route path="/profile" element={<UserProfile />}>
-                <Route path="information"></Route>
-                <Route path="favorites"></Route>
-                <Route path="announcements"></Route>
+                <Route path="information" element={<UserInformation />}></Route>
+                <Route path="favorites" element={<UserFavorites />}></Route>
+                <Route
+                  path="announcements"
+                  element={<UserAnnouncement />}
+                ></Route>
               </Route>
             </>
           ) : (
