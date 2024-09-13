@@ -16,6 +16,7 @@ import "./css/carGrid.css";
 const CarGrid = ({ cars, searchTerm }) => {
   const [searchFilteredCars, setSearchFilteredCars] = useState([]);
   const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
+  const [carId, setCarId] = useState();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authSlice.loggedInUser);
 
@@ -56,7 +57,7 @@ const CarGrid = ({ cars, searchTerm }) => {
         {searchFilteredCars.length > 0 ? (
           searchFilteredCars.map((car) => (
             <div key={car.id} className="car-card">
-              <img src={car.image[2]} alt="" />
+              <img src={car.image[2]} alt=""/>
               <h2>
                 {car.make} {car.model}
                 <p style={{ float: "right" }}>
