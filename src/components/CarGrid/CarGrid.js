@@ -3,8 +3,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useEffect, useState } from "react";
 import {

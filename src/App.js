@@ -25,10 +25,7 @@ import NewCars from "./pages/NewCars";
 import Sell from "./pages/Sell";
 import UsedCars from "./pages/UsedCars";
 import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
-import { doc, getDoc } from "firebase/firestore";
-import UserProfile from "./components/UserProfile/UserProfile";
-import { Box } from "@mui/material";
-import ScrollToTopButton from "./components/CustomComponents/ScrollToTopButton";
+
 import UserInformation from "./components/UserInformation/UserInformation";
 import UserFavorites from "./components/UserFavorites/UserFavorites";
 import UserAnnouncement from "./components/UserAnnouncement/UserAnnouncement";
