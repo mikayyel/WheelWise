@@ -134,7 +134,7 @@ const FilterCars = ({ onFilterChange }) => {
       );
     });
 
-    onFilterChange(filtered);
+    if (cars.length) onFilterChange(filtered);
   }, [
     cars,
     fromYear,

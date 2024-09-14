@@ -15,7 +15,7 @@ function UsedCars() {
 
   const handleFilterChange = useCallback((filtered) => {
     setFilteredUsedCars(filtered.filter((car) => car.owners > 1));
-  }, []);
+  }, [setFilteredUsedCars]);
   return (
     <Box sx={{ pt: 15 }}>
       <Container maxWidth="xl">
