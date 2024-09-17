@@ -62,7 +62,8 @@ const CarGrid = ({ cars, searchTerm }) => {
                 {car.make} {car.model}
                 <p style={{ float: "right" }}>
                   <FavoriteBorderIcon
-                    onClick={() => {
+                    onClick={(event) => {
+                      event.stopPropagation();
                       console.log("Car object:", car);
                       console.log("loggdeInUser:", user);
                       handleAddToFavorites(car);

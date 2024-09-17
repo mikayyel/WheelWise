@@ -19,6 +19,7 @@ export default function SinglePageFeature({car}) {
 					car.features.map(feature => {
 						return (
 							<Chip 
+								key={feature}
 								color='info' 
 								label={feature} 
 								icon={<CheckBoxSharpIcon />}
