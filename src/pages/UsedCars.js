@@ -3,11 +3,16 @@ import FilterCars from "../components/FilterCars/FilterCars";
 import SearchCars from "../components/SearchCars/SearchCars";
 import CarGrid from "../components/CarGrid/CarGrid";
 import { useCallback, useState } from "react";
+import PaginationControl from "../components/Pagination/Pagination";
 
 function UsedCars() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredUsedCars, setFilteredUsedCars] = useState([]);
   const [openFilter, setOpenFilter] = useState(false);
+
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 10;
+
 
   const handleSearch = (value) => {
     setSearchTerm(value);
@@ -15,7 +20,14 @@ function UsedCars() {
 
   const handleFilterChange = useCallback((filtered) => {
     setFilteredUsedCars(filtered.filter((car) => car.owners > 1));
+    setPage(1)
   }, [setFilteredUsedCars]);
+
+  const paginatedCars = filteredUsedCars.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
+
   return (
     <Box sx={{ pt: 15 }}>
       <Container maxWidth="xl">
@@ -52,8 +64,17 @@ function UsedCars() {
                 />
               </Grid>
               <Grid item sx={{ justifyContent: "center" }}>
-                <CarGrid cars={filteredUsedCars} searchTerm={searchTerm} />
+                <CarGrid cars={paginatedCars} searchTerm={searchTerm} />
               </Grid>
+              <Grid item>
+                <PaginationControl
+                  page={page}
+                  setPage={setPage}
+                  totalCars={filteredUsedCars.length}
+                  itemsPerPage={itemsPerPage}
+                />
+              </Grid>
+
             </Grid>
           </Grid>
         </Grid>

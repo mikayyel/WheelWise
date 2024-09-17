@@ -2,6 +2,7 @@ import { Box, Container, Drawer, Grid } from "@mui/material";
 import FilterCars from "../components/FilterCars/FilterCars";
 import SearchCars from "../components/SearchCars/SearchCars";
 import CarGrid from "../components/CarGrid/CarGrid";
+import PaginationControl from "../components/Pagination/Pagination";
 import { useCallback, useState } from "react";
 
 function NewCars() {
@@ -9,13 +10,22 @@ function NewCars() {
   const [filteredNewCars, setFilteredNewCars] = useState([]);
   const [openFilter, setOpenFilter] = useState(false);
 
+  const [page, setPage] = useState(1)
+  const itemsPerPage = 10;
+
   const handleSearch = (value) => {
     setSearchTerm(value);
   };
 
   const handleFilterChange = useCallback((filtered) => {
     setFilteredNewCars(filtered.filter((car) => car.owners < 2));
+    setPage(1)
   }, [setFilteredNewCars])
+
+  const paginatedCars = filteredNewCars.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
 
   return (
     <Box sx={{ pt: 15 }}>
@@ -50,7 +60,15 @@ function NewCars() {
                 />
               </Grid>
               <Grid item sx={{ justifyContent: "center" }}>
-                <CarGrid cars={filteredNewCars} searchTerm={searchTerm} />
+                <CarGrid cars={paginatedCars} searchTerm={searchTerm} />
+              </Grid>
+              <Grid item>
+                <PaginationControl
+                  page={page}
+                  setPage={setPage}
+                  totalCars={filteredNewCars.length}
+                  itemsPerPage={itemsPerPage}
+                />
               </Grid>
             </Grid>
           </Grid>

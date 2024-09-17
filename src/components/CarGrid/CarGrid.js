@@ -23,7 +23,6 @@ import {
   updateLoggedInUserFavorites,
 } from "../../redux/authSlice";
 import "./css/carGrid.css";
-import PaginationControl from "../Pagination/Pagination";
 import "./css/carGrid.css";
 
 const CarGrid = ({ cars, searchTerm }) => {
@@ -91,7 +90,7 @@ const CarGrid = ({ cars, searchTerm }) => {
                 {car.make} {car.model}
                 <p style={{ float: "right" }}>
                   {user &&
-                  user.favorites.some((favCar) => favCar.id === car.id) ? (
+                    user.favorites.some((favCar) => favCar.id === car.id) ? (
                     <FavoriteIcon
                       onClick={() => handleDeleteFromFavorites(car)}
                       sx={{ color: "#ff0000", cursor: "pointer" }}
@@ -131,7 +130,6 @@ const CarGrid = ({ cars, searchTerm }) => {
           </Typography>
         )}
       </div>
-      <PaginationControl />
     </div>
   );
 };
