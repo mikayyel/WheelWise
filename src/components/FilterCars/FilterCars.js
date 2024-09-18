@@ -93,6 +93,7 @@ const FilterCars = ({ onFilterChange }) => {
   useEffect(() => {
     async function getCars() {
       try {
+        console.log(123);
         const carsCol = collection(db, "cars");
         const carSnapshot = await getDocs(carsCol);
         setCars(
@@ -106,6 +107,9 @@ const FilterCars = ({ onFilterChange }) => {
       }
     }
     getCars();
+    return () => {
+      console.log("FilterCar ummounted");
+    };
   }, []);
 
   useEffect(() => {
