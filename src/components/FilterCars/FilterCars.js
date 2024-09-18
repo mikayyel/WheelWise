@@ -141,7 +141,7 @@ const FilterCars = ({ onFilterChange }) => {
           ...doc.data(),
         }));
 
-        if (cars.length) onFilterChange(carsList);
+        if (carsList.length) onFilterChange(carsList);
       } catch (error) {
         console.error("Error fetching cars: ", error.message);
       }
