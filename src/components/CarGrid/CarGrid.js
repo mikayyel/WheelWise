@@ -1,11 +1,10 @@
+import { useEffect, useState, useCallback } from "react";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
-
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { React, useCallback, useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import {
   arrayRemove,
@@ -15,7 +14,6 @@ import {
   onSnapshot,
   updateDoc,
 } from "firebase/firestore";
-
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "use-debounce";
@@ -25,13 +23,12 @@ import {
   updateLoggedInUserFavorites,
 } from "../../redux/authSlice";
 import { setCurrentCar } from "../../redux/carSlice";
-import PaginationControl from "../Pagination/Pagination";
 import "./css/carGrid.css";
 
 const CarGrid = ({ cars, searchTerm }) => {
   console.log("carGrid");
   const [searchFilteredCars, setSearchFilteredCars] = useState([]);
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authSlice.loggedInUser);
   const currentCar = useSelector((state) => state.currentCar.currentCar);
@@ -182,7 +179,6 @@ const CarGrid = ({ cars, searchTerm }) => {
           </Typography>
         )}
       </div>
-      <PaginationControl />
     </div>
   );
 };

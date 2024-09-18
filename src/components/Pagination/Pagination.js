@@ -1,21 +1,28 @@
-import { useState } from "react";
 import { Pagination, PaginationItem, Stack } from "@mui/material";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const itemsPerPage = 10;
+const PaginationControl = ({ page, setPage, totalCars, itemsPerPage }) => {
+  const totalPages = Math.ceil(totalCars / itemsPerPage);
+  const navigate = useNavigate()
 
-const PaginationControl = ({ cars }) => {
-  // const [page, setPage] = useState(1);
-  // const totalPages = Math.ceil(cars.length / itemsPerPage);
+  const handlePageChange = (event, value) => {
+    setPage(value);
+    navigate(`${value}`)
+  };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page])
 
   return (
     <Stack spacing={2} sx={{ alignItems: "center", p: 4 }}>
       <Pagination
-        // onChange={(event, value) => setPage(value)}
-        // count={totalPages}
-        // page={page}
+        onChange={handlePageChange}
+        count={totalPages}
+        page={page}
         renderItem={(item) => (
           <PaginationItem
             sx={{
@@ -35,9 +42,9 @@ const PaginationControl = ({ cars }) => {
                 backgroundColor: "#005B9A",
               },
             }}
-            slots={{
+            components={{
               previous: KeyboardArrowLeftIcon,
-              next: KeyboardArrowRightIcon,
+              next: KeyboardArrowRightIcon
             }}
             {...item}
           />
@@ -48,24 +55,3 @@ const PaginationControl = ({ cars }) => {
 };
 
 export default PaginationControl;
-
-// import { Container, Grid } from "@mui/material";
-// import CarGrid from './CarGrid'; // Assuming this component displays your list of cars
-
-
-// const PaginatedCars = ({ cars }) => {
-//   // Get cars for the current page
-//   const currentCars = cars.slice(
-//     (page - 1) * itemsPerPage, // Starting index
-//     page * itemsPerPage // Ending index
-//   );
-
-//   return (
-//     <Container>
-//       {/* Car Grid */}
-//       <Grid container spacing={2}>
-//         <CarGrid cars={currentCars} />
-//       </Grid>
-//     </Container>
-//   );
-// };
