@@ -6,6 +6,12 @@
   background: rgba(7, 22, 32, 1);
 }
 
+@media screen and (max-width: 900px) {
+  .filter-field {
+    margin-bottom: 0px;
+  }
+}
+
 .filter {
   height: 48px;
   margin: 16px;
@@ -14,7 +20,7 @@
   opacity: 0px;
 }
 
-.filter > p {
+.filter>p {
   width: 47px;
   height: 24px;
   margin-left: 14px;
