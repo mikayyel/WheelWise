@@ -6,6 +6,7 @@ import PaginationControl from "../components/Pagination/Pagination";
 import { useCallback, useState } from "react";
 
 function NewCars() {
+  console.log("newCars");
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredNewCars, setFilteredNewCars] = useState([]);
   const [openFilter, setOpenFilter] = useState(false);

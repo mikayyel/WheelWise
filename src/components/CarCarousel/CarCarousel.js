@@ -7,7 +7,6 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import "./css/carCarousel.css";
 
 const responsive = {
@@ -70,9 +69,7 @@ const CarCarousel = () => {
           </div>
           <h2>
             {car.make} {car.model}
-            <p style={{ float: "right" }}>
-              <FavoriteBorderIcon />
-            </p>
+            <p style={{ float: "right" }}></p>
           </h2>
           <p style={{ color: "rgba(0, 124, 199, 1)", fontSize: "1.5rem" }}>
             ${car.price}

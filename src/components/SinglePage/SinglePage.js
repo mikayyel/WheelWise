@@ -1,4 +1,7 @@
 import { Container, Grid } from '@mui/material';
+import { useSelector } from 'react-redux';
+import Map from '../Map/Map';
+import SendMessage from '../SendMessage/SendMessage';
 import SinglePageCarousel from './SinglePageCarousel/SinglePageCarousel';
 import SinglePageDescription from './SinglePageDescription/SinglePageDescription';
 import SinglePageFeature from './SinglePageFeature/SinglePageFeature';
@@ -7,54 +10,48 @@ import SinglePagePriceButton from './SinglePagePriceButton/SinglePagePriceButton
 import SinglePageSidebar from './SinglePageSidebar/SinglePageSidebar';
 
 function SinglePage() {
-	// const [car, setCar] = useState();
+	const currentCarId = useSelector((state) => state.currentCar.currentCar.id);
+	const currentCar = useSelector((state) => state.currentCar.currentCar);
+
+	console.log(currentCarId)
 
 	// useEffect(() => {
-	// 	getCar().then(data => setCar(data));
-	// }, [])
-	const car = {
-		make: "BMW",
-		mileage: 14000,
-		model: "X5",
-		owners: 2,
-		price: 55000,
-		transmission: "Automatic",
-		year: 2021,
-		fuelType: "Diesel",
-		horsepower: 335,
-		id: "A4kZv3QZATaMQUPpEQN6",
-		color: "Black",
-		engine: "3.0L 6-cylinder",
-		features: ['Heated Seats', 'Wireless Charging', 'Gesture Control'],
-		images: [
-			"https://avatars.mds.yandex.net/get-verba/1540742/2a0000018896b6a62f74031be3bed4b6984d/cattouchret", 
-			"https://avatars.mds.yandex.net/get-verba/216201/2a0000018896cc0c9bfe671798fea034ba16/cattouchret", 
-			"https://avatars.mds.yandex.net/get-verba/937147/2a0000018896cc14a3c8230153f58ba3e96b/cattouchret", 
-			"https://avatars.mds.yandex.net/get-verba/216201/2a0000018896cc2ba341c020aecf67799f65/cattouchret", 
-			"https://avatars.mds.yandex.net/get-verba/216201/2a0000018896cc3d99da6e698cdf257452c7/cattouchret", 
-			"https://avatars.mds.yandex.net/get-verba/787013/2a0000018896cc4cfdd67ebe91be3a77146d/cattouchret", 
-			"https://avatars.mds.yandex.net/get-verba/216201/2a0000018896cc9a1b94275cf3d6f990b62b/cattouchret", 
-			"https://avatars.mds.yandex.net/get-verba/216201/2a0000018896ccba5a56b3f23b04730ff375/cattouchret"
-		]
-	}
+	// 	const fetchCar = async () => {
+	// 		try {
+	// 			const carsCol = collection(db, "cars");
+  //     	const carSnapshot = await getDocs(carsCol);
+	// 			carSnapshot.docs.map(doc => {
+	// 				if(doc.data().id === currentCarId){
+	// 					setCurrentCar(doc.data());
+	// 				}
+	// 			});
+	// 			console.log(currentCar)
+	// 		} catch(error) {
+	// 			console.log(error.message);
+	// 		}
+	// 	}
 
+	// 	fetchCar()
+	// }, [])
 
 	return (
 		<>
 			<Container>
-				<SinglePageHeader car={car}/>
+				<SinglePageHeader currentCar={currentCar}/>
 			</Container>
-			<SinglePageCarousel car={car}/>
+			<SinglePageCarousel currentCar={currentCar}/>
 
 			<Container>
 				<Grid container>			
 					<Grid item md={8}>
 						<SinglePageDescription/>
-						<SinglePageFeature car={car}/>
+						<SinglePageFeature currentCar={currentCar}/>
+						<SendMessage title={'Contact'}/>
+						<Map maxWidth={'600px'} title={'Location'} marginTop={'20px'}/>
 					</Grid>
 					<Grid item md={4}>
-						<SinglePagePriceButton car={car}/>
-						<SinglePageSidebar car={car}/>
+						<SinglePagePriceButton currentCar={currentCar}/>
+						<SinglePageSidebar currentCar={currentCar}/>
 					</Grid>
 				</Grid>
 			</Container>
@@ -63,3 +60,6 @@ function SinglePage() {
 }
 
 export default SinglePage;
+
+
+

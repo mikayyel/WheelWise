@@ -4,9 +4,9 @@ import Map from "../components/Map/Map";
 import SendMessage from "../components/SendMessage/SendMessage";
 import Rectangle from "../img/Rectangle108.png";
 
-function Contact() {
+function Contact({maxWidth}) {
   return (
-    <Box sx={{ py: 15 }}>
+    <Box sx={{ py: 15 }} maxWidth={maxWidth}>
       <Box
         sx={{
           py: "50px",

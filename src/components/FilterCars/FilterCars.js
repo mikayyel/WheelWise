@@ -13,17 +13,15 @@ import {
   mileage,
   fuelType,
   transmission,
-  make,
   horsepower,
   engine,
 } from "./helper";
 import { useEffect, useState } from "react";
 import "./css/filterCars.css";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, orderBy } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 
 const FilterCars = ({ onFilterChange }) => {
-  const [cars, setCars] = useState([]);
   const [fromYear, setFromYear] = useState("");
   const [toYear, setToYear] = useState("");
   const [fromMileage, setFromMileage] = useState("");
@@ -37,6 +35,7 @@ const FilterCars = ({ onFilterChange }) => {
   const [selectedTransmission, setSelectedTransmission] = useState("");
   const [selectedFuelType, setSelectedFuelType] = useState("");
   const [priceRange, setPriceRange] = useState([prices.MIN, prices.MAX]);
+  const [brands, setBrands] = useState([]);
 
   const handleFromChangeYear = (event) => {
     setFromYear(event.target.value);
@@ -45,9 +44,7 @@ const FilterCars = ({ onFilterChange }) => {
     }
   };
 
-  const handleToChangeYear = (event) => {
-    setToYear(event.target.value);
-  };
+  const handleToChangeYear = (event) => setToYear(event.target.value);
 
   const handleFromChangeMileage = (event) => {
     setFromMileage(event.target.value);
@@ -56,9 +53,7 @@ const FilterCars = ({ onFilterChange }) => {
     }
   };
 
-  const handleToChangeMileAge = (event) => {
-    setToMileage(event.target.value);
-  };
+  const handleToChangeMileage = (event) => setToMileage(event.target.value);
 
   const handleFromChangeHorsePower = (event) => {
     setFromHorsePower(event.target.value);
@@ -67,9 +62,8 @@ const FilterCars = ({ onFilterChange }) => {
     }
   };
 
-  const handleToChangeHorsePower = (event) => {
+  const handleToChangeHorsePower = (event) =>
     setToHorsePower(event.target.value);
-  };
 
   const handleFromChangeEngine = (event) => {
     setFromEngine(event.target.value);
@@ -78,12 +72,15 @@ const FilterCars = ({ onFilterChange }) => {
     }
   };
 
-  const handleToChangeEngine = (event) => {
-    setToEngine(event.target.value);
-  };
+  const handleToChangeEngine = (event) => setToEngine(event.target.value);
 
-  const handleBrandChange = (event) => setSelectedBrand(event.target.value);
-  const handleModelChange = (event) => setSelectedModel(event.target.value);
+  const handleBrandChange = (event) => {
+    setSelectedBrand(event.target.value);
+    setSelectedModel("");
+  };
+  const handleModelChange = (event) => {
+    setSelectedModel(event.target.value);
+  };
   const handleTransmissionChange = (event) =>
     setSelectedTransmission(event.target.value);
   const handleFuelTypeChange = (event) =>
@@ -91,52 +88,66 @@ const FilterCars = ({ onFilterChange }) => {
   const handlePriceChange = (event, newValue) => setPriceRange(newValue);
 
   useEffect(() => {
-    async function getCars() {
+    const getBrands = async () => {
       try {
-        const carsCol = collection(db, "cars");
-        const carSnapshot = await getDocs(carsCol);
-        setCars(
-          carSnapshot.docs.map((car) => ({
-            id: car.id,
-            ...car.data(),
-          }))
-        );
+        const brandsCol = collection(db, "brands");
+        const q = query(brandsCol, orderBy("make"));
+        const brandSnapshot = await getDocs(q);
+        const brandList = brandSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setBrands(brandList);
       } catch (error) {
-        console.log(error.message);
+        console.error("Error fetching brands: ", error.message);
       }
-    }
-    getCars();
+    };
+    getBrands();
   }, []);
 
   useEffect(() => {
-    const filtered = cars.filter((car) => {
-      const year = Number(car.year);
-      const mileage = Number(car.mileage);
-      const horsepower = Number(car.horsepower);
-      const engine = Number.parseFloat(car.engine);
-      const price = Number(car.price);
+    const fetchFilteredCars = async () => {
+      const carsCol = collection(db, "cars");
+      let q = query(carsCol);
 
-      return (
-        (!fromYear || year >= Number(fromYear)) &&
-        (!toYear || year <= Number(toYear)) &&
-        (!selectedBrand || car.make === selectedBrand) &&
-        (!selectedModel || car.model === selectedModel) &&
-        (!fromMileage || mileage >= Number(fromMileage)) &&
-        (!toMileage || mileage <= Number(toMileage)) &&
-        (!fromEngine || engine >= Number.parseFloat(fromEngine)) &&
-        (!toEngine || engine <= Number.parseFloat(toEngine)) &&
-        (!selectedTransmission || car.transmission === selectedTransmission) &&
-        (!selectedFuelType || car.fuelType === selectedFuelType) &&
-        (!fromHorsePower || horsepower >= Number(fromHorsePower)) &&
-        (!toHorsePower || horsepower <= Number(toHorsePower)) &&
-        price >= priceRange[0] &&
-        price <= priceRange[1]
+      if (fromYear) q = query(q, where("year", ">=", Number(fromYear)));
+      if (toYear) q = query(q, where("year", "<=", Number(toYear)));
+      if (selectedBrand) q = query(q, where("make", "==", selectedBrand));
+      if (selectedModel) q = query(q, where("model", "==", selectedModel));
+      if (fromMileage)
+        q = query(q, where("mileage", ">=", Number(fromMileage)));
+      if (toMileage) q = query(q, where("mileage", "<=", Number(toMileage)));
+      if (fromEngine) q = query(q, where("engine", ">=", fromEngine));
+      if (toEngine) q = query(q, where("engine", "<=", toEngine));
+      if (selectedTransmission)
+        q = query(q, where("transmission", "==", selectedTransmission));
+      if (selectedFuelType)
+        q = query(q, where("fuelType", "==", selectedFuelType));
+      if (fromHorsePower)
+        q = query(q, where("horsepower", ">=", Number(fromHorsePower)));
+      if (toHorsePower)
+        q = query(q, where("horsepower", "<=", Number(toHorsePower)));
+      q = query(
+        q,
+        where("price", ">=", priceRange[0]),
+        where("price", "<=", priceRange[1])
       );
-    });
 
-    if (cars.length) onFilterChange(filtered);
+      try {
+        const querySnapshot = await getDocs(q);
+        const carsList = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        if (cars.length) onFilterChange(carsList);
+      } catch (error) {
+        console.error("Error fetching cars: ", error.message);
+      }
+    };
+    fetchFilteredCars();
   }, [
-    cars,
     fromYear,
     toYear,
     selectedBrand,
@@ -171,21 +182,21 @@ const FilterCars = ({ onFilterChange }) => {
           <FormControl fullWidth>
             <InputLabel
               sx={{ color: "rgba(255, 255, 255, 1)" }}
-              id="demo-simple-select-label"
+              id="brand-select-label"
             >
               Brand
             </InputLabel>
             <Select
               sx={{ color: "#ddd" }}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="brand-select-label"
+              id="brand-select"
               label="Brand"
               value={selectedBrand}
               onChange={handleBrandChange}
             >
-              {make.map((car, i) => (
-                <MenuItem key={i} value={car}>
-                  {car}
+              {brands.map((car, i) => (
+                <MenuItem key={i} value={car.make}>
+                  {car.make}
                 </MenuItem>
               ))}
             </Select>
@@ -199,25 +210,27 @@ const FilterCars = ({ onFilterChange }) => {
             <FormControl fullWidth>
               <InputLabel
                 sx={{ color: "rgba(255, 255, 255, 1)" }}
-                id="demo-simple-select-label"
+                id="model-select-label"
               >
                 Model
               </InputLabel>
               <Select
                 sx={{ color: "#ddd" }}
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                labelId="model-select-label"
+                id="model-select"
                 label="Model"
                 value={selectedModel}
                 onChange={handleModelChange}
               >
-                {cars
+                {brands
                   .filter((car) => car.make === selectedBrand)
-                  .map((car) => (
-                    <MenuItem key={car.id} value={car.model}>
-                      {car.model}
-                    </MenuItem>
-                  ))}
+                  .flatMap((car) =>
+                    car.models.map((model, i) => (
+                      <MenuItem key={i} value={model}>
+                        {model}
+                      </MenuItem>
+                    ))
+                  )}
               </Select>
             </FormControl>
           </Box>
@@ -317,7 +330,7 @@ const FilterCars = ({ onFilterChange }) => {
             <Select
               style={{ color: "#ddd" }}
               value={toMileage}
-              onChange={handleToChangeMileAge}
+              onChange={handleToChangeMileage}
               label="Mileage to"
               disabled={!fromMileage}
             >

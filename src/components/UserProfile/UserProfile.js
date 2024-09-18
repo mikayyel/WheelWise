@@ -30,6 +30,13 @@ function UserProfile() {
       default:
         setValue(0);
     }
+    if (location.pathname === "/profile/information") {
+      setValue(0);
+    } else if (location.pathname === "/profile/favorites") {
+      setValue(1);
+    } else if (location.pathname === "/profile/announcements") {
+      setValue(2);
+    }
   }, [location.pathname]);
 
   const handleChange = (event, newValue) => {
