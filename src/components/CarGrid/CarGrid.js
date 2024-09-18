@@ -6,6 +6,7 @@ import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { React, useCallback, useEffect, useState } from "react";
+import { Typography } from "@mui/material";
 import {
   arrayRemove,
   arrayUnion,
@@ -14,16 +15,16 @@ import {
   onSnapshot,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
-import "./css/carGrid.css";
-import { useDebounce } from "use-debounce";
-import { Typography } from "@mui/material";
+
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDebounce } from "use-debounce";
+import { db } from "../../firebase/firebase";
 import {
   deleteFromLoggedInUserFavorites,
   updateLoggedInUserFavorites,
 } from "../../redux/authSlice";
-import "./css/carGrid.css";
+import { setCurrentCar } from "../../redux/carSlice";
 import PaginationControl from "../Pagination/Pagination";
 import "./css/carGrid.css";
 
@@ -33,6 +34,8 @@ const CarGrid = ({ cars, searchTerm }) => {
   const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authSlice.loggedInUser);
+  const currentCar = useSelector((state) => state.currentCar.currentCar);
+  const navigate = useNavigate();
 
   const [favorites, setFavorites] = useState([]);
 
@@ -120,8 +123,16 @@ const CarGrid = ({ cars, searchTerm }) => {
       <div className="car-grid">
         {searchFilteredCars.length > 0 ? (
           searchFilteredCars.map((car) => (
-            <div key={car.id} className="car-card">
-              <img src={car.image?.[2]} alt="" />
+            <div
+              key={car.id}
+              className="car-card"
+              onClick={() => {
+                dispatch(setCurrentCar(car));
+                console.log(currentCar);
+                navigate(`/currentCar/${currentCar.id}`);
+              }}
+            >
+              <img src={car.image[2]} alt="" />
               <h2>
                 {car.make} {car.model}
                 <p style={{ float: "right" }}>

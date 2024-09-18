@@ -1,9 +1,9 @@
 import { Typography } from '@mui/material';
 
-export default function SinglePageHeader({car}) {
+export default function SinglePageHeader({currentCar}) {
 	return (
 			<Typography variant='h2' color={'white'} marginTop={10}>
-				{car.make} {car.model}
+				{currentCar.make} {currentCar.model}
 			</Typography>
 	)
 }

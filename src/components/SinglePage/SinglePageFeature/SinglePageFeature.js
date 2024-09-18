@@ -1,7 +1,7 @@
 import CheckBoxSharpIcon from '@mui/icons-material/CheckBoxSharp';
 import { Chip, Stack, Typography } from '@mui/material';
 
-export default function SinglePageFeature({car}) {
+export default function SinglePageFeature({currentCar}) {
 	return (
 		<>
 			<Typography variant='h4' color={'white'} sx={{marginBottom: '10px'}}>
@@ -16,9 +16,10 @@ export default function SinglePageFeature({car}) {
 				}}
 			>
 				{
-					car.features.map(feature => {
+					currentCar.features.map(feature => {
 						return (
 							<Chip 
+								key={feature}
 								color='info' 
 								label={feature} 
 								icon={<CheckBoxSharpIcon />}

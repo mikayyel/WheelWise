@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 
-export default function SinglePagePriceButton({car}) {
+export default function SinglePagePriceButton({currentCar}) {
 	return (
 		<Button 
 			variant='outlined' 
@@ -13,7 +13,7 @@ export default function SinglePagePriceButton({car}) {
 				marginBottom: '100px'
 			}}
 		>
-			{`$${car.price}`}
+			{`$${currentCar.price}`}
 		</Button>
 	)
 }
