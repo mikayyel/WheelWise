@@ -2,7 +2,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './style.css';
 
-export default function SinglePageCarousel({car}) {
+export default function SinglePageCarousel({currentCar}) {
 	const responsive = {
 		desktop: {
 			breakpoint: { max: 3000, min: 1024 },
@@ -35,15 +35,10 @@ export default function SinglePageCarousel({car}) {
 			dotListClass="custom-dot-list-style"
 			itemClass="carousel-item-padding-40-px"
 		>
-			{/* <img src={car.images[0]} alt='img' className='img'/>
-			<img src={car.images[1]} alt='img' className='img'/>
-			<img src={car.images[2]} alt='img' className='img'/>
-			<img src={car.images[3]} alt='img' className='img'/>
-			<img src={car.images[4]} alt='img' className='img'/> */}
 			{
-				car.images.map(image => {
+				currentCar.image.map(image => {
 					return (
-						<img src={image} alt='img' className='img'/>
+						<img src={image} alt='img' className='img' key={image}/>
 					)
 				})
 			}

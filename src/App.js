@@ -26,13 +26,25 @@ import Sell from "./pages/Sell";
 import UsedCars from "./pages/UsedCars";
 import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
 
-import UserInformation from "./components/UserInformation/UserInformation";
-import UserFavorites from "./components/UserFavorites/UserFavorites";
 import UserAnnouncement from "./components/UserAnnouncement/UserAnnouncement";
+import UserFavorites from "./components/UserFavorites/UserFavorites";
+import UserInformation from "./components/UserInformation/UserInformation";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
+  console.log("1119999999", !!loggedInUser);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("App mounted");
+    return () => {
+      console.log("App unmounted");
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log(!!loggedInUser, "loggedInUser changed");
+  }, [loggedInUser]);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -91,6 +103,7 @@ function App() {
               <Route path="/sell" element={<Sell />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
+              <Route path='/currentCar/:id' element={<SinglePage />}></Route>
               <Route path="/profile" element={<UserProfile />}>
                 <Route path="information" element={<UserInformation />}></Route>
                 <Route path="favorites" element={<UserFavorites />}></Route>
@@ -111,7 +124,7 @@ function App() {
               <Route path="/sell" element={<Sell />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
-              <Route path="/singlePage" element={<SinglePage />}></Route>
+              <Route path='/currentCar/:id' element={<SinglePage />}></Route>
             </>
           )}
         </Route>
