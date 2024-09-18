@@ -12,7 +12,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { auth, db } from "../../firebase/firebase";
 import imageSrc from "../../img/bgsignin.png";
@@ -31,7 +30,7 @@ export default function SignUp() {
       password: "",
     },
   });
-  const dispatch = useDispatch();
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const onSignUp = async (data) => {
