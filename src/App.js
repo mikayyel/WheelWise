@@ -87,6 +87,7 @@ function App() {
               <Route path="/sell" element={<Sell />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
+              <Route path='/currentCar/:id' element={<SinglePage />}></Route>
               <Route path="/profile" element={<UserProfile />}>
                 <Route path="information"></Route>
                 <Route path="favorites"></Route>
@@ -104,7 +105,7 @@ function App() {
               <Route path="/sell" element={<Sell />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
-              <Route path='/singlePage' element={<SinglePage />}></Route>
+              <Route path='/currentCar/:id' element={<SinglePage />}></Route>
             </>
           )}
         </Route>

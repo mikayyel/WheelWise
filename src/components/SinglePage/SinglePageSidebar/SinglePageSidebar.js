@@ -1,6 +1,6 @@
 import { Divider, List, ListItem, ListItemText, Typography } from '@mui/material';
 
-export default function SinglePageSidebar({car}) {
+export default function SinglePageSidebar({currentCar}) {
 	return (
 		<List 
 			sx={{
@@ -17,19 +17,19 @@ export default function SinglePageSidebar({car}) {
 			</ListItem>
 			<ListItem>
 				<ListItemText primary='Brand' sx={{color: '#A9A9A9'}}/>
-				<Typography variant='body1'>{car.make}</Typography>
+				<Typography variant='body1'>{currentCar.make}</Typography>
 			</ListItem>
 			<ListItem>
 				<ListItemText primary='Model' sx={{color: '#A9A9A9'}}/>
-				<Typography variant='body1'>{car.model}</Typography>
+				<Typography variant='body1'>{currentCar.model}</Typography>
 			</ListItem>
 			<ListItem>
 				<ListItemText primary='Year' sx={{color: '#A9A9A9'}}/>
-				<Typography variant='body1'>{car.year}</Typography>
+				<Typography variant='body1'>{currentCar.year}</Typography>
 			</ListItem>
 			<ListItem>
 				<ListItemText primary='Exterior Color' sx={{color: '#A9A9A9'}}/>
-				<Typography variant='body1'>{car.color}</Typography>
+				<Typography variant='body1'>{currentCar.color}</Typography>
 			</ListItem>
 			<Divider variant="middle" component="li" sx={{borderColor: 'white'}}/>
 			<ListItem>
@@ -37,19 +37,19 @@ export default function SinglePageSidebar({car}) {
 			</ListItem>
 			<ListItem>
 				<ListItemText primary='Fuel Type' sx={{color: '#A9A9A9'}}/>
-				<Typography variant='body1'>{car.fuelType}</Typography>
+				<Typography variant='body1'>{currentCar.fuelType}</Typography>
 			</ListItem>
 			<ListItem>
 				<ListItemText primary='Milage' sx={{color: '#A9A9A9'}}/>
-				<Typography variant='body1'>{`${car.mileage} km`}</Typography>
+				<Typography variant='body1'>{`${currentCar.mileage} km`}</Typography>
 			</ListItem>
 			<ListItem>
 				<ListItemText primary='Transmission' sx={{color: '#A9A9A9'}}/>
-				<Typography variant='body1'>{car.transmission}</Typography>
+				<Typography variant='body1'>{currentCar.transmission}</Typography>
 			</ListItem>
 			<ListItem>
 				<ListItemText primary='Power' sx={{color: '#A9A9A9'}}/>
-				<Typography variant='body1'>{`${car.horsepower} hp`}</Typography>
+				<Typography variant='body1'>{`${currentCar.horsepower} hp`}</Typography>
 			</ListItem>
 
 		</List>

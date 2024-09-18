@@ -7,18 +7,22 @@ import { Typography } from "@mui/material";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import { useDebounce } from "use-debounce";
 import { db } from "../../firebase/firebase";
 import { updateLoggedInUserFavorites } from "../../redux/authSlice";
+import { setCurrentCar } from '../../redux/carSlice';
 import PaginationControl from "../Pagination/Pagination";
 import "./css/carGrid.css";
+
 
 const CarGrid = ({ cars, searchTerm }) => {
   const [searchFilteredCars, setSearchFilteredCars] = useState([]);
   const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
-  const [carId, setCarId] = useState();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authSlice.loggedInUser);
+  const currentCar = useSelector((state) => state.currentCar.currentCar);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (debouncedSearchTerm === "") {
@@ -56,7 +60,13 @@ const CarGrid = ({ cars, searchTerm }) => {
       <div className="car-grid">
         {searchFilteredCars.length > 0 ? (
           searchFilteredCars.map((car) => (
-            <div key={car.id} className="car-card">
+            <div key={car.id} className="car-card"
+              onClick={() => {
+                dispatch(setCurrentCar(car));
+                console.log(currentCar)
+                navigate(`/currentCar/${currentCar.id}`)
+              }} 
+            >
               <img src={car.image[2]} alt=""/>
               <h2>
                 {car.make} {car.model}
