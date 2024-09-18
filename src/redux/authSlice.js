@@ -4,6 +4,7 @@ export const authSlice = createSlice({
   name: "authSlice",
   initialState: {
     loggedInUser: null,
+    favorites: [],
   },
   reducers: {
     setLoggedInUser: (state, action) => {
@@ -24,17 +25,17 @@ export const authSlice = createSlice({
       );
     },
     updateLoggedInUserFavorites: (state, action) => {
-      const carExists = state.loggedInUser.favorites.some(
-        (carRef) => carRef.id === action.payload.id
+      const carExists = state.favorites.find(
+        (carDocRef) => carDocRef.id === action.payload.id
       );
       if (!carExists) {
-        state.loggedInUser.favorites.push(action.payload);
+        state.favorites.push(action.payload);
       }
     },
 
     deleteFromLoggedInUserFavorites: (state, action) => {
-      state.loggedInUser.favorites = state.loggedInUser.favorites.filter(
-        (carRef) => carRef.id !== action.payload.id
+      state.favorites = state.favorites.filter(
+        (carDocRef) => carDocRef.id !== action.payload.id
       );
     },
 
@@ -55,6 +56,6 @@ export const {
 } = authSlice.actions;
 export const selectLoggedInUser = (state) => state.authSlice.loggedInUser;
 export const selectLoggedInUserFavorites = (state) =>
-  state.authSlice.loggedInUser?.favorites || [];
+  state.authSlice.favorites || [];
 
 export default authSlice.reducer;

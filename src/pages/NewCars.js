@@ -5,6 +5,7 @@ import CarGrid from "../components/CarGrid/CarGrid";
 import { useCallback, useState } from "react";
 
 function NewCars() {
+  console.log("newCars");
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredNewCars, setFilteredNewCars] = useState([]);
   const [openFilter, setOpenFilter] = useState(false);
@@ -15,14 +16,14 @@ function NewCars() {
 
   const handleFilterChange = useCallback((filtered) => {
     setFilteredNewCars(filtered.filter((car) => car.owners < 2));
-  }, [])
+  }, []);
 
   return (
     <Box sx={{ pt: 15 }}>
       <Container maxWidth="xl">
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
-            {openFilter ? (
+            {openFilter && false ? (
               <Drawer
                 sx={{
                   flexShrink: 0,

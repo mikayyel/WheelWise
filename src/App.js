@@ -32,7 +32,19 @@ import UserAnnouncement from "./components/UserAnnouncement/UserAnnouncement";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
+  console.log("1119999999", !!loggedInUser);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("App mounted");
+    return () => {
+      console.log("App unmounted");
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log(!!loggedInUser, "loggedInUser changed");
+  }, [loggedInUser]);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
