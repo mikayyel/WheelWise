@@ -135,12 +135,12 @@ const CarGrid = ({ cars, searchTerm }) => {
                 <p style={{ float: "right" }}>
                   {user && favorites.some((favCar) => favCar.id === car.id) ? (
                     <FavoriteIcon
-                      onClick={() => handleDeleteFromFavorites(car)}
+                      onClick={(e) => { e.stopPropagation(); handleDeleteFromFavorites(car) }}
                       sx={{ color: "#ff0000", cursor: "pointer" }}
                     />
                   ) : (
                     <FavoriteBorderIcon
-                      onClick={() => handleAddToFavorites(car)}
+                      onClick={(e) => { e.stopPropagation(); handleAddToFavorites(car) }}
                       sx={{ cursor: "pointer" }}
                     />
                   )}

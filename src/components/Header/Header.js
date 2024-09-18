@@ -94,6 +94,7 @@ function Header() {
               sx={{
                 display: { xs: "block", md: "none" },
               }}
+              disableScrollLock={true}
             >
               {PAGES.map((page) => (
                 <MenuItem
@@ -183,6 +184,7 @@ function Header() {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
+              disableScrollLock={true}
             >
               <MenuItem
                 onClick={() => {

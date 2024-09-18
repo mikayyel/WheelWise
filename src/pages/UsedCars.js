@@ -33,28 +33,24 @@ function UsedCars() {
       <Container maxWidth="xl">
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
-            {openFilter ? (
-              <Drawer
-                sx={{
-                  flexShrink: 0,
-                  "& .MuiDrawer-paper": {
-                    width: { xs: "80%", sm: "60%", md: "80%" },
-                  },
-                }}
-                open={openFilter}
-                onClose={() => setOpenFilter(false)}
-              >
-                <Box role="presentation" onClick={() => setOpenFilter(false)}>
-                  <FilterCars onFilterChange={handleFilterChange} />
-                </Box>
-              </Drawer>
-            ) : (
-              <Box sx={{ display: { xs: "none", md: "block" } }}>
+            <Drawer
+              sx={{
+                display: { md: 'none' },
+                "& .MuiDrawer-paper": {
+                  width: { xs: "80%", sm: "60%", md: "80%" },
+                },
+              }}
+              open={openFilter}
+              onClose={() => setOpenFilter(false)}
+            >
+              <Box role="presentation" onClick={(e) => e.stopPropagation()}>
                 <FilterCars onFilterChange={handleFilterChange} />
               </Box>
-            )}
+            </Drawer>
+            <Box sx={{ display: { xs: "none", md: "block" } }}>
+              <FilterCars onFilterChange={handleFilterChange} />
+            </Box>
           </Grid>
-
           <Grid item xs={12} md={8}>
             <Grid container direction="column" spacing={4}>
               <Grid item>
