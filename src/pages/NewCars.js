@@ -15,7 +15,7 @@ function NewCars() {
 
   const handleFilterChange = useCallback((filtered) => {
     setFilteredNewCars(filtered.filter((car) => car.owners < 2));
-  }, [])
+  }, []);
 
   return (
     <Box sx={{ pt: 15 }}>

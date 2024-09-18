@@ -1,20 +1,12 @@
+import React, { useEffect, useState } from "react";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
-
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useEffect, useState } from "react";
-import {
-  arrayRemove,
-  arrayUnion,
-  doc,
-  getDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
-import "./css/carGrid.css";
 import { useDebounce } from "use-debounce";
 import { Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,13 +14,12 @@ import {
   deleteFromLoggedInUserFavorites,
   updateLoggedInUserFavorites,
 } from "../../redux/authSlice";
-import "./css/carGrid.css";
 import PaginationControl from "../Pagination/Pagination";
 import "./css/carGrid.css";
 
 const CarGrid = ({ cars, searchTerm }) => {
   const [searchFilteredCars, setSearchFilteredCars] = useState([]);
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 1000);
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authSlice.loggedInUser);
 
@@ -49,7 +40,6 @@ const CarGrid = ({ cars, searchTerm }) => {
     try {
       const userDocRef = doc(db, "users", user.uid);
       const carDocRef = doc(db, "cars", car.id);
-      console.log("carDocRef", carDocRef);
 
       await updateDoc(userDocRef, {
         favorites: arrayUnion(carDocRef),
@@ -66,16 +56,15 @@ const CarGrid = ({ cars, searchTerm }) => {
     try {
       const userDocRef = doc(db, "users", user.uid);
       const carDocRef = doc(db, "cars", car.id);
-      console.log("carDocRef", carDocRef);
 
       await updateDoc(userDocRef, {
         favorites: arrayRemove(carDocRef),
       });
       dispatch(deleteFromLoggedInUserFavorites(carDocRef));
 
-      console.log("Car added to favorites successfully!");
+      console.log("Car removed from favorites successfully!");
     } catch (error) {
-      console.error("Error adding car to favorites: ", error.message);
+      console.error("Error removing car from favorites: ", error.message);
     }
   };
 
@@ -85,7 +74,7 @@ const CarGrid = ({ cars, searchTerm }) => {
         {searchFilteredCars.length > 0 ? (
           searchFilteredCars.map((car) => (
             <div key={car.id} className="car-card">
-              <img src={car.image[2]} alt="" />
+              <img src={car.image[2]} alt={car.make + " " + car.model} />
               <h2>
                 {car.make} {car.model}
                 <p style={{ float: "right" }}>
