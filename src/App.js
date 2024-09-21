@@ -99,12 +99,8 @@ function App() {
                 element={<Navigate to="/" replace={true} />}
               ></Route>
               <Route path="/home" element={<Home />}></Route>
-              <Route path="/newcars" element={<NewCars />}>
-                <Route path=":crtPage" element={<NewCars />} />
-              </Route>
-              <Route path="/usedcars" element={<UsedCars />}>
-                <Route path=":crtPage" element={<UsedCars />} />
-              </Route>
+              <Route path="/newcars" element={<NewCars />}></Route>
+              <Route path="/usedcars" element={<UsedCars />}></Route>
               <Route path="/sell" element={<Sell />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
@@ -121,12 +117,8 @@ function App() {
               <Route path="/home" element={<Home />}></Route>
               <Route path="/signin" element={<SignIn />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
-              <Route path="/newcars" element={<NewCars />}>
-                <Route path=":crtPage" element={<NewCars />} />
-              </Route>
-              <Route path="/usedcars" element={<UsedCars />}>
-                <Route path=":crtPage" element={<UsedCars />} />
-              </Route>
+              <Route path="/newcars" element={<NewCars />}></Route>
+              <Route path="/usedcars" element={<UsedCars />}></Route>
               <Route path="/sell" element={<SignInModal />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
