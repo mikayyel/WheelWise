@@ -22,8 +22,9 @@ import {
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { inputStyle } from "../SignIn/constants/constants";
+import { VisuallyHiddenInput } from "./CustomComponents/VisuallyHiddenInput";
 
 function UserInformation() {
   const user = useSelector((state) => state.authSlice.loggedInUser);
@@ -143,6 +144,11 @@ function UserInformation() {
     );
   };
 
+  useEffect(() => {
+    handleUpload()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFile])
+
   return (
     <Container maxWidth="lg">
       <Grid container spacing={4} sx={{ mt: 4 }}>
@@ -161,22 +167,29 @@ function UserInformation() {
           {user.photoURL ? (
             <Avatar
               src={localUser.photoURL}
-              alt="User Photo"
-              sx={{ width: 100, height: 100, mt: 2 }}
+              alt={localUser.firstName}
+              sx={{ width: 200, height: 200, mt: 2 }}
             />
           ) : (
             <Typography variant="body1" sx={{ mt: 2 }}>
               No photo uploaded
             </Typography>
           )}
-          <input type="file" onChange={handleFileChange} />
           <Button
             variant="contained"
             color="primary"
-            onClick={handleUpload}
-            sx={{ mt: 2 }}
+            tabIndex={-1}
+            sx={{ mt: 4 }}
+            component="label"
+            role={undefined}
+            startIcon={<CloudUploadIcon />}
           >
             Upload Photo
+            <VisuallyHiddenInput
+              type="file"
+              onChange={handleFileChange}
+              multiple
+            />
           </Button>
         </Grid>
         <Grid item xs={12} md={6}>
