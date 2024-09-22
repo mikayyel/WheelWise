@@ -18,7 +18,9 @@ function ContactSection() {
           </Grid>
           <Grid item xs={12} md={6}>
             <Box>
-              <SendMessage title={'Contact'} />
+              <Container component="main" maxWidth="md">
+                <SendMessage title={'Contact'} />
+              </Container>
             </Box>
           </Grid>
         </Grid>

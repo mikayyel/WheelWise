@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -17,7 +16,7 @@ import { auth, db } from "../../firebase/firebase";
 import imageSrc from "../../img/bgsignin.png";
 import { inputStyle } from "../SignIn/constants/constants";
 
-export default function SignUp() {
+export default function SignUp({ boxHeight }) {
   const {
     control,
     handleSubmit,
@@ -69,7 +68,7 @@ export default function SignUp() {
     <Box
       sx={{
         background: `url(${imageSrc}) 0 50% / cover no-repeat`,
-        height: "100vh",
+        height: boxHeight ? boxHeight : "100vh",
         display: "flex",
         alignItems: "center",
       }}
@@ -222,11 +221,9 @@ export default function SignUp() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
-                  <NavLink style={{ color: "white" }} to="/signin">
-                    Already have an account? Sign in
-                  </NavLink>
-                </Link>
+                <NavLink style={{ color: "white" }} to="/signin">
+                  Already have an account? Sign in
+                </NavLink>
               </Grid>
             </Grid>
           </Box>

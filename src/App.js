@@ -29,6 +29,7 @@ import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
 import UserAnnouncement from "./components/UserAnnouncement/UserAnnouncement";
 import UserFavorites from "./components/UserFavorites/UserFavorites";
 import UserInformation from "./components/UserInformation/UserInformation";
+import SignInModal from "./components/SignInModal/SignInModal";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
@@ -122,7 +123,7 @@ function App() {
               <Route path="/signup" element={<SignUp />}></Route>
               <Route path="/newcars" element={<NewCars />}></Route>
               <Route path="/usedcars" element={<UsedCars />}></Route>
-              <Route path="/sell" element={<Sell />}></Route>
+              <Route path="/sell" element={<SignInModal />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
               <Route path="/newcars/:id" element={<SinglePage />}></Route>
