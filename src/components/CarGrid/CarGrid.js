@@ -15,14 +15,13 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 import { db } from "../../firebase/firebase";
 import {
   deleteFromLoggedInUserFavorites,
   updateLoggedInUserFavorites,
 } from "../../redux/authSlice";
-import { setCurrentCar } from "../../redux/carSlice";
 import "./css/carGrid.css";
 
 const CarGrid = ({ cars, searchTerm }) => {
@@ -31,9 +30,8 @@ const CarGrid = ({ cars, searchTerm }) => {
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authSlice.loggedInUser);
-  const currentCar = useSelector((state) => state.currentCar.currentCar);
   const navigate = useNavigate();
-
+  const location = useLocation();
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
@@ -51,7 +49,7 @@ const CarGrid = ({ cars, searchTerm }) => {
 
   const handleAddToFavorites = useCallback(
     async (car) => {
-      if (!user) return;
+      if (!user) navigate("/signin");
       console.log(car.id);
       try {
         const userDocRef = doc(db, "users", user.uid);
@@ -115,6 +113,13 @@ const CarGrid = ({ cars, searchTerm }) => {
     return () => unsubscribe();
   }, [user]);
 
+  const handleChooseCarClick = (carId) => {
+    const basePath = location.pathname.includes("newcars")
+      ? "/newcars"
+      : "/usedcars";
+    navigate(`${basePath}/${carId}`);
+  };
+
   return (
     <div className="car-list">
       <div className="car-grid">
@@ -123,11 +128,7 @@ const CarGrid = ({ cars, searchTerm }) => {
             <div
               key={car.id}
               className="car-card"
-              onClick={() => {
-                dispatch(setCurrentCar(car));
-                console.log(currentCar);
-                navigate(`/currentCar/${currentCar.id}`);
-              }}
+              onClick={() => handleChooseCarClick(car.id)}
             >
               <img src={car.image[2]} alt="" />
               <h2>

@@ -11,17 +11,20 @@ function NewCars() {
   const [filteredNewCars, setFilteredNewCars] = useState([]);
   const [openFilter, setOpenFilter] = useState(false);
 
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
   const itemsPerPage = 10;
 
   const handleSearch = (value) => {
     setSearchTerm(value);
   };
 
-  const handleFilterChange = useCallback((filtered) => {
-    setFilteredNewCars(filtered.filter((car) => car.owners < 2));
-    setPage(1)
-  }, [setFilteredNewCars])
+  const handleFilterChange = useCallback(
+    (filtered) => {
+      setFilteredNewCars(filtered.filter((car) => car.owners < 2));
+      setPage(1);
+    },
+    [setFilteredNewCars]
+  );
 
   const paginatedCars = filteredNewCars.slice(
     (page - 1) * itemsPerPage,
@@ -35,7 +38,7 @@ function NewCars() {
           <Grid item xs={12} md={4}>
             <Drawer
               sx={{
-                display: { md: 'none' },
+                display: { md: "none" },
                 "& .MuiDrawer-paper": {
                   width: { xs: "80%", sm: "60%", md: "80%" },
                 },
