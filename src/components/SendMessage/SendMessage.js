@@ -3,7 +3,6 @@ import { Typography } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
 import Snackbar from "@mui/material/Snackbar";
 import TextField from "@mui/material/TextField";
 import { addDoc, collection } from "firebase/firestore";
@@ -54,7 +53,7 @@ export default function SendMessage({ title }) {
   };
 
   return (
-    <Container component="main" maxWidth="md">
+    <>
       <Box
         sx={{
           display: "flex",
@@ -183,6 +182,6 @@ export default function SendMessage({ title }) {
           {snackbarMessage}
         </Alert>
       </Snackbar>
-    </Container>
+    </>
   );
 }

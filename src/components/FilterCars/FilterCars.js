@@ -20,72 +20,32 @@ import { useEffect, useState } from "react";
 import "./css/filterCars.css";
 import { collection, query, where, getDocs, orderBy } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { handleBrandChange, handleFromChangeEngine, handleFromChangeHorsePower, handleFromChangeMileage, handleFromChangeYear, handleFuelTypeChange, handleModelChange, handlePriceChange, handleReset, handleToChangeEngine, handleToChangeHorsePower, handleToChangeMileage, handleToChangeYear, handleTransmissionChange } from "../../redux/filterSlice";
+import { useLocation } from "react-router-dom";
 
 const FilterCars = ({ onFilterChange }) => {
-  const [fromYear, setFromYear] = useState("");
-  const [toYear, setToYear] = useState("");
-  const [fromMileage, setFromMileage] = useState("");
-  const [toMileage, setToMileage] = useState("");
-  const [fromHorsePower, setFromHorsePower] = useState("");
-  const [toHorsePower, setToHorsePower] = useState("");
-  const [fromEngine, setFromEngine] = useState("");
-  const [toEngine, setToEngine] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("");
-  const [selectedModel, setSelectedModel] = useState("");
-  const [selectedTransmission, setSelectedTransmission] = useState("");
-  const [selectedFuelType, setSelectedFuelType] = useState("");
-  const [priceRange, setPriceRange] = useState([prices.MIN, prices.MAX]);
+  const { pathname } = useLocation();
+  const dispatch = useDispatch()
+  const {
+    fromYear,
+    toYear,
+    fromMileage,
+    toMileage,
+    fromHorsePower,
+    toHorsePower,
+    fromEngine,
+    toEngine,
+    selectedBrand,
+    selectedModel,
+    selectedTransmission,
+    selectedFuelType,
+    priceRange } = useSelector(state => state.filterSlice)
   const [brands, setBrands] = useState([]);
 
-  const handleFromChangeYear = (event) => {
-    setFromYear(event.target.value);
-    if (toYear && event.target.value >= toYear) {
-      setToYear("");
-    }
-  };
-
-  const handleToChangeYear = (event) => setToYear(event.target.value);
-
-  const handleFromChangeMileage = (event) => {
-    setFromMileage(event.target.value);
-    if (toMileage && event.target.value >= toMileage) {
-      setToMileage("");
-    }
-  };
-
-  const handleToChangeMileage = (event) => setToMileage(event.target.value);
-
-  const handleFromChangeHorsePower = (event) => {
-    setFromHorsePower(event.target.value);
-    if (toHorsePower && event.target.value >= toHorsePower) {
-      setToHorsePower("");
-    }
-  };
-
-  const handleToChangeHorsePower = (event) =>
-    setToHorsePower(event.target.value);
-
-  const handleFromChangeEngine = (event) => {
-    setFromEngine(event.target.value);
-    if (toEngine && event.target.value >= toEngine) {
-      setToEngine("");
-    }
-  };
-
-  const handleToChangeEngine = (event) => setToEngine(event.target.value);
-
-  const handleBrandChange = (event) => {
-    setSelectedBrand(event.target.value);
-    setSelectedModel("");
-  };
-  const handleModelChange = (event) => {
-    setSelectedModel(event.target.value);
-  };
-  const handleTransmissionChange = (event) =>
-    setSelectedTransmission(event.target.value);
-  const handleFuelTypeChange = (event) =>
-    setSelectedFuelType(event.target.value);
-  const handlePriceChange = (event, newValue) => setPriceRange(newValue);
+  useEffect(() => {
+    dispatch(handleReset());
+  }, [dispatch, pathname])
 
   useEffect(() => {
     const getBrands = async () => {
@@ -192,7 +152,7 @@ const FilterCars = ({ onFilterChange }) => {
               id="brand-select"
               label="Brand"
               value={selectedBrand}
-              onChange={handleBrandChange}
+              onChange={(e) => dispatch(handleBrandChange(e.target.value))}
             >
               {brands.map((car, i) => (
                 <MenuItem key={i} value={car.make}>
@@ -220,7 +180,7 @@ const FilterCars = ({ onFilterChange }) => {
                 id="model-select"
                 label="Model"
                 value={selectedModel}
-                onChange={handleModelChange}
+                onChange={(e) => dispatch(handleModelChange(e.target.value))}
               >
                 {brands
                   .filter((car) => car.make === selectedBrand)
@@ -246,7 +206,7 @@ const FilterCars = ({ onFilterChange }) => {
             <Select
               style={{ color: "#ddd" }}
               value={fromYear}
-              onChange={handleFromChangeYear}
+              onChange={(e) => dispatch(handleFromChangeYear(e.target.value))}
               label="Year From"
             >
               {years.map((value, i) => (
@@ -263,7 +223,7 @@ const FilterCars = ({ onFilterChange }) => {
             <Select
               style={{ color: "#ddd" }}
               value={toYear}
-              onChange={handleToChangeYear}
+              onChange={(e) => dispatch(handleToChangeYear(e.target.value))}
               label="Year To"
               disabled={!fromYear}
             >
@@ -293,7 +253,7 @@ const FilterCars = ({ onFilterChange }) => {
               id="demo-simple-select"
               label="Transmission"
               value={selectedTransmission}
-              onChange={handleTransmissionChange}
+              onChange={(e) => dispatch(handleTransmissionChange(e.target.value))}
             >
               {transmission.map((trans, i) => (
                 <MenuItem key={i} value={trans}>
@@ -313,7 +273,7 @@ const FilterCars = ({ onFilterChange }) => {
             <Select
               style={{ color: "#ddd" }}
               value={fromMileage}
-              onChange={handleFromChangeMileage}
+              onChange={(e) => dispatch(handleFromChangeMileage(e.target.value))}
               label="Mileage from"
             >
               {mileage.map((value, i) => (
@@ -330,7 +290,7 @@ const FilterCars = ({ onFilterChange }) => {
             <Select
               style={{ color: "#ddd" }}
               value={toMileage}
-              onChange={handleToChangeMileage}
+              onChange={(e) => dispatch(handleToChangeMileage(e.target.value))}
               label="Mileage to"
               disabled={!fromMileage}
             >
@@ -354,7 +314,7 @@ const FilterCars = ({ onFilterChange }) => {
             <Select
               style={{ color: "#ddd" }}
               value={fromEngine}
-              onChange={handleFromChangeEngine}
+              onChange={(e) => dispatch(handleFromChangeEngine(e.target.value))}
               label="Engine from"
             >
               {engine.map((eng, i) => (
@@ -371,7 +331,7 @@ const FilterCars = ({ onFilterChange }) => {
             <Select
               style={{ color: "#ddd" }}
               value={toEngine}
-              onChange={handleToChangeEngine}
+              onChange={(e) => dispatch(handleToChangeEngine(e.target.value))}
               label="Engine to"
               disabled={!fromEngine}
             >
@@ -401,7 +361,7 @@ const FilterCars = ({ onFilterChange }) => {
               id="demo-simple-select"
               label="Fuel Type"
               value={selectedFuelType}
-              onChange={handleFuelTypeChange}
+              onChange={(e) => dispatch(handleFuelTypeChange(e.target.value))}
             >
               {fuelType.map((fuel, i) => (
                 <MenuItem key={i} value={fuel}>
@@ -421,7 +381,7 @@ const FilterCars = ({ onFilterChange }) => {
             <Select
               style={{ color: "#ddd" }}
               value={fromHorsePower}
-              onChange={handleFromChangeHorsePower}
+              onChange={(e) => dispatch(handleFromChangeHorsePower(e.target.value))}
               label="Horsepower from"
             >
               {horsepower.map((value, i) => (
@@ -438,7 +398,7 @@ const FilterCars = ({ onFilterChange }) => {
             <Select
               style={{ color: "#ddd" }}
               value={toHorsePower}
-              onChange={handleToChangeHorsePower}
+              onChange={(e) => dispatch(handleToChangeHorsePower(e.target.value))}
               label="Horsepower to"
               disabled={!fromHorsePower}
             >
@@ -463,7 +423,7 @@ const FilterCars = ({ onFilterChange }) => {
       <Box sx={{ width: "100%", pl: 4, pr: 4 }}>
         <Slider
           prices={prices}
-          onChange={handlePriceChange}
+          onChange={(e, value) => dispatch(handlePriceChange(value))}
           value={priceRange}
           valueLabelDisplay="auto"
           min={prices.MIN}
@@ -483,19 +443,7 @@ const FilterCars = ({ onFilterChange }) => {
           variant="contained"
           disableElevation
           onClick={() => {
-            setFromYear("");
-            setToYear("");
-            setSelectedBrand("");
-            setSelectedModel("");
-            setFromMileage("");
-            setToMileage("");
-            setFromHorsePower("");
-            setToHorsePower("");
-            setFromEngine("");
-            setToEngine("");
-            setSelectedTransmission("");
-            setSelectedFuelType("");
-            setPriceRange([prices.MIN, prices.MAX]);
+            dispatch(handleReset())
           }}
         >
           Reset Filter

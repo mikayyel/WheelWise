@@ -22,7 +22,7 @@ import {
   deleteFromLoggedInUserFavorites,
   updateLoggedInUserFavorites,
 } from "../../redux/authSlice";
-import { setCurrentCar } from "../../redux/carSlice";
+// import { setCurrentCar } from "../../redux/filterSlice";
 import "./css/carGrid.css";
 import SignInModal from "../SignInModal/SignInModal";
 
@@ -33,7 +33,7 @@ const CarGrid = ({ cars, searchTerm }) => {
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authSlice.loggedInUser);
-  const currentCar = useSelector((state) => state.currentCar.currentCar);
+  // const currentCar = useSelector((state) => state.currentCar.currentCar);
   const navigate = useNavigate();
 
   const [favorites, setFavorites] = useState([]);
@@ -131,9 +131,9 @@ const CarGrid = ({ cars, searchTerm }) => {
                 key={car.id}
                 className="car-card"
                 onClick={() => {
-                  dispatch(setCurrentCar(car));
-                  console.log(currentCar);
-                  navigate(`/currentCar/${currentCar.id}`);
+                  // dispatch(setCurrentCar(car));
+                  // console.log(currentCar);
+                  // navigate(`/currentCar/${currentCar.id}`);
                 }}
               >
                 <img src={car.image[2]} alt="" />
