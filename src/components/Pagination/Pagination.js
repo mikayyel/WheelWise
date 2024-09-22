@@ -2,15 +2,12 @@ import { Pagination, PaginationItem, Stack } from "@mui/material";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
-const PaginationControl = ({ page, setPage, totalCars, itemsPerPage }) => {
+const PaginationControl = ({ page, setSearchParams, totalCars, itemsPerPage }) => {
   const totalPages = Math.ceil(totalCars / itemsPerPage);
-  const navigate = useNavigate()
 
   const handlePageChange = (event, value) => {
-    setPage(value);
-    navigate(`${value}`)
+    setSearchParams({ page: value, limit: itemsPerPage });
   };
 
   useEffect(() => {

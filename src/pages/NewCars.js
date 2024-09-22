@@ -4,14 +4,16 @@ import SearchCars from "../components/SearchCars/SearchCars";
 import CarGrid from "../components/CarGrid/CarGrid";
 import PaginationControl from "../components/Pagination/Pagination";
 import { useCallback, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 function NewCars() {
   console.log("newCars");
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredNewCars, setFilteredNewCars] = useState([]);
   const [openFilter, setOpenFilter] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams()
 
-  const [page, setPage] = useState(1)
+  const page = parseInt(searchParams.get('page')) || 1
   const itemsPerPage = 10;
 
   const handleSearch = (value) => {
@@ -20,7 +22,6 @@ function NewCars() {
 
   const handleFilterChange = useCallback((filtered) => {
     setFilteredNewCars(filtered.filter((car) => car.owners < 2));
-    setPage(1)
   }, [setFilteredNewCars])
 
   const paginatedCars = filteredNewCars.slice(
@@ -66,7 +67,7 @@ function NewCars() {
               <Grid item>
                 <PaginationControl
                   page={page}
-                  setPage={setPage}
+                  setSearchParams={setSearchParams}
                   totalCars={filteredNewCars.length}
                   itemsPerPage={itemsPerPage}
                 />

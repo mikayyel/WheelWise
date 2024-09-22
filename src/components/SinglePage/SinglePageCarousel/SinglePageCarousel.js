@@ -2,7 +2,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import './style.css';
 
-export default function SinglePageCarousel({currentCar}) {
+export default function SinglePageCarousel({ currentCar }) {
 	const responsive = {
 		desktop: {
 			breakpoint: { max: 3000, min: 1024 },
@@ -20,7 +20,7 @@ export default function SinglePageCarousel({currentCar}) {
 			slidesToSlide: 1 // optional, default to 1.
 		}
 	};
-	
+
 	return (
 		<Carousel
 			arrows={true}
@@ -38,7 +38,7 @@ export default function SinglePageCarousel({currentCar}) {
 			{
 				currentCar.image.map(image => {
 					return (
-						<img src={image} alt='img' className='img' key={image}/>
+						<img src={image} alt='img' key={image} />
 					)
 				})
 			}

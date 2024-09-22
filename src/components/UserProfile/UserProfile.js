@@ -10,11 +10,13 @@ import UserFavorites from "../UserFavorites/UserFavorites";
 import UserAnnouncement from "../UserAnnouncement/UserAnnouncement";
 import UserInformation from "../UserInformation/UserInformation";
 import { useLocation, useNavigate } from "react-router-dom";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function UserProfile() {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
+  const matches = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     switch (location.pathname) {
@@ -56,22 +58,6 @@ function UserProfile() {
     }
   };
 
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  //   switch (newValue) {
-  //     case 0:
-  //       navigate('information');
-  //       break;
-  //     case 1:
-  //       navigate('favorites');
-  //       break;
-  //     case 2:
-  //       navigate('announcements');
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
   return (
     <Box sx={{ width: "100%", pt: 10, color: "white" }}>
       <Box
@@ -80,23 +66,39 @@ function UserProfile() {
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label="basic tabs example"
+          aria-label="user profile tabs"
+          variant={matches ? "fullWidth" : "standard"}
         >
           <Tab
-            sx={{ px: "10%" }}
+            sx={{
+              px: "10%",
+              minWidth: { xs: 0, md: 'auto' },
+              color: "white",
+            }}
             aria-label="person"
+            label={matches ? '' : "Person"}
             icon={<PersonPinIcon sx={{ color: "white" }} />}
             {...a11yProps(2)}
           />
           <Tab
-            sx={{ px: "10%" }}
+            sx={{
+              px: "10%",
+              minWidth: { xs: 0, md: 'auto' },
+              color: "white",
+            }}
             aria-label="favorite"
+            label={matches ? '' : "Favorites"}
             icon={<FavoriteIcon sx={{ color: "white" }} />}
             {...a11yProps(1)}
           />
           <Tab
-            sx={{ px: "10%" }}
+            sx={{
+              px: "10%",
+              minWidth: { xs: 0, md: 'auto' },
+              color: "white",
+            }}
             aria-label="sell"
+            label={matches ? '' : "Announcements"}
             icon={<SellIcon sx={{ color: "white" }} />}
             {...a11yProps(0)}
           />
