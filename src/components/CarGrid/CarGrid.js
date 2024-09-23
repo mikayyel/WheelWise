@@ -15,27 +15,25 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 import { db } from "../../firebase/firebase";
 import {
   deleteFromLoggedInUserFavorites,
   updateLoggedInUserFavorites,
 } from "../../redux/authSlice";
-// import { setCurrentCar } from "../../redux/filterSlice";
 import "./css/carGrid.css";
 import SignInModal from "../SignInModal/SignInModal";
 
 const CarGrid = ({ cars, searchTerm }) => {
   console.log("carGrid");
-  const [openModal, setOpenModal] = useState(false)
+  const [openModal, setOpenModal] = useState(false);
   const [searchFilteredCars, setSearchFilteredCars] = useState([]);
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authSlice.loggedInUser);
-  // const currentCar = useSelector((state) => state.currentCar.currentCar);
   const navigate = useNavigate();
-
+  const location = useLocation();
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
@@ -54,11 +52,10 @@ const CarGrid = ({ cars, searchTerm }) => {
   const handleAddToFavorites = useCallback(
     async (car) => {
       if (!user) {
-        setOpenModal(true)
-        console.log('modal');
-        return
-      };
-      console.log(car.id);
+        setOpenModal(true);
+        console.log("modal");
+        return;
+      }
       try {
         const userDocRef = doc(db, "users", user.uid);
         const carDocRef = doc(db, "cars", car.id);
@@ -121,6 +118,13 @@ const CarGrid = ({ cars, searchTerm }) => {
     return () => unsubscribe();
   }, [user]);
 
+  const handleChooseCarClick = (carId) => {
+    const basePath = location.pathname.includes("newcars")
+      ? "/newcars"
+      : "/usedcars";
+    navigate(`${basePath}/${carId}`);
+  };
+
   return (
     <>
       <div className="car-list">
@@ -130,24 +134,27 @@ const CarGrid = ({ cars, searchTerm }) => {
               <div
                 key={car.id}
                 className="car-card"
-                onClick={() => {
-                  // dispatch(setCurrentCar(car));
-                  // console.log(currentCar);
-                  // navigate(`/currentCar/${currentCar.id}`);
-                }}
+                onClick={() => handleChooseCarClick(car.id)}
               >
                 <img src={car.image[2]} alt="" />
                 <h2>
                   {car.make} {car.model}
                   <p style={{ float: "right" }}>
-                    {user && favorites.some((favCar) => favCar.id === car.id) ? (
+                    {user &&
+                    favorites.some((favCar) => favCar.id === car.id) ? (
                       <FavoriteIcon
-                        onClick={(e) => { e.stopPropagation(); handleDeleteFromFavorites(car) }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteFromFavorites(car);
+                        }}
                         sx={{ color: "#ff0000", cursor: "pointer" }}
                       />
                     ) : (
                       <FavoriteBorderIcon
-                        onClick={(e) => { e.stopPropagation(); handleAddToFavorites(car) }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAddToFavorites(car);
+                        }}
                         sx={{ cursor: "pointer" }}
                       />
                     )}

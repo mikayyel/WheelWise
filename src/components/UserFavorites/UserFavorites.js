@@ -44,7 +44,7 @@ const UserFavorites = () => {
         Your Favorites Cars
       </Typography>
       {loading ? (
-        <p>Loading favorites...</p>
+        <p>Loading your favorites cars...</p>
       ) : (
         <CarGrid cars={favorites} searchTerm={""} />
       )}

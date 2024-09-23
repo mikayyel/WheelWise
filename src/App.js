@@ -104,11 +104,15 @@ function App() {
               <Route path="/sell" element={<Sell />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
-              <Route path='/currentCar/:id' element={<SinglePage />}></Route>
+              <Route path="/newcars/:id" element={<SinglePage />}></Route>
+              <Route path="/usedcars/:id" element={<SinglePage />}></Route>
               <Route path="/profile" element={<UserProfile />}>
                 <Route path="information" element={<UserInformation />}></Route>
                 <Route path="favorites" element={<UserFavorites />}></Route>
-                <Route path="announcements" element={<UserAnnouncement />}></Route>
+                <Route
+                  path="announcements"
+                  element={<UserAnnouncement />}
+                ></Route>
               </Route>
             </>
           ) : (
@@ -122,7 +126,8 @@ function App() {
               <Route path="/sell" element={<SignInModal />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
-              <Route path='/currentCar/:id' element={<SinglePage />}></Route>
+              <Route path="/newcars/:id" element={<SinglePage />}></Route>
+              <Route path="/usedcars/:id" element={<SinglePage />}></Route>
             </>
           )}
         </Route>
