@@ -25,11 +25,11 @@ import NewCars from "./pages/NewCars";
 import Sell from "./pages/Sell";
 import UsedCars from "./pages/UsedCars";
 import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
-
 import UserAnnouncement from "./components/UserAnnouncement/UserAnnouncement";
 import UserFavorites from "./components/UserFavorites/UserFavorites";
 import UserInformation from "./components/UserInformation/UserInformation";
 import SignInModal from "./components/SignInModal/SignInModal";
+import LocationWatcher from "./components/LocationWatcher/LocationWatcher"
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
@@ -85,6 +85,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <LocationWatcher />
       <Routes>
         <Route path="/" element={<Layout />}>
           {loggedInUser ? (
