@@ -22,10 +22,8 @@ import { collection, query, where, getDocs, orderBy } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { handleBrandChange, handleFromChangeEngine, handleFromChangeHorsePower, handleFromChangeMileage, handleFromChangeYear, handleFuelTypeChange, handleModelChange, handlePriceChange, handleReset, handleToChangeEngine, handleToChangeHorsePower, handleToChangeMileage, handleToChangeYear, handleTransmissionChange } from "../../redux/filterSlice";
-import { useLocation } from "react-router-dom";
 
 const FilterCars = ({ onFilterChange }) => {
-  const { pathname } = useLocation();
   const dispatch = useDispatch()
   const {
     fromYear,
@@ -42,10 +40,6 @@ const FilterCars = ({ onFilterChange }) => {
     selectedFuelType,
     priceRange } = useSelector(state => state.filterSlice)
   const [brands, setBrands] = useState([]);
-
-  useEffect(() => {
-    dispatch(handleReset());
-  }, [dispatch, pathname])
 
   useEffect(() => {
     const getBrands = async () => {
