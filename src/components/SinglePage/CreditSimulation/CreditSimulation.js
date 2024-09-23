@@ -60,7 +60,10 @@ const CreditSimulation = () => {
                       pattern: "^[0-9]*$", // Only allows digits
                     }}
                     InputProps={{
-                      startAdornment: <InputAdornment sx={{ color: '#fff' }} position="start">$ </InputAdornment>,
+                      startAdornment: <InputAdornment
+                        sx={{ '.css-1pnmrwp-MuiTypography-root': { color: '#fff' } }}
+                        position="start">$
+                      </InputAdornment>,
                       sx: { color: '#fff' }
                     }}
                     sx={{ bgcolor: '#1c2838' }}
@@ -109,7 +112,10 @@ const CreditSimulation = () => {
                     value={downPayment}
                     onChange={handleDownPaymentChange}
                     InputProps={{
-                      startAdornment: <InputAdornment sx={{ color: '#fff' }} position="start">$ </InputAdornment>,
+                      startAdornment: <InputAdornment
+                        sx={{ '.css-1pnmrwp-MuiTypography-root': { color: '#fff' } }}
+                        position="start">$
+                      </InputAdornment>,
                       sx: { color: '#fff' }
                     }}
                     sx={{ bgcolor: '#1c2838' }}

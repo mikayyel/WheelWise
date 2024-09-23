@@ -20,7 +20,6 @@ const initialState = {
 export const filterSlice = createSlice({
 	name: 'filters',
 	initialState,
-
 	reducers: {
 		handleFromChangeYear: (state, { payload }) => {
 			state.fromYear = payload

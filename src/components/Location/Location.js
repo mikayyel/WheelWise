@@ -72,7 +72,7 @@ function Location() {
         }}
       />
       <Typography
-        sx={{ color: "white", fontSize: "10px", mt: "12px" }}
+        sx={{ color: "white", fontSize: "14px", mt: "12px" }}
         gutterBottom
       >
         Address

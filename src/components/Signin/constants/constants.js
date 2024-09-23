@@ -1,23 +1,23 @@
 export const inputStyle = {
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "white", // Tsvet bordera
+      borderColor: "white",
     },
     "&:hover fieldset": {
-      borderColor: "white", // Tsvet bordera pri hover'e
+      borderColor: "white",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "white", // Tsvet bordera pri fokuse
+      borderColor: "white",
     },
   },
   "& .MuiInputBase-input": {
-    color: "white", // Tsvet teksta
+    color: "white",
   },
   "& .MuiFormLabel-root": {
-    color: "white", // Tsvet label'a
+    color: "white",
   },
   "& .MuiFormHelperText-root": {
-    color: "white", // Tsvet teksta oshibki
+    color: "white",
   },
   "& .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused": {
     color: 'white'
