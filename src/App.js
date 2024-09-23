@@ -29,6 +29,7 @@ import { selectLoggedInUser, setLoggedInUser } from "./redux/authSlice";
 import UserAnnouncement from "./components/UserAnnouncement/UserAnnouncement";
 import UserFavorites from "./components/UserFavorites/UserFavorites";
 import UserInformation from "./components/UserInformation/UserInformation";
+import SignInModal from "./components/SignInModal/SignInModal";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
@@ -98,12 +99,8 @@ function App() {
                 element={<Navigate to="/" replace={true} />}
               ></Route>
               <Route path="/home" element={<Home />}></Route>
-              <Route path="/newcars" element={<NewCars />}>
-                <Route path=":crtPage" element={<NewCars />} />
-              </Route>
-              <Route path="/usedcars" element={<UsedCars />}>
-                <Route path=":crtPage" element={<UsedCars />} />
-              </Route>
+              <Route path="/newcars" element={<NewCars />}></Route>
+              <Route path="/usedcars" element={<UsedCars />}></Route>
               <Route path="/sell" element={<Sell />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
@@ -120,13 +117,9 @@ function App() {
               <Route path="/home" element={<Home />}></Route>
               <Route path="/signin" element={<SignIn />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
-              <Route path="/newcars" element={<NewCars />}>
-                <Route path=":crtPage" element={<NewCars />} />
-              </Route>
-              <Route path="/usedcars" element={<UsedCars />}>
-                <Route path=":crtPage" element={<UsedCars />} />
-              </Route>
-              <Route path="/sell" element={<Sell />}></Route>
+              <Route path="/newcars" element={<NewCars />}></Route>
+              <Route path="/usedcars" element={<UsedCars />}></Route>
+              <Route path="/sell" element={<SignInModal />}></Route>
               <Route path="/aboutus" element={<AboutUs />}></Route>
               <Route path="/contact" element={<Contact />}></Route>
               <Route path='/currentCar/:id' element={<SinglePage />}></Route>

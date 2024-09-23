@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -16,7 +15,7 @@ import { inputStyle } from "./constants/constants";
 import { Alert } from "@mui/material";
 import imageSrc from "../../img/bgsignin.png";
 
-export default function SignIn() {
+export default function SignIn({ boxHeight, isModal }) {
   const {
     control,
     handleSubmit,
@@ -49,7 +48,7 @@ export default function SignIn() {
     <Box
       sx={{
         background: `url(${imageSrc}) 0 50% / cover no-repeat`,
-        height: "100vh",
+        height: boxHeight ? boxHeight : "100vh",
         display: "flex",
         alignItems: "center",
       }}
@@ -57,7 +56,7 @@ export default function SignIn() {
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
-            ty: 8,
+            py: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -145,11 +144,9 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
-                  <NavLink style={{ color: "white" }} to="/signup">
-                    Don't have an account? Sign Up
-                  </NavLink>
-                </Link>
+                <NavLink style={{ color: "white" }} to="/signup">
+                  Don't have an account? Sign Up
+                </NavLink>
               </Grid>
             </Grid>
           </Box>
