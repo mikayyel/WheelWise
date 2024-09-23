@@ -1,4 +1,4 @@
-import { Container, Grid } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import { useSelector } from "react-redux";
 import Map from "../Map/Map";
 import SendMessage from "../SendMessage/SendMessage";
@@ -12,32 +12,9 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
+import CreditSimulation from "./CreditSimulation/CreditSimulation";
 
 function SinglePage() {
-  // const currentCarId = useSelector((state) => state.currentCar.currentCar.id);
-  // const currentCar = useSelector((state) => state.currentCar.currentCar);
-
-  // console.log("currentCarId");
-
-  // useEffect(() => {
-  // 	const fetchCar = async () => {
-  // 		try {
-  // 			const carsCol = collection(db, "cars");
-  //     	const carSnapshot = await getDocs(carsCol);
-  // 			carSnapshot.docs.map(doc => {
-  // 				if(doc.data().id === currentCarId){
-  // 					setCurrentCar(doc.data());
-  // 				}
-  // 			});
-  // 			console.log(currentCar)
-  // 		} catch(error) {
-  // 			console.log(error.message);
-  // 		}
-  // 	}
-
-  // 	fetchCar()
-  // }, [])
-
   const { id } = useParams();
   const [currentCar, setCurrentCar] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -78,20 +55,23 @@ function SinglePage() {
       </Container>
       <SinglePageCarousel currentCar={currentCar} />
 
-      <Container>
-        <Grid container>
-          <Grid item md={8}>
+      <Container sx={{ mb: 10 }}>
+        <Grid container spacing={4} wrap="wrap-reverse">
+          <Grid item md={8} xs={12}>
             <SinglePageDescription />
             <SinglePageFeature currentCar={currentCar} />
-            <SendMessage title={"Contact"} />
-            <Map maxWidth={"600px"} title={"Location"} marginTop={"20px"} />
+            <Box pt={2} maxWidth={"600px"} mb={3}>
+              <SendMessage title={"Contact"} />
+            </Box>
+            <Map maxWidth={"600px"} title={"Location"} />
           </Grid>
-          <Grid item md={4}>
+          <Grid item md={4} xs={12}>
             <SinglePagePriceButton currentCar={currentCar} />
             <SinglePageSidebar currentCar={currentCar} />
           </Grid>
         </Grid>
       </Container>
+      <CreditSimulation />
     </>
   );
 }

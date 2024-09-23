@@ -23,9 +23,11 @@ import {
   updateLoggedInUserFavorites,
 } from "../../redux/authSlice";
 import "./css/carGrid.css";
+import SignInModal from "../SignInModal/SignInModal";
 
 const CarGrid = ({ cars, searchTerm }) => {
   console.log("carGrid");
+  const [openModal, setOpenModal] = useState(false);
   const [searchFilteredCars, setSearchFilteredCars] = useState([]);
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const dispatch = useDispatch();
@@ -49,8 +51,11 @@ const CarGrid = ({ cars, searchTerm }) => {
 
   const handleAddToFavorites = useCallback(
     async (car) => {
-      if (!user) navigate("/signin");
-      console.log(car.id);
+      if (!user) {
+        setOpenModal(true);
+        console.log("modal");
+        return;
+      }
       try {
         const userDocRef = doc(db, "users", user.uid);
         const carDocRef = doc(db, "cars", car.id);
@@ -121,66 +126,70 @@ const CarGrid = ({ cars, searchTerm }) => {
   };
 
   return (
-    <div className="car-list">
-      <div className="car-grid">
-        {searchFilteredCars.length > 0 ? (
-          searchFilteredCars.map((car) => (
-            <div
-              key={car.id}
-              className="car-card"
-              onClick={() => handleChooseCarClick(car.id)}
-            >
-              <img src={car.image[2]} alt="" />
-              <h2>
-                {car.make} {car.model}
-                <p style={{ float: "right" }}>
-                  {user && favorites.some((favCar) => favCar.id === car.id) ? (
-                    <FavoriteIcon
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDeleteFromFavorites(car);
-                      }}
-                      sx={{ color: "#ff0000", cursor: "pointer" }}
-                    />
-                  ) : (
-                    <FavoriteBorderIcon
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleAddToFavorites(car);
-                      }}
-                      sx={{ cursor: "pointer" }}
-                    />
-                  )}
-                </p>
-              </h2>
-              <p>${car.price}</p>
-              <div className="cars-info">
-                <div>
-                  <CalendarMonthIcon />
+    <>
+      <div className="car-list">
+        <div className="car-grid">
+          {searchFilteredCars.length > 0 ? (
+            searchFilteredCars.map((car) => (
+              <div
+                key={car.id}
+                className="car-card"
+                onClick={() => handleChooseCarClick(car.id)}
+              >
+                <img src={car.image[2]} alt="" />
+                <h2>
+                  {car.make} {car.model}
+                  <p style={{ float: "right" }}>
+                    {user &&
+                    favorites.some((favCar) => favCar.id === car.id) ? (
+                      <FavoriteIcon
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteFromFavorites(car);
+                        }}
+                        sx={{ color: "#ff0000", cursor: "pointer" }}
+                      />
+                    ) : (
+                      <FavoriteBorderIcon
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAddToFavorites(car);
+                        }}
+                        sx={{ cursor: "pointer" }}
+                      />
+                    )}
+                  </p>
+                </h2>
+                <p>${car.price}</p>
+                <div className="cars-info">
+                  <div>
+                    <CalendarMonthIcon />
+                  </div>
+                  <p>{car.year}</p>
+                  <div>
+                    <LocalGasStationIcon />
+                  </div>
+                  <p>{car.fuelType}</p>
+                  <div>
+                    <TimeToLeaveIcon />
+                  </div>
+                  <p>{car.transmission}</p>
+                  <div>
+                    <PeopleAltIcon />
+                  </div>
+                  <p>{car.owners}</p>
                 </div>
-                <p>{car.year}</p>
-                <div>
-                  <LocalGasStationIcon />
-                </div>
-                <p>{car.fuelType}</p>
-                <div>
-                  <TimeToLeaveIcon />
-                </div>
-                <p>{car.transmission}</p>
-                <div>
-                  <PeopleAltIcon />
-                </div>
-                <p>{car.owners}</p>
               </div>
-            </div>
-          ))
-        ) : (
-          <Typography className="no-results">
-            No information matching your request was found.
-          </Typography>
-        )}
+            ))
+          ) : (
+            <Typography className="no-results">
+              No information matching your request was found.
+            </Typography>
+          )}
+        </div>
       </div>
-    </div>
+      <SignInModal isOpen={openModal} onClose={() => setOpenModal(false)} />
+    </>
   );
 };
 
