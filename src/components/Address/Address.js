@@ -44,7 +44,7 @@ function Address() {
         Address
       </Typography>
       <Typography variant="body1" sx={{ mb: 1, color: '#4DA8DA' }}>
-        3926 Calvin Street, Baltimore, Maryland, 21201, United States
+        3 Hakob Hakobyan Street, Yerevan, Armenia
       </Typography>
     </Box>
   );
