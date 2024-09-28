@@ -5,6 +5,7 @@ export const authSlice = createSlice({
   initialState: {
     loggedInUser: null,
     favorites: [],
+    announcement: []
   },
   reducers: {
     setLoggedInUser: (state, action) => {
@@ -42,6 +43,10 @@ export const authSlice = createSlice({
     updateLoggedInUserPhoto: (state, action) => {
       state.loggedInUser.photoURL = action.payload;
     },
+
+    addUserAnnouncement: (state, { payload }) => {
+      state.announcement.push(payload)
+    }
   },
 });
 
@@ -53,9 +58,10 @@ export const {
   updateLoggedInUserFavorites,
   deleteFromLoggedInUserFavorites,
   updateLoggedInUserPhoto,
+  addUserAnnouncement
 } = authSlice.actions;
-export const selectLoggedInUser = (state) => state.authSlice.loggedInUser;
-export const selectLoggedInUserFavorites = (state) =>
-  state.authSlice.favorites || [];
 
+export const selectLoggedInUser = (state) => state.authSlice.loggedInUser;
+export const selectLoggedInUserFavorites = (state) => state.authSlice.favorites || [];
+export const selectUserAnnouncement = (state) => state.authSlice.announcement || []
 export default authSlice.reducer;

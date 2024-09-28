@@ -4,15 +4,17 @@ import { useDispatch } from "react-redux";
 import { handleReset } from "../../redux/filterSlice";
 
 const LocationWatcher = () => {
+  console.log('LocationWatcher');
+
   const location = useLocation();
   const dispatch = useDispatch();
   const [prevLocation, setPrevLocation] = useState(location.pathname);
 
   useEffect(() => {
     if (
-      (prevLocation !== location.pathname &&
-        location.pathname !== "/newcars") ||
-      location.pathname !== "/usedcars"
+      prevLocation !== location.pathname &&
+      (location.pathname !== '/newcars' ||
+        location.pathname !== '/usedcars')
     ) {
       dispatch(handleReset());
     }

@@ -19,12 +19,9 @@ function UsedCars() {
     setSearchTerm(value);
   };
 
-  const handleFilterChange = useCallback(
-    (filtered) => {
-      setFilteredUsedCars(filtered.filter((car) => car.owners > 1));
-    },
-    [setFilteredUsedCars]
-  );
+  const handleFilterChange = useCallback((filtered) => {
+    setFilteredUsedCars(filtered.filter((car) => car.owners ? car.owners > 1 : car.condition === 'used'));
+  }, [setFilteredUsedCars]);
 
   const paginatedCars = filteredUsedCars.slice(
     (page - 1) * itemsPerPage,

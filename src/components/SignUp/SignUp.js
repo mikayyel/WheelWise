@@ -47,6 +47,7 @@ export default function SignUp({ boxHeight }) {
         email,
         lastName,
         favorites: [],
+        announcements: [],
         notes: [],
         photoURL: "",
       });

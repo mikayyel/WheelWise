@@ -161,12 +161,12 @@ const CarGrid = ({ cars, searchTerm }) => {
                 className="car-card"
                 onClick={() => handleChooseCarClick(car.id)}
               >
-                <img src={car.image[2]} alt="" />
+                <img src={car.image?.[2]} alt="" />
                 <h2>
                   {car.make} {car.model}
                   <p style={{ float: "right" }}>
                     {user &&
-                    favorites.some((favCar) => favCar.id === car.id) ? (
+                      favorites.some((favCar) => favCar.id === car.id) ? (
                       <FavoriteIcon
                         onClick={(e) => {
                           e.stopPropagation();
@@ -202,7 +202,7 @@ const CarGrid = ({ cars, searchTerm }) => {
                   <div>
                     <PeopleAltIcon />
                   </div>
-                  <p>{car.owners}</p>
+                  <p>{car.owners ? car.owners : car.condition === 'new' ? 1 : 2}</p>
                 </div>
               </div>
             ))
