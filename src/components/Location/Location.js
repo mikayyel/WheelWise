@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { Divider, TextField, Typography } from "@mui/material";
-import { inputStyle } from "../SignIn/constants/constants";
+import { Box, Divider, TextField, Typography } from "@mui/material";
 import { Alert } from "@mui/material";
-// npm install leaflet react-leaflet
+import { useDispatch, useSelector } from "react-redux";
+import { handleChangeLocation } from "../../redux/sellingCar";
+import { customInputStyle } from "../CarDetailsForm/helpers/helpers";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -17,7 +18,7 @@ L.Icon.Default.mergeOptions({
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 
-const RecenterMap = ({ location }) => {
+export const RecenterMap = ({ location }) => {
   const map = useMap();
   useEffect(() => {
     map.setView(location, 13);
@@ -26,7 +27,8 @@ const RecenterMap = ({ location }) => {
 };
 
 function Location() {
-  const [location, setLocation] = useState([40.1872, 44.5152]);
+  const dispatch = useDispatch()
+  const { location } = useSelector(state => state.sellingCarSlice)
   const [address, setAddress] = useState("");
   const [error, setError] = useState(null);
 
@@ -48,7 +50,7 @@ function Location() {
       }
 
       const { lat, lon } = data[0];
-      setLocation([parseFloat(lat), parseFloat(lon)]);
+      dispatch(handleChangeLocation([parseFloat(lat), parseFloat(lon)]));
       setError(null);
     } catch (error) {
       console.error("Error fetching location:", error);
@@ -59,28 +61,21 @@ function Location() {
   };
 
   return (
-    <div>
-      <Typography variant="h4" sx={{ color: "white" }} gutterBottom>
+    <Box sx={{ p: 4, backgroundColor: '#071620', borderRadius: '8px', color: '#fff', mb: 5 }}>
+
+      <Typography variant="h5" sx={{ mb: 3, display: 'inline-block' }} gutterBottom>
         Location
+        <Divider
+          sx={{
+            bgcolor: "white",
+            borderBottomWidth: "2px",
+          }}
+        />
       </Typography>
-      <Divider
-        sx={{
-          bgcolor: "white",
-          width: "20%",
-          mr: "20",
-          borderBottomWidth: "2px",
-        }}
-      />
-      <Typography
-        sx={{ color: "white", fontSize: "14px", mt: "12px" }}
-        gutterBottom
-      >
-        Address
-      </Typography>
+      <Typography variant="body2" sx={{ color: '#fff', mb: 0.5 }}>Address</Typography>
       <TextField
-        sx={inputStyle}
-        // label="Add a note..."
-        placeholder="enter your location"
+        sx={{ ...customInputStyle, mt: 0, mb: 2, bgcolor: '#152836', borderRadius: '4px' }}
+        placeholder="Enter your address"
         value={address}
         onChange={handleInputChange}
         onKeyDown={(e) => {
@@ -105,7 +100,7 @@ function Location() {
         <Marker position={location} />
         <RecenterMap location={location} />
       </MapContainer>
-    </div>
+    </Box>
   );
 }
 

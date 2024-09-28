@@ -24,6 +24,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleBrandChange, handleFromChangeEngine, handleFromChangeHorsePower, handleFromChangeMileage, handleFromChangeYear, handleFuelTypeChange, handleModelChange, handlePriceChange, handleReset, handleToChangeEngine, handleToChangeHorsePower, handleToChangeMileage, handleToChangeYear, handleTransmissionChange } from "../../redux/filterSlice";
 
 const FilterCars = ({ onFilterChange }) => {
+  console.log('FilterCars');
+
   const dispatch = useDispatch()
   const {
     fromYear,
@@ -94,6 +96,7 @@ const FilterCars = ({ onFilterChange }) => {
           id: doc.id,
           ...doc.data(),
         }));
+        console.log(carsList);
 
         onFilterChange(carsList);
       } catch (error) {

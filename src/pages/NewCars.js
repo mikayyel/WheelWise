@@ -22,10 +22,11 @@ function NewCars() {
 
   const handleFilterChange = useCallback(
     (filtered) => {
-      setFilteredNewCars(filtered.filter((car) => car.owners < 2));
+      setFilteredNewCars(filtered.filter((car) => car.owners ? car.owners < 2 : car.condition === 'new'));
     },
     [setFilteredNewCars]
   );
+  console.log("filteredCars: ", filteredNewCars);
 
   const paginatedCars = filteredNewCars.slice(
     (page - 1) * itemsPerPage,

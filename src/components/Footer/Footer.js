@@ -29,7 +29,7 @@ function Footer() {
             mb: 2
           }} />
         <Typography variant="p" sx={{ fontWeight: 400 }}>
-          3926 Calvin Street, Baltimore, Maryland, 21201, United States
+          3 Hakob Hakobyan Street, Yerevan, Armenia
         </Typography>
         <p style={{ marginTop: '16px', marginBottom: '24px' }} >
           240-865-3730 | info@wheelwise.com

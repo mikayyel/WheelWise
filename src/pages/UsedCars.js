@@ -21,7 +21,7 @@ function UsedCars() {
   };
 
   const handleFilterChange = useCallback((filtered) => {
-    setFilteredUsedCars(filtered.filter((car) => car.owners > 1));
+    setFilteredUsedCars(filtered.filter((car) => car.owners ? car.owners > 1 : car.condition === 'used'));
   }, [setFilteredUsedCars]);
 
   const paginatedCars = filteredUsedCars.slice(
