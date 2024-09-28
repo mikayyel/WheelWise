@@ -29,7 +29,7 @@ import UserAnnouncement from "./components/UserAnnouncement/UserAnnouncement";
 import UserFavorites from "./components/UserFavorites/UserFavorites";
 import UserInformation from "./components/UserInformation/UserInformation";
 import SignInModal from "./components/SignInModal/SignInModal";
-import LocationWatcher from "./components/LocationWatcher/LocationWatcher"
+import LocationWatcher from "./components/LocationWatcher/LocationWatcher";
 
 function App() {
   const loggedInUser = useSelector(selectLoggedInUser);

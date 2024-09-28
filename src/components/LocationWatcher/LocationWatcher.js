@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { handleReset } from '../../redux/filterSlice';
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { handleReset } from "../../redux/filterSlice";
 
 const LocationWatcher = () => {
   console.log('LocationWatcher');
