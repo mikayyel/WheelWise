@@ -7,7 +7,6 @@ import { useCallback, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 function NewCars() {
-  console.log("newCars");
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredNewCars, setFilteredNewCars] = useState([]);
   const [openFilter, setOpenFilter] = useState(false);

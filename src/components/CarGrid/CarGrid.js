@@ -9,10 +9,13 @@ import { Typography } from "@mui/material";
 import {
   arrayRemove,
   arrayUnion,
+  collection,
   doc,
   getDoc,
   onSnapshot,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -26,7 +29,6 @@ import "./css/carGrid.css";
 import SignInModal from "../SignInModal/SignInModal";
 
 const CarGrid = ({ cars, searchTerm }) => {
-  console.log("carGrid");
   const [openModal, setOpenModal] = useState(false);
   const [searchFilteredCars, setSearchFilteredCars] = useState([]);
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
@@ -36,18 +38,41 @@ const CarGrid = ({ cars, searchTerm }) => {
   const location = useLocation();
   const [favorites, setFavorites] = useState([]);
 
+  const capitalizeFirstLetter = (string) => {
+    if (!string) return "";
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   useEffect(() => {
-    if (debouncedSearchTerm === "") {
-      setSearchFilteredCars(cars);
-    } else {
-      const newItems = cars.filter((car) =>
-        `${car.make} ${car.model}`
-          .toLowerCase()
-          .includes(debouncedSearchTerm.toLowerCase())
+    const fetchCars = async () => {
+      const carsRef = collection(db, "cars");
+      const matches = location.pathname === "/newcars" ? "==" : ">";
+
+      const capitalizedSearchTerm = capitalizeFirstLetter(debouncedSearchTerm);
+      const carQuery = query(
+        carsRef,
+        where("make", ">=", capitalizedSearchTerm),
+        where("make", "<=", capitalizedSearchTerm + "\uf8ff"),
+        where("owners", matches, 1)
       );
-      setSearchFilteredCars(newItems);
+
+      const unsubscribe = onSnapshot(carQuery, (querySnapshot) => {
+        const cars = [];
+        querySnapshot.forEach((doc) => {
+          cars.push({ id: doc.id, ...doc.data() });
+        });
+        setSearchFilteredCars(cars);
+      });
+
+      return () => unsubscribe();
+    };
+
+    if (debouncedSearchTerm) {
+      fetchCars();
+    } else {
+      setSearchFilteredCars(cars);
     }
-  }, [debouncedSearchTerm, cars]);
+  }, [debouncedSearchTerm, location.pathname, cars]);
 
   const handleAddToFavorites = useCallback(
     async (car) => {

@@ -1,5 +1,4 @@
 import { Box, Container, Grid } from "@mui/material";
-import { useSelector } from "react-redux";
 import Map from "../Map/Map";
 import SendMessage from "../SendMessage/SendMessage";
 import SinglePageCarousel from "./SinglePageCarousel/SinglePageCarousel";

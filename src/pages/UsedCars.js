@@ -10,19 +10,21 @@ function UsedCars() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredUsedCars, setFilteredUsedCars] = useState([]);
   const [openFilter, setOpenFilter] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const page = parseInt(searchParams.get('page')) || 1
+  const page = parseInt(searchParams.get("page")) || 1;
   const itemsPerPage = 10;
-
 
   const handleSearch = (value) => {
     setSearchTerm(value);
   };
 
-  const handleFilterChange = useCallback((filtered) => {
-    setFilteredUsedCars(filtered.filter((car) => car.owners > 1));
-  }, [setFilteredUsedCars]);
+  const handleFilterChange = useCallback(
+    (filtered) => {
+      setFilteredUsedCars(filtered.filter((car) => car.owners > 1));
+    },
+    [setFilteredUsedCars]
+  );
 
   const paginatedCars = filteredUsedCars.slice(
     (page - 1) * itemsPerPage,
@@ -36,7 +38,7 @@ function UsedCars() {
           <Grid item xs={12} md={4}>
             <Drawer
               sx={{
-                display: { md: 'none' },
+                display: { md: "none" },
                 "& .MuiDrawer-paper": {
                   width: { xs: "80%", sm: "60%", md: "80%" },
                 },
@@ -71,7 +73,6 @@ function UsedCars() {
                   itemsPerPage={itemsPerPage}
                 />
               </Grid>
-
             </Grid>
           </Grid>
         </Grid>

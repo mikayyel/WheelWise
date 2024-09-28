@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { handleReset } from '../../redux/filterSlice';
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { handleReset } from "../../redux/filterSlice";
 
 const LocationWatcher = () => {
   const location = useLocation();
@@ -10,9 +10,9 @@ const LocationWatcher = () => {
 
   useEffect(() => {
     if (
-      prevLocation !== location.pathname &&
-      location.pathname !== '/newcars' &&
-      location.pathname !== '/usedcars'
+      (prevLocation !== location.pathname &&
+        location.pathname !== "/newcars") ||
+      location.pathname !== "/usedcars"
     ) {
       dispatch(handleReset());
     }
